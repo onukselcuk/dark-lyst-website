@@ -1,0 +1,326 @@
+module.exports = {
+	page: 1,
+	total_results: 548,
+	total_pages: 28,
+	results: [
+		{
+			original_name: "Star Trek: Picard",
+			genre_ids: [ 10759, 10765 ],
+			name: "Star Trek: Picard",
+			popularity: 202.946,
+			origin_country: [ "US" ],
+			vote_count: 118,
+			first_air_date: "2020-01-23",
+			backdrop_path: "/mK286PAkhgLJqk5cO0BCmFLkNE7.jpg",
+			original_language: "en",
+			id: 85949,
+			vote_average: 7.8,
+			overview:
+				"Set twenty years after the events of Star Trek Nemesis, we follow the now-retired Admiral Picard into the next chapter of his life.",
+			poster_path: "/nIlAKIrLKxOeoEnc0Urb65yNCp.jpg"
+		},
+		{
+			original_name: "The Simpsons",
+			genre_ids: [ 16, 35 ],
+			name: "The Simpsons",
+			popularity: 237.666,
+			origin_country: [ "US" ],
+			vote_count: 2392,
+			first_air_date: "1989-12-17",
+			backdrop_path: "/mRYqoCJMmlbtrU6r7vMgzCVnSsX.jpg",
+			original_language: "en",
+			id: 456,
+			vote_average: 7.2,
+			overview:
+				"Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
+			poster_path: "/qcr9bBY6MVeLzriKCmJOv1562uY.jpg"
+		},
+		{
+			original_name: "The Flash",
+			genre_ids: [ 18, 10765 ],
+			name: "The Flash",
+			popularity: 183.449,
+			origin_country: [ "US" ],
+			vote_count: 3228,
+			first_air_date: "2014-10-07",
+			backdrop_path: "/6ZdQTBy20HzWudZthAV7NkZWfIb.jpg",
+			original_language: "en",
+			id: 60735,
+			vote_average: 6.8,
+			overview:
+				'After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only "meta-human" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won\'t be long before the world learns what Barry Allen has become...The Flash.',
+			poster_path: "/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
+		},
+		{
+			original_name: "Criminal Minds",
+			genre_ids: [ 80, 18, 9648 ],
+			name: "Criminal Minds",
+			popularity: 186.704,
+			origin_country: [ "US" ],
+			vote_count: 751,
+			first_air_date: "2005-09-22",
+			backdrop_path: "/mzyLxbwy5jOveyfsbC1OWGp78NV.jpg",
+			original_language: "en",
+			id: 4057,
+			vote_average: 7.4,
+			overview:
+				"An elite team of FBI profilers analyze the country's most twisted criminal minds, anticipating their next moves before they strike again. The Behavioral Analysis Unit's most experienced agent is David Rossi, a founding member of the BAU who returns to help the team solve new cases.",
+			poster_path: "/7TCwgX7oQKxcWYEhSPRmaHe6ULN.jpg"
+		},
+		{
+			original_name: "Law & Order: Special Victims Unit",
+			genre_ids: [ 80, 18 ],
+			name: "Law & Order: Special Victims Unit",
+			popularity: 153.889,
+			origin_country: [ "US" ],
+			vote_count: 808,
+			first_air_date: "1999-09-20",
+			backdrop_path: "/kOvt2BOOwSAQCT8yo3pM3X2GXjh.jpg",
+			original_language: "en",
+			id: 2734,
+			vote_average: 6.5,
+			overview:
+				"In the criminal justice system, sexually-based offenses are considered especially heinous. In New York City, the dedicated detectives who investigate these vicious felonies are members of an elite squad known as the Special Victims Unit. These are their stories.",
+			poster_path: "/6t6r1VGQTTQecN4V0sZeqsmdU9g.jpg"
+		},
+		{
+			original_name: "Doctor Who",
+			genre_ids: [ 18, 10759, 10765 ],
+			name: "Doctor Who",
+			popularity: 116.284,
+			origin_country: [ "GB" ],
+			vote_count: 1615,
+			first_air_date: "2005-03-26",
+			backdrop_path: "/nfH8SZJVOxcBlFaqqtoqS5hHizG.jpg",
+			original_language: "en",
+			id: 57243,
+			vote_average: 7,
+			overview:
+				"The Doctor is a Time Lord: a 900 year old alien with 2 hearts, part of a gifted civilization who mastered time travel. The Doctor saves planets for a living—more of a hobby actually, and the Doctor's very, very good at it.",
+			poster_path: "/cDDb7WA2i7cENhkEEjXEDrXGyNL.jpg"
+		},
+		{
+			original_name: "Family Guy",
+			id: 1434,
+			name: "Family Guy",
+			popularity: 124.272,
+			vote_count: 1820,
+			vote_average: 6.5,
+			first_air_date: "1999-01-31",
+			poster_path: "/gBGUL1UTUNmdRQT8gA1LUV4yg39.jpg",
+			genre_ids: [ 16, 35 ],
+			original_language: "en",
+			backdrop_path: "/pH38r4TWTqq7Mcs6XAlwgzNUeJe.jpg",
+			overview:
+				"Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
+			origin_country: [ "US" ]
+		},
+		{
+			original_name: "Grey's Anatomy",
+			genre_ids: [ 18 ],
+			name: "Grey's Anatomy",
+			popularity: 120.682,
+			origin_country: [ "US" ],
+			vote_count: 1217,
+			first_air_date: "2005-03-27",
+			backdrop_path: "/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg",
+			original_language: "en",
+			id: 1416,
+			vote_average: 6.6,
+			overview:
+				"Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+			poster_path: "/jnsvc7gCKocXnrTXF6p03cICTWb.jpg"
+		},
+		{
+			original_name: "Outlander",
+			genre_ids: [ 12, 18, 14, 10749 ],
+			name: "Outlander",
+			popularity: 99.341,
+			origin_country: [ "US" ],
+			vote_count: 552,
+			first_air_date: "2014-08-09",
+			backdrop_path: "/qutOe29dCGmT2JUlLPCqlzaQIo.jpg",
+			original_language: "en",
+			id: 56570,
+			vote_average: 7.4,
+			overview:
+				"The story of Claire Randall, a married combat nurse from 1945 who is mysteriously swept back in time to 1743, where she is immediately thrown into an unknown world where her life is threatened. When she is forced to marry Jamie, a chivalrous and romantic young Scottish warrior, a passionate affair is ignited that tears Claire's heart between two vastly different men in two irreconcilable lives.",
+			poster_path: "/70PRIpG1phOyphejeLwi0K8zdJo.jpg"
+		},
+		{
+			original_name: "The Walking Dead",
+			genre_ids: [ 18, 10759, 10765 ],
+			name: "The Walking Dead",
+			popularity: 86.386,
+			origin_country: [ "US" ],
+			vote_count: 4517,
+			first_air_date: "2010-10-31",
+			backdrop_path: "/wXXaPMgrv96NkH8KD1TMdS2d7iq.jpg",
+			original_language: "en",
+			id: 1402,
+			vote_average: 7.3,
+			overview:
+				"Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
+			poster_path: "/5l10EjdgPxu8Gbl5Ww6SWkVQH6T.jpg"
+		},
+		{
+			original_name: "Supergirl",
+			genre_ids: [ 28, 12, 18, 878 ],
+			name: "Supergirl",
+			popularity: 83.69,
+			origin_country: [ "US" ],
+			vote_count: 1216,
+			first_air_date: "2015-10-26",
+			backdrop_path: "/3x1lVyxtsLKsZyR2E3qRe1EAXG4.jpg",
+			original_language: "en",
+			id: 62688,
+			vote_average: 6.2,
+			overview:
+				"Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
+			poster_path: "/4ka8vAzAFUZFKxWyfGfwVcSXuZo.jpg"
+		},
+		{
+			original_name: "The Good Doctor",
+			genre_ids: [ 18 ],
+			name: "The Good Doctor",
+			popularity: 80.456,
+			origin_country: [ "US" ],
+			vote_count: 531,
+			first_air_date: "2017-09-25",
+			backdrop_path: "/mZjZgY6ObiKtVuKVDrnS9VnuNlE.jpg",
+			original_language: "en",
+			id: 71712,
+			vote_average: 7.9,
+			overview:
+				"A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives?",
+			poster_path: "/53P8oHo9cfOsgb1cLxBi4pFY0ja.jpg"
+		},
+		{
+			original_name: "Riverdale",
+			genre_ids: [ 18, 9648 ],
+			name: "Riverdale",
+			popularity: 83.086,
+			origin_country: [ "US" ],
+			vote_count: 846,
+			first_air_date: "2017-01-26",
+			backdrop_path: "/2IUpoKSP64r6rp2vBo0Fdk8a1UU.jpg",
+			original_language: "en",
+			id: 69050,
+			vote_average: 7.4,
+			overview:
+				"Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
+			poster_path: "/4X7o1ssOEvp4BFLim1AZmPNcYbU.jpg"
+		},
+		{
+			original_name: "Star Wars: The Clone Wars",
+			genre_ids: [ 16, 10759, 10765 ],
+			name: "Star Wars: The Clone Wars",
+			popularity: 82.071,
+			origin_country: [ "SG", "US" ],
+			vote_count: 252,
+			first_air_date: "2008-10-03",
+			backdrop_path: "/gAlEO2hFU29uFv6RcC7efps0iL9.jpg",
+			original_language: "en",
+			id: 4194,
+			vote_average: 7.7,
+			overview:
+				"Yoda, Obi-Wan Kenobi, Anakin Skywalker, Mace Windu and other Jedi Knights lead the Grand Army of the Republic against the droid army of the Separatists.",
+			poster_path: "/p6s2svEHHLsQ1TOw4Si54c1dD5L.jpg"
+		},
+		{
+			original_name: "Hawaii Five-0",
+			genre_ids: [ 28, 80, 18 ],
+			name: "Hawaii Five-0",
+			popularity: 84.325,
+			origin_country: [ "US" ],
+			vote_count: 465,
+			first_air_date: "2010-09-20",
+			backdrop_path: "/ej5VNvBy4VqCqsuamY4oe4EiwFb.jpg",
+			original_language: "en",
+			id: 32798,
+			vote_average: 6.8,
+			overview:
+				"Steve McGarrett returns home to Oahu, in order to find his father's killer. The governor offers him the chance to run his own task force (Five-0). Steve's team is joined by Chin Ho Kelly, Danny \"Danno\" Williams, and Kono Kalakaua.",
+			poster_path: "/sIdCKlmM2nU4akIvFQaAIiU8YES.jpg"
+		},
+		{
+			original_name: "Brooklyn Nine-Nine",
+			genre_ids: [ 35, 80 ],
+			name: "Brooklyn Nine-Nine",
+			popularity: 73.429,
+			origin_country: [ "US" ],
+			vote_count: 861,
+			first_air_date: "2013-09-17",
+			backdrop_path: "/ncC9ZgZuKOdaVm7yXinUn26Qyok.jpg",
+			original_language: "en",
+			id: 48891,
+			vote_average: 7.8,
+			overview:
+				"A single-camera ensemble comedy following the lives of an eclectic group of detectives in a New York precinct, including one slacker who is forced to shape up when he gets a new boss.",
+			poster_path: "/dzj0oLZWe3qMgK4jlgdKWPVxxIx.jpg"
+		},
+		{
+			original_name: "Homeland",
+			genre_ids: [ 80, 18, 10759, 10768 ],
+			name: "Homeland",
+			popularity: 71.646,
+			origin_country: [ "US" ],
+			vote_count: 1103,
+			first_air_date: "2011-10-02",
+			backdrop_path: "/hTxfw4af6EizpLM7tHKtoSlbdnu.jpg",
+			original_language: "en",
+			id: 1407,
+			vote_average: 7.4,
+			overview:
+				"CIA officer Carrie Mathison is tops in her field despite being bipolar, which makes her volatile and unpredictable. With the help of her long-time mentor Saul Berenson, Carrie fearlessly risks everything, including her personal well-being and even sanity, at every turn.",
+			poster_path: "/6GAvS2e6VIRsms9FpVt33PsCoEW.jpg"
+		},
+		{
+			original_name: "Modern Family",
+			genre_ids: [ 35 ],
+			name: "Modern Family",
+			popularity: 79.232,
+			origin_country: [ "US" ],
+			vote_count: 962,
+			first_air_date: "2009-09-23",
+			backdrop_path: "/x4lxFIhhrDI4nWtV8osnYwbGESV.jpg",
+			original_language: "en",
+			id: 1421,
+			vote_average: 7.3,
+			overview:
+				"The Pritchett-Dunphy-Tucker clan is a wonderfully large and blended family. They give us an honest and often hilarious look into the sometimes warm, sometimes twisted, embrace of the modern family.",
+			poster_path: "/fCiOen2bpru5JhzlaNkaNWNd9eP.jpg"
+		},
+		{
+			original_name: "Young Sheldon",
+			genre_ids: [ 35 ],
+			name: "Young Sheldon",
+			popularity: 53.027,
+			origin_country: [ "US" ],
+			vote_count: 283,
+			first_air_date: "2017-09-25",
+			backdrop_path: "/ko0Gynw9pMRdcScCjwGYfhJlfWh.jpg",
+			original_language: "en",
+			id: 71728,
+			vote_average: 7.3,
+			overview: "The early life of child genius Sheldon Cooper, later seen in The Big Bang Theory.",
+			poster_path: "/1vcEZVuv3ZwHUb6bm6fSWB9HTJc.jpg"
+		},
+		{
+			original_name: "The Outsider",
+			genre_ids: [ 80, 18, 9648 ],
+			name: "The Outsider",
+			popularity: 55.805,
+			origin_country: [ "US" ],
+			vote_count: 48,
+			first_air_date: "2020-01-12",
+			backdrop_path: "/lmlsqpAfDZnZumcFhbsTrOy9uNZ.jpg",
+			original_language: "en",
+			id: 84661,
+			vote_average: 8.3,
+			overview:
+				"When an insidious supernatural force edges its way into a seemingly straightforward investigation into the gruesome murder of a young boy, it leads a seasoned cop and an unorthodox investigator to question everything they believe in.",
+			poster_path: "/aMiPwPQjQI1EZN3xP2V0sSU37dc.jpg"
+		}
+	]
+};

@@ -1,88 +1,138 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import { useEffect, useState } from "react";
+import Carousel from "react-multi-carousel";
+import axios from "axios";
+import MobileDetect from "mobile-detect";
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+import ShowContainer from "../components/ShowContainer";
 
-    <Nav />
+const Home = (props) => {
+	const [ shows, setShows ] = useState();
+	const [ movies, setMovies ] = useState();
 
-    <div className="hero">
-      <h1 className="title">Welcome to Next.js!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+	const getLatest = () => {
+		axios.get("/api/shows/latest").then((res) => {
+			setShows(res.data.results);
+		});
+		axios.get("/api/movies/latest").then((res) => {
+			setMovies(res.data.results);
+		});
+	};
 
-      <div className="row">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
-      </div>
-    </div>
+	useEffect(getLatest, []);
 
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-)
+	const responsive = {
+		desktop: {
+			breakpoint: { max: 3000, min: 1024 },
+			items: 5,
+			slidesToSlide: 5, // optional, default to 1.
+			partialVisibilityGutter: 40 // this is needed to tell the amount of px that should be visible.
+		},
+		tablet: {
+			breakpoint: { max: 1024, min: 464 },
+			items: 4,
+			slidesToSlide: 4, // optional, default to 1.
+			partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
+		},
+		mobile: {
+			breakpoint: { max: 464, min: 0 },
+			items: 2,
+			slidesToSlide: 2, // optional, default to 1.
+			partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
+		}
+	};
 
-export default Home
+	return (
+		<main className="root">
+			<section className="tv-shows-section">
+				<h2 className="section-header">TV Shows On Air</h2>
+				{shows && (
+					<Carousel
+						swipeable={true}
+						draggable={false}
+						showDots={false}
+						responsive={responsive}
+						ssr={true} // means to render carousel on server-side.
+						infinite={false}
+						// autoPlay={props.deviceType !== "mobile" ? true : false}
+						autoPlay={false}
+						autoPlaySpeed={20000}
+						keyBoardControl={true}
+						customTransition="all 400ms ease-out"
+						transitionDuration={400}
+						containerClass="carousel-container"
+						removeArrowOnDeviceType={[ "tablet", "mobile" ]}
+						deviceType={props.deviceType}
+						dotListClass="custom-dot-list-style"
+						partialVisbile={false}
+						itemClass="carousel-item-padding-40-px"
+					>
+						{shows.map((cur) => <ShowContainer cur={cur} />)}
+					</Carousel>
+				)}
+			</section>
+			<section className="tv-shows-section">
+				<h2 className="section-header">Now Playing In Theaters</h2>
+				{movies && (
+					<Carousel
+						swipeable={true}
+						draggable={false}
+						showDots={false}
+						responsive={responsive}
+						ssr={true} // means to render carousel on server-side.
+						infinite={false}
+						// autoPlay={props.deviceType !== "mobile" ? true : false}
+						autoPlay={false}
+						autoPlaySpeed={20000}
+						keyBoardControl={true}
+						customTransition="all 400ms ease-out"
+						transitionDuration={400}
+						containerClass="carousel-container"
+						removeArrowOnDeviceType={[ "tablet", "mobile" ]}
+						deviceType={props.deviceType}
+						dotListClass="custom-dot-list-style"
+						partialVisbile={false}
+						itemClass="carousel-item-padding-40-px"
+					>
+						{movies.map((cur) => <ShowContainer cur={cur} />)}
+					</Carousel>
+				)}
+			</section>
+			<style jsx>{`
+				.root {
+					width: 100%;
+				}
+				.tv-shows-section {
+					width: 75%;
+					margin: 1rem auto;
+				}
+
+				.section-header {
+					margin: 2rem 0;
+					font-size: 3rem;
+				}
+			`}</style>
+		</main>
+	);
+};
+
+Home.getInitialProps = async ({ req }) => {
+	let userAgent;
+	let deviceType;
+	if (req) {
+		userAgent = req.headers["user-agent"];
+	} else {
+		userAgent = navigator.userAgent;
+	}
+	const md = new MobileDetect(userAgent);
+	if (md.tablet()) {
+		deviceType = "tablet";
+	} else if (md.mobile()) {
+		deviceType = "mobile";
+	} else {
+		deviceType = "desktop";
+	}
+
+	return { deviceType };
+};
+
+export default Home;

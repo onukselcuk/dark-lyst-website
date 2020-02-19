@@ -1,0 +1,100 @@
+.react-multi-carousel-list {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	position: relative;
+}
+.react-multi-carousel-track {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+	will-change: transform, transition;
+}
+
+/*! changed*/
+.react-multiple-carousel__arrow {
+	position: absolute;
+	outline: 0;
+	transition: all .5s;
+	border-radius: 35px;
+	z-index: 1000;
+	border: 2px #fff solid;
+	/* background: rgba(0, 0, 0, 0.5); */
+	background-color: rgba(23, 34, 59, .5);
+	min-width: 43px;
+	min-height: 43px;
+	opacity: 1;
+	cursor: pointer;
+}
+
+/* ! changed */
+.react-multiple-carousel__arrow:hover {
+	/* background: rgba(0, 0, 0, 0.8); */
+	background-color: rgba(23, 34, 59, .8);
+}
+
+/* ! added */
+.react-multiple-carousel__arrow:focus {
+	outline: none;
+}
+
+/* ! changed */
+.react-multiple-carousel__arrow::before {
+	/* font-size: 20px; */
+	font-size: 40px;
+	color: #fff;
+	display: block;
+	font-family: revicons;
+	text-align: center;
+	z-index: 2;
+	position: relative;
+}
+
+/* ! changed */
+.react-multiple-carousel__arrow--left {
+	/* left: calc(4% + 1px); */
+	left: calc(2% + 1px);
+}
+.react-multiple-carousel__arrow--left::before {
+	content: "\e824";
+}
+
+/* ! changed */
+.react-multiple-carousel__arrow--right {
+	/* right: calc(4% + 1px); */
+	right: calc(2% + 1px);
+}
+.react-multiple-carousel__arrow--right::before {
+	content: "\e825";
+}
+.react-multi-carousel-dot-list {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	left: 0;
+	right: 0;
+	justify-content: center;
+	margin: auto;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.react-multi-carousel-item {
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.react-multi-carousel-item {
+		flex-shrink: 0 !important;
+	}
+	.react-multi-carousel-track {
+		overflow: visible !important;
+	}
+}
