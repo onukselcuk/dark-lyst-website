@@ -66,7 +66,7 @@ const Home = (props) => {
 						partialVisbile={false}
 						itemClass="carousel-item-padding-40-px"
 					>
-						{shows.map((cur) => <ShowContainer cur={cur} />)}
+						{shows.map((cur) => <ShowContainer cur={cur} show={true} />)}
 					</Carousel>
 				)}
 			</section>
@@ -93,7 +93,7 @@ const Home = (props) => {
 						partialVisbile={false}
 						itemClass="carousel-item-padding-40-px"
 					>
-						{movies.map((cur) => <ShowContainer cur={cur} />)}
+						{movies.map((cur) => <ShowContainer cur={cur} show={false} />)}
 					</Carousel>
 				)}
 			</section>

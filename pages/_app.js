@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import "../styles/carouselStyles.css";
+import "react-circular-progressbar/dist/styles.css";
 
 function MyApp ({ Component, pageProps }) {
 	return (

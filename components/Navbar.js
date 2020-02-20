@@ -69,7 +69,7 @@ const Navbar = () => (
 			}
 
 			.navbar-anchor-link:hover {
-				background-color: ${theme.palette.fourth.main};
+				background-color: ${theme.palette.sixth.main};
 			}
 		`}</style>
 	</header>

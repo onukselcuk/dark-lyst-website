@@ -10,15 +10,19 @@ const theme = {
 			main: "#17223b"
 		},
 		third: {
-			// main: "#ff6768",
 			// main: "#b21f66",
-			main: "#ff2e63"
+			main: "#ff2e63",
+			secondary: "#ff6768",
+			tertiary: "#E94D65"
 		},
 		fourth: {
 			main: "#6b778d"
 		},
 		fifth: {
 			main: "#071e3d"
+		},
+		sixth: {
+			main: "#769fcd"
 		}
 	}
 };

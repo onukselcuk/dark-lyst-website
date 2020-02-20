@@ -6,35 +6,37 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 const axios = require("axios");
 const seedShows = require("./src/seedShows.js");
+const seedMovies = require("./src/seedMovies.js");
 
 app.prepare().then(() => {
 	const server = express();
 
 	server.get("/api/shows/latest", (req, res) => {
-		const url = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.TMDB_API_KEY}&page=1`;
-		axios
-			.get(url)
-			.then((result) => {
-				res.send(result.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-		// res.json(seedShows);
+		// const url = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.TMDB_API_KEY}&page=1`;
+		// axios
+		// 	.get(url)
+		// 	.then((result) => {
+		// 		res.send(result.data);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 	});
+		res.json(seedShows);
 		console.log("request received");
 	});
 
 	server.get("/api/movies/latest", (req, res) => {
-		const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}&page=1`;
-		axios
-			.get(url)
-			.then((result) => {
-				res.send(result.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-
+		// const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}&page=1`;
+		// // console.log(req.hostname);
+		// axios
+		// 	.get(url)
+		// 	.then((result) => {
+		// 		res.send(result.data);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 	});
+		res.json(seedMovies);
 		console.log("movie request received");
 	});
 
