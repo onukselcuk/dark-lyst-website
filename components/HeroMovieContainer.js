@@ -22,8 +22,9 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 					<PlayIcon />
 				</div>
 				<span className="video-title">{chosenVideo.name}</span>
+				<div className="down-backdrop" />
 			</div>
-			<VideoModal show={show} setShow={setShow} chosenVideo={chosenVideo} />
+			<VideoModal show={show} setShow={setShow} title={cur.title} chosenVideo={chosenVideo} />
 			<style jsx>{`
 				.hero-movie-container {
 					display: flex;
@@ -57,9 +58,18 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 					position: absolute;
 					top: 50%;
 					left: 50%;
-					transform: translate(-50%, -50%);
+					transform: translate(-50%, -50%) scale(1);
 					width: 100px;
 					height: 100px;
+					transition: all 400ms ease;
+				}
+
+				.play-icon-container:hover {
+					transform: translate(-50%, -50%) scale(1.05);
+				}
+
+				.play-icon-container:active {
+					transform: translate(-50%, -50%) scale(0.95);
 				}
 
 				.video-title {
@@ -68,6 +78,20 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 					top: 2%;
 					left: 2%;
 					font-size: 2.2rem;
+				}
+
+				.down-backdrop {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 35%;
+					background-image: linear-gradient(to top, rgba(0, 0, 0, .3), transparent);
+					opacity: 0;
+					transition: all 400ms ease;
+				}
+				.video-thumbnail-container:hover .down-backdrop {
+					opacity: 1;
 				}
 			`}</style>
 		</div>

@@ -1,3 +1,37 @@
 .video-modal {
 	width: 90%;
+	max-width: 1500px;
+}
+
+.modal-header {
+	background-color: #1b262c;
+	border: none;
+	align-items: center;
+}
+
+.modal-header .modal-title {
+	font-size: 2rem;
+	padding-left: 1rem;
+}
+
+.modal-header .close span {
+	color: white;
+	font-size: 3rem;
+	line-height: .8;
+}
+
+.modal-header .close:focus {
+	outline: none;
+}
+
+.modal-body {
+	position: relative;
+	padding-top: 56.25%;
+	background-color: #1b262c; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
