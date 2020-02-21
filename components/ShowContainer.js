@@ -4,7 +4,7 @@ import CircularRating from "./CircularRating";
 
 const ShowContainer = (props) => {
 	const url = `https://image.tmdb.org/t/p/w400${props.cur.poster_path}`;
-	let title = props.cur.original_name || props.cur.original_title;
+	let title = props.cur.original_name || props.cur.title;
 	if (title.length > 30) {
 		title = `${title.slice(0, 30)}...`;
 	}
@@ -12,9 +12,9 @@ const ShowContainer = (props) => {
 		title.toLowerCase().replace(/ /g, "-").replace(/:/g, "-").replace(/\)/g, "-").replace(/\(/g, "-")
 	);
 	let link;
-	if (props.show) {
+	if (props.isShow) {
 		link = `/show/${props.cur.id}/${shortTitle}`;
-	} else if (!props.show) {
+	} else if (!props.isShow) {
 		link = `/movie/${props.cur.id}/${shortTitle}`;
 	}
 
@@ -28,7 +28,11 @@ const ShowContainer = (props) => {
 			<a className="container-link">
 				<div key={props.cur.original_name} className="tv-show-container">
 					<div className="top-backdrop" />
-					<img className="show-poster-image" src={url} alt={`${props.cur.name} Poster Image`} />
+					<img
+						className="show-poster-image"
+						src={url}
+						alt={`${props.cur.name || props.cur.title} Poster Image`}
+					/>
 					<div className="bottom-backdrop" />
 					<div className="bottom-info-container">
 						<div className="rating-container">
@@ -58,6 +62,8 @@ const ShowContainer = (props) => {
 						flex-direction: column;
 						align-items: center;
 						position: relative;
+						width: 100%;
+						height: 100%;
 					}
 
 					.show-poster-image {
