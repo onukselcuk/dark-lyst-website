@@ -4,6 +4,7 @@ import axios from "axios";
 import MobileDetect from "mobile-detect";
 import ShowContainer from "../components/ShowContainer";
 import HeroMovieContainer from "../components/HeroMovieContainer";
+import theme from "../src/theme";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
@@ -68,7 +69,7 @@ const Home = (props) => {
 
 	const filterVideos = (videoArr) => {
 		return videoArr.filter((cur) => {
-			return (cur.maxres === true) & (cur.type === "Trailer" || cur.type === "Teaser");
+			return (cur.maxres === true) & (cur.type === "Trailer" || cur.type === "Teaser") & (cur.site === "YouTube");
 		});
 	};
 
@@ -102,6 +103,7 @@ const Home = (props) => {
 							const thumbnailUrl = `https://i.ytimg.com/vi/${chosenVideoObj.key}/maxresdefault.jpg`;
 							return (
 								<HeroMovieContainer
+									key={`hero-movie-container ${cur.title}`}
 									thumbnailUrl={thumbnailUrl}
 									cur={cur}
 									chosenVideo={chosenVideoObj}
@@ -177,6 +179,7 @@ const Home = (props) => {
 				.section-header {
 					margin: 2rem 0;
 					font-size: 3rem;
+					color: ${theme.palette.sixth.main};
 				}
 			`}</style>
 		</main>

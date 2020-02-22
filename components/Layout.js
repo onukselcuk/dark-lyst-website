@@ -1,12 +1,14 @@
 import Navbar from "./Navbar";
 import { Fragment } from "react";
 import theme from "../src/theme";
+import Footer from "./Footer";
 
 const Layout = (props) => {
 	return (
 		<Fragment>
 			<Navbar />
-			{props.children}
+			<div className="root">{props.children}</div>
+			<Footer />
 			<style jsx>{`
 				:global(html) {
 					font-size: 62.5%;
@@ -31,6 +33,10 @@ const Layout = (props) => {
 
 				:global(#__next) {
 					width: 100%;
+				}
+
+				.root {
+					min-height: calc(100vh - 180px);
 				}
 			`}</style>
 		</Fragment>

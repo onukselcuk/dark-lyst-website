@@ -1,6 +1,6 @@
 const PlayIcon = () => {
 	return (
-		<svg x="0px" y="0px" viewBox="0 0 480 480" enable-background="new 0 0 480 480">
+		<svg x="0px" y="0px" viewBox="0 0 480 480" enableBackground="new 0 0 480 480">
 			<path
 				fill="#FFFFFF"
 				d="M240,0C107.5,0,0,107.5,0,240s107.5,240,240,240s240-107.5,240-240C479.9,107.5,372.5,0.1,240,0z M240,464

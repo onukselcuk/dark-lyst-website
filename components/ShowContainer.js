@@ -8,14 +8,17 @@ const ShowContainer = (props) => {
 	if (title.length > 30) {
 		title = `${title.slice(0, 30)}...`;
 	}
-	const shortTitle = encodeURIComponent(
-		title.toLowerCase().replace(/ /g, "-").replace(/:/g, "-").replace(/\)/g, "-").replace(/\(/g, "-")
-	);
 	let link;
 	if (props.isShow) {
-		link = `/show/${props.cur.id}/${shortTitle}`;
+		link = `/show/detail/[pid]`;
 	} else if (!props.isShow) {
-		link = `/movie/${props.cur.id}/${shortTitle}`;
+		link = `/movie/detail/[pid]`;
+	}
+	let asLink;
+	if (props.isShow) {
+		asLink = `/show/detail/${props.cur.id}`;
+	} else if (!props.isShow) {
+		asLink = `/movie/detail/${props.cur.id}`;
 	}
 
 	const handleHeart = (e) => {
@@ -24,9 +27,9 @@ const ShowContainer = (props) => {
 	};
 
 	return (
-		<Link href={link}>
+		<Link key={url} href={link} as={asLink}>
 			<a className="container-link">
-				<div key={props.cur.original_name} className="tv-show-container">
+				<div className="tv-show-container">
 					<div className="top-backdrop" />
 					<img
 						className="show-poster-image"
@@ -62,12 +65,14 @@ const ShowContainer = (props) => {
 						flex-direction: column;
 						align-items: center;
 						position: relative;
-						width: 100%;
-						height: 100%;
+						width: 95%;
+						border-radius: 10px;
+						overflow: hidden;
+						margin: 0 auto;
 					}
 
 					.show-poster-image {
-						width: 95%;
+						width: 100%;
 					}
 
 					.top-backdrop {
@@ -99,7 +104,7 @@ const ShowContainer = (props) => {
 					}
 
 					.bottom-info-container {
-						width: 95%;
+						width: 100%;
 						height: 80px;
 						background-color: rgba(0, 0, 0, .2);
 						position: relative;
@@ -122,7 +127,7 @@ const ShowContainer = (props) => {
 						color: #fff;
 						font-weight: bold;
 						transition: all 400ms;
-						font-size: 1.8rem;
+						font-size: 1.7rem;
 					}
 
 					.heart-container {

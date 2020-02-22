@@ -2,17 +2,17 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import theme from "../../src/theme";
 
-const HeartIcon = () => {
+const HeartIcon = ({ detail }) => {
 	return (
 		<OverlayTrigger
-			placement="left"
+			placement={`${detail ? "right" : "left"}`}
 			overlay={
 				<Tooltip className="watchlist-tooltip" style={{ fontSize: "1.8rem" }} id="watchlist-tooltip">
 					Add to watchlist
 				</Tooltip>
 			}
 		>
-			<svg className="heart-icon-svg" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+			<svg className="heart-icon-svg" x="0px" y="0px" viewBox="0 0 512 512" enableBackground="new 0 0 512 512">
 				<path
 					className="outer-heart"
 					fill="#fff"

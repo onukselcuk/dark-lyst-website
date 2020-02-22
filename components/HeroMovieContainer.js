@@ -28,11 +28,11 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 			<style jsx>{`
 				.hero-movie-container {
 					display: flex;
-					height: 31vmax;
+					height: 30vmax;
 				}
 
 				.hero-left-container {
-					width: 28%;
+					width: 29%;
 				}
 
 				.top-backdrop {
@@ -45,7 +45,6 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 				}
 
 				.video-thumbnail-container {
-					width: 82%;
 					position: relative;
 					cursor: pointer;
 				}
