@@ -5,7 +5,7 @@ import theme from "../../src/theme";
 const HeartIcon = ({ detail }) => {
 	return (
 		<OverlayTrigger
-			placement={`${detail ? "right" : "left"}`}
+			placement={`${detail ? "top" : "left"}`}
 			overlay={
 				<Tooltip className="watchlist-tooltip" style={{ fontSize: "1.8rem" }} id="watchlist-tooltip">
 					Add to watchlist

@@ -179,7 +179,7 @@ const Home = (props) => {
 				.section-header {
 					margin: 2rem 0;
 					font-size: 3rem;
-					color: ${theme.palette.sixth.main};
+					color: #fff;
 				}
 			`}</style>
 		</main>

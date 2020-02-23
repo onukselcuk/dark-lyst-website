@@ -11,17 +11,50 @@ router.get("/detail/:id", async (req, res) => {
 		.get(url)
 		.then((result) => {
 			data = result.data;
+			res.send(data);
 		})
 		.catch((err) => {
 			console.log(err);
 		});
+
+	//res.json(seedMovieDetail);
+});
+
+router.get("/credits/:id", async (req, res) => {
 	const creditsUrl = `https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=${process.env
 		.TMDB_API_KEY}`;
 	await axios
 		.get(creditsUrl)
 		.then((creditsResult) => {
-			data.credits = creditsResult.data;
-			res.send(data);
+			res.send(creditsResult.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	//res.json(seedMovieDetail);
+});
+
+router.get("/recommendations/:id", async (req, res) => {
+	const recommendationsUrl = `https://api.themoviedb.org/3/movie/${req.params.id}/recommendations?api_key=${process
+		.env.TMDB_API_KEY}`;
+	await axios
+		.get(recommendationsUrl)
+		.then((recommended) => {
+			res.send(recommended.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	//res.json(seedMovieDetail);
+});
+
+router.get("/discover/:genreId", async (req, res) => {
+	const movieDiscoverUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env
+		.TMDB_API_KEY}&with_genres=${req.params.genreId}&include_adult=false`;
+	await axios
+		.get(movieDiscoverUrl)
+		.then((moviesDiscovered) => {
+			res.send(moviesDiscovered.data);
 		})
 		.catch((err) => {
 			console.log(err);
