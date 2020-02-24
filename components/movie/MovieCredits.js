@@ -1,4 +1,4 @@
-import React from "react";
+import CreditContainer from "./CreditContainer";
 
 const MovieCredits = ({ getDirector, movieCredits }) => {
 	return (
@@ -8,47 +8,11 @@ const MovieCredits = ({ getDirector, movieCredits }) => {
 			</div>
 			<div className="credits-container">
 				{getDirector(movieCredits.crew).map((cur) => {
-					return (
-						<div key={cur.id} className="credit-container">
-							<img
-								className="credit-img"
-								src={
-									cur.profile_path ? (
-										`https://image.tmdb.org/t/p/w200${cur.profile_path}`
-									) : cur.gender === 1 ? (
-										"/empty-profile/empty-profile-picture-woman-arranged.jpg"
-									) : (
-										"/empty-profile/empty-profile-picture-man-arranged.jpg"
-									)
-								}
-								alt={`${cur.name} Profile Image`}
-							/>
-							<span className="credit-name">{cur.name}</span>
-							<span className="credit-character-name">({cur.job})</span>
-						</div>
-					);
+					return <CreditContainer cur={cur} />;
 				})}
 
 				{movieCredits.cast.slice(0, 6).map((cur) => {
-					return (
-						<div key={cur.id} className="credit-container">
-							<img
-								className="credit-img"
-								src={
-									cur.profile_path ? (
-										`https://image.tmdb.org/t/p/w200${cur.profile_path}`
-									) : cur.gender === 1 ? (
-										"/empty-profile/empty-profile-picture-woman-arranged.jpg"
-									) : (
-										"/empty-profile/empty-profile-picture-man-arranged.jpg"
-									)
-								}
-								alt={`${cur.name} Profile Image`}
-							/>
-							<span className="credit-name">{cur.name}</span>
-							<span className="credit-character-name">({cur.character})</span>
-						</div>
-					);
+					return <CreditContainer cur={cur} />;
 				})}
 			</div>
 			<style jsx>{`
@@ -70,29 +34,6 @@ const MovieCredits = ({ getDirector, movieCredits }) => {
 				.credits-container {
 					display: flex;
 					justify-content: center;
-				}
-
-				.credit-container {
-					width: 15%;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					margin: 1rem 1rem;
-					text-align: center;
-				}
-
-				.credit-img {
-					width: 100%;
-					border-radius: 60px;
-				}
-
-				.credit-name {
-					margin-top: 1rem;
-					font-size: 1.7rem;
-				}
-
-				.credit-character-name {
-					font-size: 1.3rem;
 				}
 			`}</style>
 		</section>

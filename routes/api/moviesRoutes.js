@@ -21,70 +21,86 @@ router.get("/latest", (req, res) => {
 
 // * Get Trending Movies for home page hero section
 router.get("/trending-hero", async (req, res) => {
-	const url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&page=1`;
-	let data;
-	await axios
-		.get(url)
-		.then((result) => {
-			data = result.data;
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-	let i = 0;
-	let newData = {};
-	newData.results = [];
-	while (i < data.results.length) {
-		const movieVideoUrl = `https://api.themoviedb.org/3/movie/${data.results[i].id}/videos?api_key=${process.env
-			.TMDB_API_KEY}`;
-		axios
-			.get(movieVideoUrl)
-			.then(async (videoResult) => {
-				if (videoResult.data.results.length > 0) {
-					const promises = await videoResult.data.results.map(async (current) => {
-						const imageObj = await checkImage(current);
-						return imageObj;
+	try {
+		const url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&page=1`;
+		let data = await axios.get(url);
+		data = data.data.results.slice(0, 10);
+
+		let i = 0;
+		let newData = {};
+		newData.results = [];
+
+		while (i < data.length) {
+			const movieVideoUrl = `https://api.themoviedb.org/3/movie/${data[i].id}/videos?api_key=${process.env
+				.TMDB_API_KEY}`;
+
+			const videoResult = await axios.get(movieVideoUrl);
+
+			if (videoResult.data.results.length > 0) {
+				let videoFilteredArr = videoResult.data.results.filter((videoObj) => {
+					return (
+						videoObj.type.toLowerCase() === ("trailer" || "teaser") &&
+						videoObj.site.toLowerCase() === "youtube"
+					);
+				});
+
+				let newVideoObj = {};
+
+				if (videoFilteredArr.length > 0) {
+					const videoKeys = videoFilteredArr.map((video) => {
+						return video.key;
 					});
 
-					const newVideoResults = await Promise.all(promises);
+					const videoKeyString = videoKeys.join(",");
 
-					videoResult.data.results = newVideoResults;
-					return videoResult;
+					const googleUrl = `https://www.googleapis.com/youtube/v3/videos?key=${process.env
+						.YOUTUBE_API_KEY}&part=snippet&id=${videoKeyString}`;
+
+					let newVideoResults = await axios.get(googleUrl);
+
+					newVideoResults = newVideoResults.data.items;
+
+					videoFilteredArr = videoFilteredArr.map((current) => {
+						const index = newVideoResults.findIndex((now) => current.key === now.id);
+
+						if (newVideoResults[index].snippet.thumbnails.maxres) {
+							return {
+								...current,
+								maxres: true
+							};
+						} else {
+							return {
+								...current,
+								maxres: false
+							};
+						}
+					});
+
+					newVideoObj = {
+						id: videoResult.data.id,
+						results: videoFilteredArr
+					};
 				}
-			})
-			.then((videoResult) => {
-				const index = data.results.findIndex((cur) => cur.id === videoResult.data.id);
+
+				const index = data.findIndex((cur) => cur.id === newVideoObj.id);
 				const newObj = {
-					...data.results[index],
+					...data[index],
 					video: true,
-					videos: videoResult.data.results
+					videos: newVideoObj.results
 				};
 				newData.results.push(newObj);
-			})
-			.then(() => {
 				if (newData.results.length === 5) {
-					res.send(newData);
+					return res.send(newData);
 				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-		i++;
+			}
+
+			i++;
+		}
+	} catch (error) {
+		console.log(error);
 	}
+
 	//res.json(seedTrendHero);
 });
-
-//* checks if the video has youtube max resolution thumbnail
-const checkImage = async (current) => {
-	await axios
-		.get(`https://i.ytimg.com/vi/${current.key}/maxresdefault.jpg`)
-		.then((res) => {
-			current.maxres = true;
-		})
-		.catch((err) => {
-			current.maxres = false;
-		});
-	return current;
-};
 
 module.exports = router;

@@ -3,7 +3,7 @@ import ShowContainer from "./ShowContainer";
 import PlayIcon from "./icons/PlayIcon";
 import VideoModal from "./VideoModal";
 
-const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
+const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery }) => {
 	const [ show, setShow ] = useState(false);
 
 	const handleShow = () => {
@@ -12,23 +12,35 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 
 	return (
 		<div className="hero-movie-container">
-			<div className="hero-left-container">
-				<ShowContainer cur={cur} isShow={false} />
-			</div>
+			{isHero && (
+				<div className="hero-left-container">
+					<ShowContainer cur={cur} isShow={false} />
+				</div>
+			)}
 			<div className="video-thumbnail-container" onClick={handleShow}>
 				<div className="top-backdrop" />
 				<img className="video-thumbnail" src={thumbnailUrl} alt={`${cur.title} Youtube Video Thumbnail`} />
-				<div className="play-icon-container">
-					<PlayIcon />
-				</div>
+				{!isGallery && (
+					<div className="play-icon-container">
+						<PlayIcon />
+					</div>
+				)}
+
 				<span className="video-title">{chosenVideo.name}</span>
 				<div className="down-backdrop" />
 			</div>
-			<VideoModal show={show} setShow={setShow} title={cur.title} chosenVideo={chosenVideo} />
+			<VideoModal
+				show={show}
+				setShow={setShow}
+				title={cur.title}
+				chosenVideo={chosenVideo}
+				isGallery={isGallery}
+			/>
 			<style jsx>{`
 				.hero-movie-container {
 					display: flex;
-					height: 30vmax;
+					${isHero && "height: 30vmax;"};
+					${!isHero && "width: 98%; margin:0 auto;"};
 				}
 
 				.hero-left-container {
@@ -47,6 +59,8 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo }) => {
 				.video-thumbnail-container {
 					position: relative;
 					cursor: pointer;
+					${!isHero && "width: 100%;"};
+					${isGallery && "border-radius:20px; overflow:hidden;"};
 				}
 				.video-thumbnail {
 					width: 100%;

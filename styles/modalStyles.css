@@ -3,6 +3,11 @@
 	max-width: 1500px;
 }
 
+.gallery-modal {
+	width: 90%;
+	max-width: 1500px;
+}
+
 .modal-header {
 	background-color: #1b262c;
 	border: none;
@@ -24,10 +29,15 @@
 	outline: none;
 }
 
-.modal-body {
+.video-modal .modal-body {
 	position: relative;
+	background-color: #1b262c;
 	padding-top: 56.25%;
-	background-color: #1b262c; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.gallery-modal .modal-body {
+	position: relative;
+	background-color: #1b262c;
 }
 
 .react-player {

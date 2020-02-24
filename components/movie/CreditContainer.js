@@ -1,0 +1,54 @@
+const CreditContainer = ({ cur }) => {
+	return (
+		<div key={cur.id} className="credit-container">
+			<div className="credit-img-container">
+				<img
+					className="credit-img"
+					src={
+						cur.profile_path ? (
+							`https://image.tmdb.org/t/p/w200${cur.profile_path}`
+						) : cur.gender === 1 ? (
+							"/empty-profile/empty-profile-picture-woman-arranged.jpg"
+						) : (
+							"/empty-profile/empty-profile-picture-man-arranged.jpg"
+						)
+					}
+					alt={`${cur.name} Profile Image`}
+				/>
+			</div>
+			<span className="credit-name">{cur.name}</span>
+			{cur.character && <span className="credit-character-name">({cur.character})</span>}
+			{cur.job && <span className="credit-character-name">({cur.job})</span>}
+			<style jsx>{`
+				.credit-container {
+					width: 15%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					margin: 1rem 1rem;
+					text-align: center;
+				}
+
+				.credit-img-container {
+					height: 80%;
+				}
+
+				.credit-img {
+					width: 100%;
+					border-radius: 60px;
+				}
+
+				.credit-name {
+					margin-top: 1.5rem;
+					font-size: 1.7rem;
+				}
+
+				.credit-character-name {
+					font-size: 1.3rem;
+				}
+			`}</style>
+		</div>
+	);
+};
+
+export default CreditContainer;

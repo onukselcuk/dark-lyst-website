@@ -7,28 +7,28 @@ import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/HeroMovieContainer";
 import CarouselContainer from "../../../components/CarouselContainer";
 
-const MovieDetail = ({ pid, deviceType }) => {
+const MovieDetail = ({ tid, deviceType }) => {
 	const [ movieDetails, setMovieDetails ] = useState();
 	const [ movieCredits, setMovieCredits ] = useState();
 	const [ recommendations, setRecommendations ] = useState();
 	const [ genreState, setGenreState ] = useState();
 
 	const getMovieDetails = () => {
-		const url = `/api/movie/detail/${pid}`;
+		const url = `/api/show/detail/${tid}`;
 		axios.get(url).then((res) => {
 			setMovieDetails(res.data);
 		});
 	};
 
 	const getCredits = () => {
-		const url = `/api/movie/credits/${pid}`;
+		const url = `/api/show/credits/${tid}`;
 		axios.get(url).then((res) => {
 			setMovieCredits(res.data);
 		});
 	};
 
 	const getRecommendations = () => {
-		const url = `/api/movie/recommendations/${pid}`;
+		const url = `/api/show/recommendations/${tid}`;
 		axios.get(url).then((res) => {
 			setRecommendations(res.data.results);
 		});
@@ -36,7 +36,7 @@ const MovieDetail = ({ pid, deviceType }) => {
 
 	const genreAxios = async (index) => {
 		try {
-			const url = `/api/movie/discover/${movieDetails.genres[index].id}`;
+			const url = `/api/show/discover/${movieDetails.genres[index].id}`;
 			const res = await axios.get(url);
 			return res;
 		} catch (error) {
@@ -96,7 +96,7 @@ const MovieDetail = ({ pid, deviceType }) => {
 			getCredits();
 			getRecommendations();
 		},
-		[ pid ]
+		[ tid ]
 	);
 
 	useEffect(
@@ -211,7 +211,7 @@ const MovieDetail = ({ pid, deviceType }) => {
 };
 
 MovieDetail.getInitialProps = async ({ query, req }) => {
-	const pid = query.pid;
+	const tid = query.tid;
 	let userAgent;
 	let deviceType;
 	if (req) {
@@ -229,7 +229,7 @@ MovieDetail.getInitialProps = async ({ query, req }) => {
 		deviceType = "desktop";
 	}
 
-	return { pid, deviceType };
+	return { tid, deviceType };
 };
 
 export default MovieDetail;

@@ -10,7 +10,7 @@ const ShowContainer = (props) => {
 	}
 	let link;
 	if (props.isShow) {
-		link = `/show/detail/[pid]`;
+		link = `/show/detail/[tid]`;
 	} else if (!props.isShow) {
 		link = `/movie/detail/[pid]`;
 	}
