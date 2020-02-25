@@ -47,7 +47,7 @@ router.get("/recommendations/:id", async (req, res) => {
 });
 
 router.get("/discover/:genreId", async (req, res) => {
-	const movieDiscoverUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env
+	const movieDiscoverUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${process.env
 		.TMDB_API_KEY}&with_genres=${req.params.genreId}&include_adult=false`;
 	await axios
 		.get(movieDiscoverUrl)

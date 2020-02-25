@@ -2,23 +2,23 @@ import HeartIcon from "./icons/HeartIcon";
 import Link from "next/link";
 import CircularRating from "./CircularRating";
 
-const ShowContainer = (props) => {
-	const url = `https://image.tmdb.org/t/p/w400${props.cur.poster_path}`;
-	let title = props.cur.original_name || props.cur.title;
+const MovieShowCard = ({ cur, isHero, isShow }) => {
+	const url = `https://image.tmdb.org/t/p/w400${cur.poster_path}`;
+	let title = cur.original_name || cur.title;
 	if (title.length > 30) {
 		title = `${title.slice(0, 30)}...`;
 	}
 	let link;
-	if (props.isShow) {
+	if (isShow) {
 		link = `/show/detail/[tid]`;
-	} else if (!props.isShow) {
+	} else if (!isShow) {
 		link = `/movie/detail/[pid]`;
 	}
 	let asLink;
-	if (props.isShow) {
-		asLink = `/show/detail/${props.cur.id}`;
-	} else if (!props.isShow) {
-		asLink = `/movie/detail/${props.cur.id}`;
+	if (isShow) {
+		asLink = `/show/detail/${cur.id}`;
+	} else if (!isShow) {
+		asLink = `/movie/detail/${cur.id}`;
 	}
 
 	const handleHeart = (e) => {
@@ -31,15 +31,11 @@ const ShowContainer = (props) => {
 			<a className="container-link">
 				<div className="tv-show-container">
 					<div className="top-backdrop" />
-					<img
-						className="show-poster-image"
-						src={url}
-						alt={`${props.cur.name || props.cur.title} Poster Image`}
-					/>
+					<img className="show-poster-image" src={url} alt={`${cur.name || cur.title} Poster Image`} />
 					<div className="bottom-backdrop" />
 					<div className="bottom-info-container">
 						<div className="rating-container">
-							<CircularRating rating={props.cur.vote_average} />
+							<CircularRating rating={cur.vote_average} />
 						</div>
 						<span className="show-name">{title}</span>
 					</div>
@@ -66,6 +62,7 @@ const ShowContainer = (props) => {
 						align-items: center;
 						position: relative;
 						width: 95%;
+						height: 100%;
 						border-radius: 10px;
 						overflow: hidden;
 						margin: 0 auto;
@@ -73,6 +70,7 @@ const ShowContainer = (props) => {
 
 					.show-poster-image {
 						width: 100%;
+						height: 80%;
 					}
 
 					.top-backdrop {
@@ -105,9 +103,8 @@ const ShowContainer = (props) => {
 
 					.bottom-info-container {
 						width: 100%;
-						height: 80px;
+						height: 20%;
 						background-color: rgba(0, 0, 0, .2);
-						position: relative;
 						display: flex;
 						align-items: center;
 						padding: .5rem .5rem;
@@ -120,6 +117,7 @@ const ShowContainer = (props) => {
 						opacity: 1;
 						margin: 0 1.5rem 0 1rem;
 						transition: all 400ms;
+						${isHero && "width:70px; height:70px;"};
 					}
 
 					.show-name {
@@ -128,6 +126,7 @@ const ShowContainer = (props) => {
 						font-weight: bold;
 						transition: all 400ms;
 						font-size: 1.7rem;
+						${isHero && "font-size:2rem;"};
 					}
 
 					.heart-container {
@@ -146,4 +145,4 @@ const ShowContainer = (props) => {
 	);
 };
 
-export default ShowContainer;
+export default MovieShowCard;

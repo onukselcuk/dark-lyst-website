@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import MovieIntro from "../../../components/movie/MovieIntro";
-import MovieCredits from "../../../components/movie/MovieCredits";
-import ShowContainer from "../../../components/ShowContainer";
+import MovieShowCredits from "../../../components/MovieShowCredits";
+import MovieShowCard from "../../../components/MovieShowCard";
 import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/HeroMovieContainer";
 import CarouselContainer from "../../../components/CarouselContainer";
@@ -111,12 +111,12 @@ const MovieDetail = ({ pid, deviceType }) => {
 			{movieDetails && (
 				<Fragment>
 					<MovieIntro movieDetails={movieDetails} getGenres={getGenres} />
-					{movieCredits && <MovieCredits getDirector={getDirector} movieCredits={movieCredits} />}
+					{movieCredits && <MovieShowCredits getDirector={getDirector} movieCredits={movieCredits} />}
 					{movieDetails.videos &&
 					movieDetails.videos.results.length > 0 && (
-						<section className="recommendations-section">
-							<div className="recommendations-top-bar">
-								<p className="recommendations-top-bar-title">Trailers, Teasers & Clips</p>
+						<section className="carousel-section">
+							<div className="carousel-top-bar">
+								<p className="carousel-top-bar-title">Trailers, Teasers & Clips</p>
 							</div>
 							<CarouselContainer deviceType={deviceType} isSmall={false}>
 								{movieDetails.videos.results
@@ -138,9 +138,9 @@ const MovieDetail = ({ pid, deviceType }) => {
 					)}
 					{movieDetails.images &&
 					movieDetails.images.backdrops.length > 0 && (
-						<section className="recommendations-section">
-							<div className="recommendations-top-bar">
-								<p className="recommendations-top-bar-title">Gallery</p>
+						<section className="carousel-section">
+							<div className="carousel-top-bar">
+								<p className="carousel-top-bar-title">Gallery</p>
 							</div>
 							<CarouselContainer deviceType={deviceType} isSmall={false}>
 								{movieDetails.images.backdrops.map((cur) => {
@@ -160,13 +160,13 @@ const MovieDetail = ({ pid, deviceType }) => {
 					)}
 					{recommendations &&
 					recommendations.length > 0 && (
-						<section className="recommendations-section">
-							<div className="recommendations-top-bar">
-								<p className="recommendations-top-bar-title">Recommended For You</p>
+						<section className="carousel-section">
+							<div className="carousel-top-bar">
+								<p className="carousel-top-bar-title">Recommended Movies For You</p>
 							</div>
 							<CarouselContainer deviceType={deviceType} isSmall={true}>
 								{recommendations.map((cur) => (
-									<ShowContainer key={cur.title} cur={cur} isShow={false} />
+									<MovieShowCard key={cur.title} cur={cur} isShow={false} />
 								))}
 							</CarouselContainer>
 						</section>
@@ -176,13 +176,13 @@ const MovieDetail = ({ pid, deviceType }) => {
 						genreState.length > 0 &&
 						genreState.map((current) => {
 							return (
-								<section className="recommendations-section">
-									<div className="recommendations-top-bar">
-										<p className="recommendations-top-bar-title">{current.name} Movies</p>
+								<section className="carousel-section">
+									<div className="carousel-top-bar">
+										<p className="carousel-top-bar-title">{current.name} Movies</p>
 									</div>
 									<CarouselContainer deviceType={deviceType} isSmall={true}>
 										{current.results.map((cur) => (
-											<ShowContainer key={cur.title} cur={cur} isShow={false} />
+											<MovieShowCard key={cur.title} cur={cur} isShow={false} />
 										))}
 									</CarouselContainer>
 								</section>
@@ -191,17 +191,17 @@ const MovieDetail = ({ pid, deviceType }) => {
 				</Fragment>
 			)}
 			<style jsx>{`
-				.recommendations-section {
+				.carousel-section {
 					width: 70%;
 					margin: 2rem auto;
 				}
 
-				.recommendations-top-bar {
+				.carousel-top-bar {
 					background-color: rgba(0, 0, 0, .4);
 					border-radius: 10px;
 				}
 
-				.recommendations-top-bar-title {
+				.carousel-top-bar-title {
 					font-size: 2.6rem;
 					padding: 2rem;
 				}

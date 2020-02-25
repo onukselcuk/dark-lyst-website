@@ -1,6 +1,6 @@
 import CreditContainer from "./CreditContainer";
 
-const MovieCredits = ({ getDirector, movieCredits }) => {
+const MovieShowCredits = ({ getDirector, movieCredits }) => {
 	return (
 		<section className="credits-section">
 			<div className="credits-top-bar">
@@ -40,4 +40,4 @@ const MovieCredits = ({ getDirector, movieCredits }) => {
 	);
 };
 
-export default MovieCredits;
+export default MovieShowCredits;

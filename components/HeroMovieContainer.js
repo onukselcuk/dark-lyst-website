@@ -1,9 +1,9 @@
 import { useState } from "react";
-import ShowContainer from "./ShowContainer";
+import MovieShowCard from "./MovieShowCard";
 import PlayIcon from "./icons/PlayIcon";
-import VideoModal from "./VideoModal";
+import VideoImageModal from "./VideoImageModal";
 
-const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery }) => {
+const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery, isShow }) => {
 	const [ show, setShow ] = useState(false);
 
 	const handleShow = () => {
@@ -14,7 +14,7 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery 
 		<div className="hero-movie-container">
 			{isHero && (
 				<div className="hero-left-container">
-					<ShowContainer cur={cur} isShow={false} />
+					<MovieShowCard cur={cur} isShow={isShow} isHero={isHero} />
 				</div>
 			)}
 			<div className="video-thumbnail-container" onClick={handleShow}>
@@ -29,10 +29,10 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery 
 				<span className="video-title">{chosenVideo.name}</span>
 				<div className="down-backdrop" />
 			</div>
-			<VideoModal
+			<VideoImageModal
 				show={show}
 				setShow={setShow}
-				title={cur.title}
+				title={cur.title || cur.name}
 				chosenVideo={chosenVideo}
 				isGallery={isGallery}
 			/>

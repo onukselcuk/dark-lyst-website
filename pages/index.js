@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MobileDetect from "mobile-detect";
-import ShowContainer from "../components/ShowContainer";
+import MovieShowCard from "../components/MovieShowCard";
 import HeroMovieContainer from "../components/HeroMovieContainer";
 import CarouselContainer from "../components/CarouselContainer";
 
@@ -61,7 +61,7 @@ const Home = (props) => {
 				<h2 className="section-header">TV Shows On Air</h2>
 				{shows && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
-						{shows.map((cur) => <ShowContainer cur={cur} isShow={true} />)}
+						{shows.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
 					</CarouselContainer>
 				)}
 			</section>
@@ -69,7 +69,7 @@ const Home = (props) => {
 				<h2 className="section-header">Now Playing In Theaters</h2>
 				{movies && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
-						{movies.map((cur) => <ShowContainer cur={cur} isShow={false} />)}
+						{movies.map((cur) => <MovieShowCard cur={cur} isShow={false} />)}
 					</CarouselContainer>
 				)}
 			</section>

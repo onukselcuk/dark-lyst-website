@@ -3,71 +3,86 @@ import Link from "next/link";
 import CircularRating from "../CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 
-const MovieIntro = ({ movieDetails, getGenres }) => {
+const ShowIntro = ({ showDetails, getGenres }) => {
 	const filterProduction = (prodArr) => {
 		return prodArr.filter((cur) => cur.logo_path !== null);
 	};
 
-	const filteredProduction = filterProduction(movieDetails.production_companies).slice(0, 4);
+	const filteredProduction = filterProduction(showDetails.production_companies).slice(0, 4);
 
-	const hour = Math.floor(movieDetails.runtime / 60) > 0 ? Math.floor(movieDetails.runtime / 60) : false;
-	const minutes = movieDetails.runtime % 60 > 0 ? movieDetails.runtime % 60 : false;
+	const hour =
+		Math.floor(showDetails.episode_run_time / 60) > 0 ? Math.floor(showDetails.episode_run_time / 60) : false;
+	const minutes = showDetails.episode_run_time % 60 > 0 ? showDetails.episode_run_time % 60 : false;
 
-	const imageUrlPath = movieDetails.backdrop_path
-		? movieDetails.backdrop_path
-		: movieDetails.images.backdrops[0] ? movieDetails.images.backdrops[0].file_path : null;
+	const imageUrlPath = showDetails.backdrop_path
+		? showDetails.backdrop_path
+		: showDetails.images.backdrops[0] ? showDetails.images.backdrops[0].file_path : null;
 
-	const prod_countries = movieDetails.production_countries.slice(0, 3);
+	const origin_countries = showDetails.origin_country.slice(0, 3);
+
+	const seasonNum = showDetails.number_of_seasons > 0 ? showDetails.number_of_seasons : null;
+	const episodeNum = showDetails.number_of_episodes > 0 ? showDetails.number_of_episodes : null;
 
 	return (
 		<Fragment>
-			<section className="movie-hero-section" />
-			<section className="movie-detail-section">
-				<div className="movie-poster-container">
+			<section className="show-hero-section" />
+			<section className="show-detail-section">
+				<div className="show-poster-container">
 					<img
-						className="movie-poster"
-						src={`https://image.tmdb.org/t/p/w400${movieDetails.poster_path}`}
-						alt={`${movieDetails.title} Poster Image`}
+						className="show-poster"
+						src={`https://image.tmdb.org/t/p/w400${showDetails.poster_path}`}
+						alt={`${showDetails.name} Poster Image`}
 					/>
 				</div>
-				<div className="movie-detail-container">
-					<h1 className="movie-title">{movieDetails.title}</h1>
+				<div className="show-detail-container">
+					<h1 className="show-title">{showDetails.name}</h1>
 					<div className="rating-favorite-container">
 						<div className="rating-container">
-							<CircularRating rating={movieDetails.vote_average} />
+							<CircularRating rating={showDetails.vote_average} />
 						</div>
 						<div className="heart-container">
 							<HeartIcon detail={true} />
 						</div>
 					</div>
-					<div className="movie-info-container">
-						<p className="movie-year"> {movieDetails.release_date.slice(0, 4)} </p>
+					<div className="show-info-container">
+						<p className="show-small-info show-year">
+							{showDetails.first_air_date.slice(0, 4)}-{showDetails.last_air_date.slice(0, 4)}
+						</p>
+						<p className="show-small-info show-season-episode-number">
+							{seasonNum && `${seasonNum} Seasons`}
+						</p>
+						<p className="show-small-info show-season-episode-number">
+							{episodeNum && `${episodeNum} Episodes`}
+						</p>
 						<div className="genres-list">
-							{getGenres(movieDetails.genres).map((cur) => {
+							{getGenres(showDetails.genres).map((cur) => {
 								return (
-									<Link key={`/movie/discover/${cur.id}`} href={`/movie/discover/${cur.id}`}>
+									<Link key={`/show/discover/${cur.id}`} href={`/show/discover/${cur.id}`}>
 										<a className="genre-link">{cur.name} </a>
 									</Link>
 								);
 							})}
 						</div>
-						<p className="movie-runtime">
-							{hour && `${hour}h`} {minutes && `${minutes}m`}
-						</p>
-						{movieDetails.production_countries && (
-							<p className="production-countries">
-								{prod_countries.map((cur, index) => {
+						{(hour || minutes) && (
+							<p className="show-small-info show-runtime">
+								{hour && `${hour}h`} {minutes && `${minutes}m`}
+							</p>
+						)}
+
+						{showDetails.origin_country && (
+							<p className="show-small-info production-countries">
+								{origin_countries.map((cur, index) => {
 									return (
 										<span className="production-country-abbr">
-											{cur.iso_3166_1}
-											{index + 1 < prod_countries.length && ", "}
+											{cur}
+											{index + 1 < origin_countries.length && ", "}
 										</span>
 									);
 								})}
 							</p>
 						)}
 					</div>
-					<p className="movie-overview">{movieDetails.overview}</p>
+					<p className="show-overview">{showDetails.overview}</p>
 					{filteredProduction &&
 					filteredProduction.length > 0 && (
 						<div className="production-companies-container">
@@ -77,7 +92,7 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 										<img
 											className="production-company-logo"
 											src={`https://image.tmdb.org/t/p/w200${cur.logo_path}`}
-											alt={`${cur.name} Company Logo`}
+											alt={`${cur.name} Logo`}
 										/>
 									</div>
 								);
@@ -87,17 +102,17 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 				</div>
 			</section>
 			<style jsx>{`
-				.movie-hero-section {
+				.show-hero-section {
 					width: 100%;
 					height: 70vh;
-					${movieDetails
+					${showDetails
 						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${imageUrlPath}") ;`
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
 				}
 
-				.movie-detail-section {
+				.show-detail-section {
 					width: 70%;
 					margin: 0 auto;
 					margin-top: -10rem;
@@ -105,21 +120,21 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 					justify-content: center;
 				}
 
-				.movie-poster-container {
+				.show-poster-container {
 					width: 25%;
 					border-radius: 10px;
 					overflow: hidden;
 				}
-				.movie-poster {
+				.show-poster {
 					width: 100%;
 				}
 
-				.movie-detail-container {
+				.show-detail-container {
 					width: 60%;
 					padding: 4rem 3rem;
 				}
 
-				.movie-title {
+				.show-title {
 					font-size: 4rem;
 				}
 
@@ -141,40 +156,37 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 					transition: all 400ms;
 				}
 
-				.movie-info-container {
+				.show-info-container {
 					display: flex;
 					align-items: center;
 					margin-top: 1.5rem;
 				}
 
-				.movie-year {
+				.show-small-info {
 					font-size: 1.8rem;
-					margin-right: 1.5rem;
 					margin-bottom: 0;
+					margin-right: 1.5rem;
 				}
 
 				.genres-list {
 					display: flex;
+					margin-right: 1.5rem;
+				}
+
+				.genre-link:not(:last-of-type) {
+					margin-right: 4px;
 				}
 
 				.genre-link {
 					color: white;
 					font-size: 1.8rem;
-					margin: 0 4px;
-				}
-
-				.movie-runtime {
-					font-size: 1.8rem;
-					margin-bottom: 0;
-					padding-left: 1.8rem;
-					margin-right: 1.5rem;
 				}
 
 				.production-countries {
 					margin-bottom: 0;
 				}
 
-				.movie-overview {
+				.show-overview {
 					margin-top: 1rem;
 					font-size: 1.9rem;
 				}
@@ -197,4 +209,4 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 	);
 };
 
-export default MovieIntro;
+export default ShowIntro;
