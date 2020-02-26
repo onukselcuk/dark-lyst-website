@@ -3,8 +3,9 @@ import Link from "next/link";
 import CircularRating from "./CircularRating";
 
 const MovieShowCard = ({ cur, isHero, isShow }) => {
-	const url = `https://image.tmdb.org/t/p/w400${cur.poster_path}`;
-	let title = cur.original_name || cur.title;
+	// const url = `https://image.tmdb.org/t/p/${isHero ? "w400" : "w300"}${cur.poster_path}`;
+	const url = `https://cdn.onukselcuk.com/${isHero ? "w342" : "w300"}${cur.poster_path}`;
+	let title = cur.name || cur.title;
 	if (title.length > 30) {
 		title = `${title.slice(0, 30)}...`;
 	}
@@ -117,7 +118,7 @@ const MovieShowCard = ({ cur, isHero, isShow }) => {
 						opacity: 1;
 						margin: 0 1.5rem 0 1rem;
 						transition: all 400ms;
-						${isHero && "width:70px; height:70px;"};
+						${isHero && "width:60px; height:60px;"};
 					}
 
 					.show-name {
@@ -126,6 +127,7 @@ const MovieShowCard = ({ cur, isHero, isShow }) => {
 						font-weight: bold;
 						transition: all 400ms;
 						font-size: 1.7rem;
+						z-index: 10;
 						${isHero && "font-size:2rem;"};
 					}
 

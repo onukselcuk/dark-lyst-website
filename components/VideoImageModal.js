@@ -21,7 +21,8 @@ const VideoModal = ({ show, setShow, chosenVideo, title, isGallery }) => {
 					{isGallery ? (
 						<img
 							className="gallery-img"
-							src={`https://image.tmdb.org/t/p/original${chosenVideo.file_path}`}
+							src={`https://image.tmdb.org/t/p/original${chosenVideo.file_path ||
+								chosenVideo.backdrop_path}`}
 							alt={`${title} Gallery Image`}
 						/>
 					) : (

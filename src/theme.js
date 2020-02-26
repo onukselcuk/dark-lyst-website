@@ -23,6 +23,12 @@ const theme = {
 		},
 		sixth: {
 			main: "#769fcd"
+		},
+		seventh: {
+			main: "#1f4287"
+		},
+		eight: {
+			main: "rgba(0, 0, 0, .4)"
 		}
 	}
 };

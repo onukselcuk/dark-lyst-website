@@ -4,11 +4,14 @@ import MobileDetect from "mobile-detect";
 import MovieShowCard from "../components/MovieShowCard";
 import HeroMovieContainer from "../components/HeroMovieContainer";
 import CarouselContainer from "../components/CarouselContainer";
+import theme from "../src/theme";
+import PeopleCard from "../components/PeopleCard";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
 	const [ movies, setMovies ] = useState();
 	const [ heroMovies, setHeroMovies ] = useState();
+	const [ people, setPeople ] = useState();
 	const { deviceType } = props;
 
 	const getLatest = () => {
@@ -20,6 +23,12 @@ const Home = (props) => {
 		});
 		axios.get("/api/movies/latest").then((res) => {
 			setMovies(res.data.results);
+		});
+		axios.get("/api/person/trending").then((res) => {
+			let result = res.data.results.filter((cur) => {
+				return cur.profile_path !== null;
+			});
+			setPeople(result);
 		});
 	};
 
@@ -58,7 +67,9 @@ const Home = (props) => {
 				)}
 			</section>
 			<section className="tv-shows-section">
-				<h2 className="section-header">TV Shows On Air</h2>
+				<div className="section-header-container">
+					<h2 className="section-header">TV Shows On Air</h2>
+				</div>
 				{shows && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{shows.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
@@ -66,10 +77,22 @@ const Home = (props) => {
 				)}
 			</section>
 			<section className="tv-shows-section">
-				<h2 className="section-header">Now Playing In Theaters</h2>
+				<div className="section-header-container">
+					<h2 className="section-header">Now Playing In Theaters</h2>
+				</div>
 				{movies && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{movies.map((cur) => <MovieShowCard cur={cur} isShow={false} />)}
+					</CarouselContainer>
+				)}
+			</section>
+			<section className="tv-shows-section">
+				<div className="section-header-container">
+					<h2 className="section-header">Trending People</h2>
+				</div>
+				{people && (
+					<CarouselContainer deviceType={deviceType} isSmall={true}>
+						{people.map((cur) => <PeopleCard cur={cur} />)}
 					</CarouselContainer>
 				)}
 			</section>
@@ -82,9 +105,15 @@ const Home = (props) => {
 					margin: 1rem auto;
 				}
 
+				.section-header-container {
+					background-color: ${theme.palette.eight.main};
+					border-radius: 10px;
+					margin-bottom: 1.5rem;
+				}
+
 				.section-header {
-					margin: 2rem 0;
-					font-size: 3rem;
+					padding: 2rem;
+					font-size: 2.5rem;
 					color: #fff;
 				}
 			`}</style>

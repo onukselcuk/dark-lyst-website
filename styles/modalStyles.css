@@ -8,6 +8,11 @@
 	max-width: 1500px;
 }
 
+.season-modal {
+	width: 90%;
+	max-width: 1500px;
+}
+
 .modal-header {
 	background-color: #1b262c;
 	border: none;
@@ -36,6 +41,11 @@
 }
 
 .gallery-modal .modal-body {
+	position: relative;
+	background-color: #1b262c;
+}
+
+.season-modal .modal-body {
 	position: relative;
 	background-color: #1b262c;
 }

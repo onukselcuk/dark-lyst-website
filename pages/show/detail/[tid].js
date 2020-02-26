@@ -6,6 +6,7 @@ import MovieShowCard from "../../../components/MovieShowCard";
 import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/HeroMovieContainer";
 import CarouselContainer from "../../../components/CarouselContainer";
+import theme from "../../../src/theme";
 
 const ShowDetail = ({ tid, deviceType }) => {
 	const [ showDetails, setShowDetails ] = useState();
@@ -30,7 +31,9 @@ const ShowDetail = ({ tid, deviceType }) => {
 	const getRecommendations = () => {
 		const url = `/api/show/recommendations/${tid}`;
 		axios.get(url).then((res) => {
-			setRecommendations(res.data.results);
+			let filteredResults = res.data.results;
+			filteredResults = filteredResults.filter((cur) => cur.vote_average && cur.poster_path);
+			setRecommendations(filteredResults);
 		});
 	};
 
@@ -58,10 +61,13 @@ const ShowDetail = ({ tid, deviceType }) => {
 
 				for (let i = 0; i < numberOfGenres; i++) {
 					const returned = await genreAxios(i);
+					let filteredReturn = returned.data.results;
+					filteredReturn = filteredReturn.filter((cur) => cur.vote_average && cur.poster_path);
 					const newObj = {
 						name: showDetails.genres[i].name,
-						results: returned.data.results
+						results: filteredReturn
 					};
+
 					data.push(newObj);
 				}
 
@@ -111,7 +117,15 @@ const ShowDetail = ({ tid, deviceType }) => {
 			{showDetails && (
 				<Fragment>
 					<ShowIntro showDetails={showDetails} getGenres={getGenres} />
-					{showCredits && <MovieShowCredits getDirector={getDirector} movieCredits={showCredits} />}
+					{showCredits && (
+						<MovieShowCredits
+							deviceType={deviceType}
+							getDirector={getDirector}
+							movieCredits={showCredits}
+							showDetails={showDetails}
+							isShow={true}
+						/>
+					)}
 					{showDetails.videos &&
 					showDetails.videos.results.length > 0 && (
 						<section className="carousel-section">
@@ -144,7 +158,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 							</div>
 							<CarouselContainer deviceType={deviceType} isSmall={false}>
 								{showDetails.images.backdrops.map((cur) => {
-									const thumbnailUrl = `https://image.tmdb.org/t/p/w500${cur.file_path}`;
+									const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.file_path}`;
 									return (
 										<HeroMovieContainer
 											thumbnailUrl={thumbnailUrl}
@@ -197,7 +211,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 				}
 
 				.carousel-top-bar {
-					background-color: rgba(0, 0, 0, .4);
+					background-color: ${theme.palette.eight.main};
 					border-radius: 10px;
 				}
 

@@ -3,7 +3,7 @@ import MovieShowCard from "./MovieShowCard";
 import PlayIcon from "./icons/PlayIcon";
 import VideoImageModal from "./VideoImageModal";
 
-const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery, isShow }) => {
+const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery, isShow, isProfile }) => {
 	const [ show, setShow ] = useState(false);
 
 	const handleShow = () => {
@@ -19,14 +19,20 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 			)}
 			<div className="video-thumbnail-container" onClick={handleShow}>
 				<div className="top-backdrop" />
-				<img className="video-thumbnail" src={thumbnailUrl} alt={`${cur.title} Youtube Video Thumbnail`} />
+				<img
+					className="video-thumbnail"
+					src={thumbnailUrl}
+					alt={`${cur.title || cur.name} Youtube Video Thumbnail`}
+				/>
 				{!isGallery && (
 					<div className="play-icon-container">
 						<PlayIcon />
 					</div>
 				)}
+				{(isProfile || !isGallery) && (
+					<span className="video-title">{chosenVideo.name || cur.title || cur.name}</span>
+				)}
 
-				<span className="video-title">{chosenVideo.name}</span>
 				<div className="down-backdrop" />
 			</div>
 			<VideoImageModal

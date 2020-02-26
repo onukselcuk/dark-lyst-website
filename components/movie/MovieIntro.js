@@ -26,7 +26,7 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 				<div className="movie-poster-container">
 					<img
 						className="movie-poster"
-						src={`https://image.tmdb.org/t/p/w400${movieDetails.poster_path}`}
+						src={`https://image.tmdb.org/t/p/w342${movieDetails.poster_path}`}
 						alt={`${movieDetails.title} Poster Image`}
 					/>
 				</div>

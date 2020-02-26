@@ -60,4 +60,21 @@ router.get("/discover/:genreId", async (req, res) => {
 	//res.json(seedMovieDetail);
 });
 
+router.get("/:id/season/:seasonNumber", async (req, res) => {
+	console.log(`season ${req.params.seasonNumber} is hit`);
+	const showId = req.params.id;
+	const seasonNumber = req.params.seasonNumber;
+	const movieDiscoverUrl = `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}?api_key=${process.env
+		.TMDB_API_KEY}`;
+	await axios
+		.get(movieDiscoverUrl)
+		.then((moviesDiscovered) => {
+			res.send(moviesDiscovered.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+	//res.json(seedMovieDetail);
+});
+
 module.exports = router;

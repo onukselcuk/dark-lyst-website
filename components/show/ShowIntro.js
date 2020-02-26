@@ -23,6 +23,8 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 	const seasonNum = showDetails.number_of_seasons > 0 ? showDetails.number_of_seasons : null;
 	const episodeNum = showDetails.number_of_episodes > 0 ? showDetails.number_of_episodes : null;
 
+	const genresList = getGenres(showDetails.genres);
+
 	return (
 		<Fragment>
 			<section className="show-hero-section" />
@@ -30,7 +32,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 				<div className="show-poster-container">
 					<img
 						className="show-poster"
-						src={`https://image.tmdb.org/t/p/w400${showDetails.poster_path}`}
+						src={`https://image.tmdb.org/t/p/w342${showDetails.poster_path}`}
 						alt={`${showDetails.name} Poster Image`}
 					/>
 				</div>
@@ -45,32 +47,33 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 						</div>
 					</div>
 					<div className="show-info-container">
-						<p className="show-small-info show-year">
-							{showDetails.first_air_date.slice(0, 4)}-{showDetails.last_air_date.slice(0, 4)}
-						</p>
-						<p className="show-small-info show-season-episode-number">
-							{seasonNum && `${seasonNum} Seasons`}
-						</p>
-						<p className="show-small-info show-season-episode-number">
-							{episodeNum && `${episodeNum} Episodes`}
-						</p>
+						<span className="show-small-info">TV Show</span>
+						<span className="show-small-info">
+							{showDetails.first_air_date.slice(0, 4)} -{" "}
+							{!showDetails.in_production ? showDetails.last_air_date.slice(0, 4) : " "}
+						</span>
+						<span className="show-small-info">{seasonNum && `${seasonNum} Seasons`}</span>
+						<span className="show-small-info">{episodeNum && `${episodeNum} Episodes`}</span>
 						<div className="genres-list">
-							{getGenres(showDetails.genres).map((cur) => {
+							{genresList.map((cur, index) => {
 								return (
 									<Link key={`/show/discover/${cur.id}`} href={`/show/discover/${cur.id}`}>
-										<a className="genre-link">{cur.name} </a>
+										<a className="genre-link">
+											{cur.name}
+											{index + 1 < genresList.length && ","}
+										</a>
 									</Link>
 								);
 							})}
 						</div>
 						{(hour || minutes) && (
-							<p className="show-small-info show-runtime">
+							<span className="show-small-info">
 								{hour && `${hour}h`} {minutes && `${minutes}m`}
-							</p>
+							</span>
 						)}
 
 						{showDetails.origin_country && (
-							<p className="show-small-info production-countries">
+							<span className="show-small-info">
 								{origin_countries.map((cur, index) => {
 									return (
 										<span className="production-country-abbr">
@@ -79,7 +82,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 										</span>
 									);
 								})}
-							</p>
+							</span>
 						)}
 					</div>
 					<p className="show-overview">{showDetails.overview}</p>
@@ -130,7 +133,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 				}
 
 				.show-detail-container {
-					width: 60%;
+					width: 75%;
 					padding: 4rem 3rem;
 				}
 
@@ -180,10 +183,6 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 				.genre-link {
 					color: white;
 					font-size: 1.8rem;
-				}
-
-				.production-countries {
-					margin-bottom: 0;
 				}
 
 				.show-overview {
