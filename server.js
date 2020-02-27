@@ -9,6 +9,7 @@ const showsRoutes = require("./routes/api/showsRoutes");
 const movieRoutes = require("./routes/api/movieRoutes");
 const showRoutes = require("./routes/api/showRoutes");
 const personRoutes = require("./routes/api/personRoutes");
+const searchRoutes = require("./routes/api/searchRoutes");
 
 app.prepare().then(() => {
 	const server = express();
@@ -17,6 +18,7 @@ app.prepare().then(() => {
 	server.use("/api/movie", movieRoutes);
 	server.use("/api/show", showRoutes);
 	server.use("/api/person", personRoutes);
+	server.use("/api/search", searchRoutes);
 
 	server.get("*", (req, res) => {
 		return handle(req, res);

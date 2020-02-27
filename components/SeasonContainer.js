@@ -1,4 +1,4 @@
-import { Fragment, useState, Suspense } from "react";
+import { Fragment, useState } from "react";
 import loadable from "@loadable/component";
 
 const LazyModal = loadable(() => import("./SeasonModal"));

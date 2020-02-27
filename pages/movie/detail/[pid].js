@@ -6,6 +6,7 @@ import MovieShowCard from "../../../components/MovieShowCard";
 import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/HeroMovieContainer";
 import CarouselContainer from "../../../components/CarouselContainer";
+import theme from "../../../src/theme";
 
 const MovieDetail = ({ pid, deviceType }) => {
 	const [ movieDetails, setMovieDetails ] = useState();
@@ -203,7 +204,7 @@ const MovieDetail = ({ pid, deviceType }) => {
 				}
 
 				.carousel-top-bar {
-					background-color: rgba(0, 0, 0, .4);
+					background-color: ${theme.palette.eight.main};
 					border-radius: 10px;
 				}
 
