@@ -1,7 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import PersonIntro from "../../../components/person/PersonIntro";
-import MovieShowCredits from "../../../components/MovieShowCredits";
 import MovieShowCard from "../../../components/MovieShowCard";
 import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/HeroMovieContainer";
@@ -30,10 +29,32 @@ const PersonDetail = ({ sid, deviceType }) => {
 	const getPersonCombinedCredits = () => {
 		const url = `/api/person/combined-credits/${sid}`;
 		axios.get(url).then((res) => {
+			console.log(res.data);
 			let filteredCast = res.data.cast;
 			let filteredCrew = res.data.crew;
 			filteredCast = filteredCast.filter((cur) => cur.poster_path && cur.vote_average);
-			filteredCrew = filteredCast.filter((cur) => cur.poster_path && cur.vote_average);
+			filteredCrew = filteredCrew.filter((cur) => cur.poster_path && cur.vote_average);
+
+			if (filteredCast.length > 0) {
+				filteredCast.sort((a, b) => {
+					let first = a.release_date || a.first_air_date;
+					let second = b.release_date || b.first_air_date;
+					first = first.slice(0, 4);
+					second = second.slice(0, 4);
+					return second - first;
+				});
+			}
+
+			if (filteredCrew.length > 0) {
+				filteredCrew.sort((a, b) => {
+					let first = a.release_date || a.first_air_date;
+					let second = b.release_date || b.first_air_date;
+					first = first.slice(0, 4);
+					second = second.slice(0, 4);
+					return second - first;
+				});
+			}
+
 			const newObj = {
 				cast: filteredCast,
 				crew: filteredCrew,
@@ -83,20 +104,42 @@ const PersonDetail = ({ sid, deviceType }) => {
 					)}
 
 					{personCombinedCredits &&
-					(personCombinedCredits.cast.length > 0 || personCombinedCredits.crew.length > 0) && (
+					personCombinedCredits.cast &&
+					personCombinedCredits.cast.length > 0 && (
 						<section className="carousel-section">
 							<div className="carousel-top-bar">
-								<p className="carousel-top-bar-title">Credits</p>
+								<p className="carousel-top-bar-title">Cast Credits</p>
 							</div>
 							<div className="credits-container">
 								{personCombinedCredits.cast.map((cur) => (
 									<div className="credit-container">
-										<MovieShowCard key={cur.id} cur={cur} isShow={cur.media_type === "tv"} />
+										<MovieShowCard
+											key={cur.id}
+											cur={cur}
+											isProfile={true}
+											isShow={cur.media_type === "tv"}
+										/>
 									</div>
 								))}
+							</div>
+						</section>
+					)}
+					{personCombinedCredits &&
+					personCombinedCredits.crew &&
+					personCombinedCredits.crew.length > 0 && (
+						<section className="carousel-section">
+							<div className="carousel-top-bar">
+								<p className="carousel-top-bar-title">Crew Credits</p>
+							</div>
+							<div className="credits-container">
 								{personCombinedCredits.crew.map((cur) => (
 									<div className="credit-container">
-										<MovieShowCard key={cur.id} cur={cur} isShow={cur.media_type === "tv"} />
+										<MovieShowCard
+											key={cur.id}
+											cur={cur}
+											isProfile={true}
+											isShow={cur.media_type === "tv"}
+										/>
 									</div>
 								))}
 							</div>
@@ -126,7 +169,7 @@ const PersonDetail = ({ sid, deviceType }) => {
 				}
 
 				.credit-container {
-					width: 20%;
+					width: 25%;
 					margin: 1rem 0;
 				}
 			`}</style>
