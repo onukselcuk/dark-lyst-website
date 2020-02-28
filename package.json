@@ -19,7 +19,6 @@
 		"dotenv": "^8.2.0",
 		"downshift": "^5.0.3",
 		"express": "^4.17.1",
-		"faker": "^4.1.0",
 		"mobile-detect": "^1.4.4",
 		"next": "9.2.1",
 		"react": "16.12.0",

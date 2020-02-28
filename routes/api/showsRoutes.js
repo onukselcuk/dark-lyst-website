@@ -3,8 +3,9 @@ const router = express.Router();
 const seedShows = require("../../src/seedShows");
 const axios = require("axios");
 
+// * get latest shows
 router.get("/latest", (req, res) => {
-	const url = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.TMDB_API_KEY}&page=1`;
+	const url = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.TMDB_API_KEY}`;
 	axios
 		.get(url)
 		.then((result) => {

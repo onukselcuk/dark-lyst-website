@@ -49,8 +49,8 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 					<div className="show-info-container">
 						<span className="show-small-info">TV Show</span>
 						<span className="show-small-info">
-							{showDetails.first_air_date.slice(0, 4)} -{" "}
-							{!showDetails.in_production ? showDetails.last_air_date.slice(0, 4) : " "}
+							{showDetails.first_air_date.slice(0, 4)}
+							{!showDetails.in_production ? ` - ${showDetails.last_air_date.slice(0, 4)}` : " "}
 						</span>
 						<span className="show-small-info">{seasonNum && `${seasonNum} Seasons`}</span>
 						<span className="show-small-info">{episodeNum && `${episodeNum} Episodes`}</span>
@@ -113,6 +113,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
+					background-position: 50% 30%;
 				}
 
 				.show-detail-section {

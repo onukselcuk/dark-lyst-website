@@ -95,6 +95,7 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
+					background-position: 50% 30%;
 				}
 
 				.movie-detail-section {

@@ -1,50 +1,124 @@
 import Form from "react-bootstrap/Form";
-import { Fragment, useState, useCallback } from "react";
+import { Fragment, useState, useRef } from "react";
 import styles from "../styles/searchBox.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Downshift from "downshift";
 import axios from "axios";
 import theme from "../src/theme";
+import Router from "next/router";
 import Link from "next/link";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
+import loaderStyles from "../styles/loader.module.css";
+import CircularRating from "./CircularRating";
 
 const SearchBox = (props) => {
 	const [ movies, setMovies ] = useState([]);
-
-	const downshiftOnChange = (selectedMovie) => {
-		if (selectedMovie) {
-			alert(`your favorite movie is ${selectedMovie.title}`);
-		}
-	};
+	const [ emptyState, setEmptyState ] = useState(true);
+	const [ loaderState, setLoaderState ] = useState(false);
 
 	const fetchMovies = async (movie) => {
-		try {
-			const multiUrl = `/api/search/multi/${encodeURIComponent(movie)}`;
+		if (movie && movie.length > 1) {
+			try {
+				setLoaderState(true);
 
-			const response = await axios.get(multiUrl);
+				const multiUrl = `/api/search/multi/${encodeURIComponent(movie)}`;
 
-			setMovies(response.data.results);
-		} catch (error) {
-			console.log(error);
+				const response = await axios.get(multiUrl);
+				setLoaderState(false);
+				setMovies(response.data.results);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
-	//* Deferred call of search using debounce function
+	//* Delayed call of search (500ms) using debounce function
 
 	const fetchMoviesDebounced = AwesomeDebouncePromise(fetchMovies, 500);
 
 	const inputOnChange = (e) => {
-		if (!e.target.value) {
+		if (!e.target.value || e.target.value.length < 1) {
+			setLoaderState(false);
+			setEmptyState(true);
 			return;
 		}
+
+		setEmptyState(false);
 
 		fetchMoviesDebounced(e.target.value);
 	};
 
+	const getLinkUrls = (current) => {
+		let hrefUrl = "/";
+		let asUrl = "/";
+		switch (current.media_type) {
+			case "tv":
+				asUrl = `/show/detail/${current.id}`;
+				hrefUrl = `/show/detail/[tid]`;
+				break;
+			case "movie":
+				asUrl = `/movie/detail/${current.id}`;
+				hrefUrl = `/movie/detail/[pid]`;
+				break;
+			case "person":
+				asUrl = `/person/detail/${current.id}`;
+				hrefUrl = `/person/detail/[sid]`;
+				break;
+			default:
+				asUrl = `/`;
+				hrefUrl = `/`;
+		}
+
+		return {
+			hrefUrl,
+			asUrl
+		};
+	};
+
+	const getMediaType = (current) => {
+		let mediaType = "";
+		switch (current.media_type) {
+			case "tv":
+				mediaType = "TV Show";
+				break;
+			case "movie":
+				mediaType = "Movie";
+				break;
+			default:
+				mediaType = "";
+		}
+
+		return mediaType;
+	};
+
+	// const onStateChange = (changes) => {
+	// 	console.log(changes);
+	// 	if (changes.type === "__autocomplete_keydown_enter__") {
+	// 		const urls = getLinkUrls(changes.selectedItem);
+	// 		Router.push(urls.hrefUrl, urls.asUrl);
+	// 	}
+	// };
+
+	const inputRef = useRef(null);
+
+	const downshiftOnChange = (selectedMedia, stateAndHelpers) => {
+		console.log(stateAndHelpers);
+		if (selectedMedia) {
+			const urls = getLinkUrls(selectedMedia);
+			Router.push(urls.hrefUrl, urls.asUrl);
+			stateAndHelpers.clearSelection();
+			inputRef.current.blur();
+		}
+	};
+
 	return (
 		<Fragment>
-			<Downshift onChange={downshiftOnChange} itemToString={(item) => (item ? item.title : "")}>
+			<Downshift
+				//onStateChange={onStateChange}
+				onChange={downshiftOnChange}
+				itemToString={(item) => (item ? item.title : "")}
+			>
 				{({
 					selectedItem,
 					getInputProps,
@@ -65,41 +139,75 @@ const SearchBox = (props) => {
 									className={styles.searchInput}
 									type="text"
 									id="exampleForm.ControlInput1"
-									value={inputValue}
+									ref={inputRef}
 								/>
 								<FontAwesomeIcon className={styles.searchIcon} icon={faSearch} />
 							</Form.Group>
 						</Form>
-						{isOpen ? (
+						{isOpen && !emptyState && !loaderState ? (
 							<div className="downshift-dropdown">
-								{movies.slice(0, 10).map((item, index) => {
-									const url = `https://image.tmdb.org/t/p/w45${item.profile_path ||
-										item.poster_path}`;
-									return (
-										<Link key={index} href="/">
-											<a className="search-item-link">
-												<div
-													className="dropdown-item"
-													{...getItemProps({ key: index, index, item })}
-													style={{
-														backgroundColor:
-															highlightedIndex === index
-																? theme.palette.eight.main
-																: theme.palette.primary.main,
-														fontWeight: selectedItem === item ? "bold" : "normal"
-													}}
-												>
-													<div className="image-container">
-														<img className="image" src={url} alt="" />
+								{movies
+									.filter((cur) => cur.poster_path || cur.profile_path)
+									.slice(0, 10)
+									.map((item, index) => {
+										const url = `https://image.tmdb.org/t/p/w45${item.profile_path ||
+											item.poster_path}`;
+										let year = null;
+										if (
+											item.media_type !== "person" &&
+											(item.first_air_date || item.release_date)
+										) {
+											year = item.first_air_date || item.release_date;
+											year = year.slice(0, 4);
+										}
+
+										let links = {};
+
+										links = getLinkUrls(item);
+
+										let mediaType = getMediaType(item);
+
+										return (
+											<Link href={links.hrefUrl} as={links.asUrl}>
+												<a className="dropdown-item-link">
+													<div
+														className="dropdown-item"
+														{...getItemProps({ key: index, index, item })}
+														style={{
+															backgroundColor:
+																highlightedIndex === index
+																	? theme.palette.eight.main
+																	: theme.palette.primary.main,
+															fontWeight: selectedItem === item ? "bold" : "normal"
+														}}
+													>
+														<div className="media-image-container">
+															<img className="media-image" src={url} alt="" />
+														</div>
+														<div className="info-container">
+															<p>
+																<span className="media-name">
+																	{item.title || item.name}
+																</span>
+																{year && <span> - {year} </span>}
+															</p>
+															{mediaType && <p>{mediaType}</p>}
+														</div>
+														{item.vote_average &&
+														item.vote_average > 2 && (
+															<div className="rating-container">
+																<CircularRating rating={item.vote_average} />
+															</div>
+														)}
 													</div>
-													<div className="info-container">
-														<p>{item.title || item.name}</p>
-													</div>
-												</div>
-											</a>
-										</Link>
-									);
-								})}
+												</a>
+											</Link>
+										);
+									})}
+							</div>
+						) : loaderState ? (
+							<div className="loader-container">
+								<div className={loaderStyles.loader}>Loading...</div>
 							</div>
 						) : null}
 					</div>
@@ -116,14 +224,14 @@ const SearchBox = (props) => {
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
 					overflow: hidden;
-					top: 50px;
+					top: 40px;
 					left: 0;
 					z-index: 10;
 					background-color: ${theme.palette.primary.main};
 					width: 100%;
 				}
 
-				.search-item-link {
+				.dropdown-item-link {
 					text-decoration: none;
 				}
 
@@ -132,19 +240,43 @@ const SearchBox = (props) => {
 					display: flex;
 					width: 100%;
 					height: 80px;
+					transition: all 300ms ease;
+					cursor: pointer;
 					border-bottom: 1px solid ${theme.palette.fourth.main};
-					transition: all 400ms ease;
 				}
 
-				.image-container {
+				.media-image-container {
 					display: flex;
 					align-items: center;
 				}
 
 				.info-container {
 					display: flex;
-					align-items: center;
+					justify-content: center;
+					flex-direction: column;
 					padding: 1rem;
+					margin-right: auto;
+				}
+
+				.media-name {
+					font-weight: bold;
+				}
+
+				.rating-container {
+					width: 10%;
+					display: flex;
+					align-items: center;
+				}
+
+				.loader-container {
+					position: absolute;
+					top: 50px;
+					left: 0;
+					z-index: 10;
+					width: 100%;
+					background-color: ${theme.palette.primary.main};
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
 				}
 			`}</style>
 		</Fragment>

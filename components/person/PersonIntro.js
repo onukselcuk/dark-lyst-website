@@ -69,6 +69,7 @@ const PersonIntro = ({ personDetails, personImages }) => {
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
+					background-position: 50% 30%;
 				}
 
 				.person-detail-section {

@@ -29,11 +29,14 @@ const PersonDetail = ({ sid, deviceType }) => {
 	const getPersonCombinedCredits = () => {
 		const url = `/api/person/combined-credits/${sid}`;
 		axios.get(url).then((res) => {
-			console.log(res.data);
 			let filteredCast = res.data.cast;
 			let filteredCrew = res.data.crew;
-			filteredCast = filteredCast.filter((cur) => cur.poster_path && cur.vote_average);
-			filteredCrew = filteredCrew.filter((cur) => cur.poster_path && cur.vote_average);
+			filteredCast = filteredCast.filter(
+				(cur) => cur.poster_path && cur.vote_average && (cur.release_date || cur.first_air_date)
+			);
+			filteredCrew = filteredCrew.filter(
+				(cur) => cur.poster_path && cur.vote_average && (cur.release_date || cur.first_air_date)
+			);
 
 			if (filteredCast.length > 0) {
 				filteredCast.sort((a, b) => {
