@@ -91,32 +91,36 @@ const SearchBox = (props) => {
 
 		return mediaType;
 	};
-
-	// const onStateChange = (changes) => {
-	// 	console.log(changes);
-	// 	if (changes.type === "__autocomplete_keydown_enter__") {
-	// 		const urls = getLinkUrls(changes.selectedItem);
-	// 		Router.push(urls.hrefUrl, urls.asUrl);
-	// 	}
-	// };
-
 	const inputRef = useRef(null);
 
-	const downshiftOnChange = (selectedMedia, stateAndHelpers) => {
-		console.log(stateAndHelpers);
-		if (selectedMedia) {
-			const urls = getLinkUrls(selectedMedia);
+	const onStateChange = (changes, stateAndHelpers) => {
+		if (changes.type === "__autocomplete_click_item__") {
+			stateAndHelpers.clearSelection();
+			inputRef.current.blur();
+		}
+
+		if (changes.type === "__autocomplete_keydown_enter__") {
+			const urls = getLinkUrls(changes.selectedItem);
 			Router.push(urls.hrefUrl, urls.asUrl);
 			stateAndHelpers.clearSelection();
 			inputRef.current.blur();
 		}
 	};
 
+	// const downshiftOnChange = (selectedMedia, stateAndHelpers) => {
+	// 	if (selectedMedia) {
+	// 		const urls = getLinkUrls(selectedMedia);
+	// 		Router.push(urls.hrefUrl, urls.asUrl);
+	// 		stateAndHelpers.clearSelection();
+	// 		inputRef.current.blur();
+	// 	}
+	// };
+
 	return (
 		<Fragment>
 			<Downshift
-				//onStateChange={onStateChange}
-				onChange={downshiftOnChange}
+				onStateChange={onStateChange}
+				//onChange={downshiftOnChange}
 				itemToString={(item) => (item ? item.title : "")}
 			>
 				{({
@@ -138,8 +142,8 @@ const SearchBox = (props) => {
 									})}
 									className={styles.searchInput}
 									type="text"
-									id="exampleForm.ControlInput1"
 									ref={inputRef}
+									value={inputValue || ""}
 								/>
 								<FontAwesomeIcon className={styles.searchIcon} icon={faSearch} />
 							</Form.Group>

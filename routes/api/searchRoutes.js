@@ -3,7 +3,6 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/multi/:keyword", async (req, res) => {
-	console.log(req.params.keyword);
 	try {
 		const url = `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(
 			req.params.keyword

@@ -113,7 +113,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
-					background-position: 50% 30%;
+					background-position: 50% 25%;
 				}
 
 				.show-detail-section {

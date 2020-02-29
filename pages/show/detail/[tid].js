@@ -144,6 +144,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 												cur={showDetails}
 												isHero={false}
 												isGallery={false}
+												key={cur.key}
 											/>
 										);
 									})}
@@ -166,6 +167,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 											cur={showDetails}
 											isHero={false}
 											isGallery={true}
+											key={cur.file_path}
 										/>
 									);
 								})}
@@ -179,9 +181,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 								<p className="carousel-top-bar-title">Recommended Shows For You</p>
 							</div>
 							<CarouselContainer deviceType={deviceType} isSmall={true}>
-								{recommendations.map((cur) => (
-									<MovieShowCard key={cur.title} cur={cur} isShow={true} />
-								))}
+								{recommendations.map((cur) => <MovieShowCard key={cur.id} cur={cur} isShow={true} />)}
 							</CarouselContainer>
 						</section>
 					)}
