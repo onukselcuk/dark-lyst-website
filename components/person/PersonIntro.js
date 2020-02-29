@@ -82,6 +82,7 @@ const PersonIntro = ({ personDetails, personImages }) => {
 
 				.person-profile-picture-container {
 					width: 25%;
+					border-radius: 10px;
 					overflow: hidden;
 				}
 				.person-profile-picture {

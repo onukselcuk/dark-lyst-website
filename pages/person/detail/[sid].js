@@ -22,7 +22,32 @@ const PersonDetail = ({ sid, deviceType }) => {
 	const getPersonTaggedImages = () => {
 		const url = `/api/person/tagged-images/${sid}`;
 		axios.get(url).then((res) => {
-			setPersonTaggedImages(res.data.results);
+			let filteredImages = res.data.results;
+			filteredImages = filteredImages.filter((cur) => cur.media.release_date || cur.media.first_air_date);
+			if (filteredImages.length > 0) {
+				filteredImages.sort((a, b) => {
+					let first = a.media.release_date || a.media.first_air_date;
+					let second = b.media.release_date || b.media.first_air_date;
+					first = first.slice(0, 4);
+					second = second.slice(0, 4);
+					return second - first;
+				});
+			}
+
+			let imageSet = new Set();
+
+			filteredImages = filteredImages.filter((cur) => {
+				let title = cur.media.name || cur.media.title;
+				title = title.toLowerCase();
+				if (!imageSet.has(title)) {
+					imageSet.add(title);
+					return true;
+				} else {
+					return false;
+				}
+			});
+
+			setPersonTaggedImages(filteredImages);
 		});
 	};
 

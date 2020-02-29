@@ -113,6 +113,7 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 				}
 				.movie-poster {
 					width: 100%;
+					border-radius: 10px;
 				}
 
 				.movie-detail-container {

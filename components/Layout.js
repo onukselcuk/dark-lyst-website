@@ -31,6 +31,19 @@ const Layout = (props) => {
 					font-size: 1.6rem;
 				}
 
+				:global(body::-webkit-scrollbar) {
+					width: 2rem;
+				}
+
+				:global(body::-webkit-scrollbar-thumb) {
+					background-color: ${theme.palette.eight.main};
+					border-radius: 5px;
+				}
+
+				:global(body::-webkit-scrollbar-track) {
+					background-color: ${theme.palette.primary.main};
+				}
+
 				:global(#__next) {
 					width: 100%;
 				}

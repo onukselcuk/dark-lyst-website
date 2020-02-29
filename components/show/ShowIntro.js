@@ -32,7 +32,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 				<div className="show-poster-container">
 					<img
 						className="show-poster"
-						src={`https://image.tmdb.org/t/p/w342${showDetails.poster_path}`}
+						src={`https://cdn.darklyst.com/w342${showDetails.poster_path}`}
 						alt={`${showDetails.name} Poster Image`}
 					/>
 				</div>
@@ -131,6 +131,7 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 				}
 				.show-poster {
 					width: 100%;
+					border-radius: 10px;
 				}
 
 				.show-detail-container {
