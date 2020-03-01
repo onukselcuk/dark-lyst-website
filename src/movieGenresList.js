@@ -1,9 +1,5 @@
 export default [
 	{
-		value: false,
-		label: "All Genres"
-	},
-	{
 		value: 28,
 		label: "Action"
 	},

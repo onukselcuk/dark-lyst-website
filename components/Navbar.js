@@ -16,6 +16,11 @@ const Navbar = () => (
 			<SearchBox />
 			<ul className="navbar-list">
 				<li className="navbar-link-item">
+					<Link href="/discover">
+						<a className="navbar-anchor-link">Discover</a>
+					</Link>
+				</li>
+				<li className="navbar-link-item">
 					<Link href="/">
 						<a className="navbar-anchor-link">Watchlist</a>
 					</Link>
