@@ -1,24 +1,27 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import theme from "../../src/theme";
-import MovieDiscoverForm from "../../components/movie/MovieDiscoverForm";
+import ShowDiscoverForm from "../../components/show/ShowDiscoverForm";
 import MovieShowLargeCard from "../../components/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 
-const DiscoverMovie = () => {
+const DiscoverShow = () => {
 	const [ state, setState ] = useState({
 		sortBy: { value: "popularity", label: "Popularity" },
-		country: { value: false, label: "All Countries" },
 		rating: { value: false, label: "All Ratings" },
 		originalLang: { value: "en", label: "English" },
 		yearFrom: { value: false, label: "Anytime" },
-		yearTo: { value: false, label: "Anytime" }
+		yearTo: { value: false, label: "Anytime" },
+		lastYearFrom: { value: false, label: "Anytime" },
+		lastYearTo: { value: false, label: "Anytime" }
 	});
 	const [ genreState, setGenreState ] = useState([ { value: false, label: "All Genres", isFixed: true } ]);
 
+	const [ networkState, setNetworkState ] = useState([ { value: false, label: "All Networks", isFixed: true } ]);
+
 	const [ isDescending, setIsDescending ] = useState(true);
 
-	const [ movies, setMovies ] = useState();
+	const [ shows, setShows ] = useState();
 
 	const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
 
@@ -46,6 +49,20 @@ const DiscoverMovie = () => {
 		}
 	};
 
+	const onNetworkChange = (selection) => {
+		let networkArray = selection;
+		if (selection && selection.length > 1) {
+			networkArray = networkArray.filter((cur) => cur.value !== false);
+		} else if (selection === null || !selection || selection.length === 0) {
+			networkArray = [ { value: false, label: "All Networks", isFixed: true } ];
+		}
+
+		if (JSON.stringify(networkArray) !== JSON.stringify(networkState)) {
+			setCurrentPageNumber(1);
+			setNetworkState(networkArray);
+		}
+	};
+
 	const onAscChange = () => {
 		setCurrentPageNumber(1);
 		setIsDescending(false);
@@ -57,7 +74,7 @@ const DiscoverMovie = () => {
 	};
 
 	const handleStateChange = async () => {
-		let url = `/api/discover/movie?`;
+		let url = `/api/discover/show?`;
 		url = `${url}sort_by=${state.sortBy.value}.${isDescending ? "desc" : "asc"}&page=${currentPageNumber}`;
 
 		if (genreState) {
@@ -69,8 +86,13 @@ const DiscoverMovie = () => {
 			}
 		}
 
-		if (state.country.value) {
-			url = `${url}&region=${state.country.value}`;
+		if (networkState) {
+			const networkNotAll = networkState.every((cur) => cur.value !== false);
+			if (networkNotAll) {
+				const networkIdsArr = networkState.map((cur) => cur.value);
+				const networkString = networkIdsArr.join(",");
+				url = `${url}&with_networks=${networkString}`;
+			}
 		}
 
 		if (state.rating.value) {
@@ -82,16 +104,24 @@ const DiscoverMovie = () => {
 		}
 
 		if (state.yearFrom.value) {
-			url = `${url}&release_date.gte=${state.yearFrom.value}-01-01`;
+			url = `${url}&first_air_date.gte=${state.yearFrom.value}-01-01`;
 		}
 
 		if (state.yearTo.value) {
-			url = `${url}&release_date.lte=${state.yearTo.value}-12-30`;
+			url = `${url}&first_air_date.lte=${state.yearTo.value}-12-30`;
+		}
+
+		if (state.lastYearFrom.value) {
+			url = `${url}&air_date.gte=${state.lastYearFrom.value}-01-01`;
+		}
+
+		if (state.lastYearTo.value) {
+			url = `${url}&air_date.lte=${state.lastYearTo.value}-12-30`;
 		}
 
 		const response = await axios.get(url);
 
-		setMovies(response.data);
+		setShows(response.data);
 		setCurrentPageNumber(response.data.page);
 		setTotalResultNumber(response.data.total_results);
 	};
@@ -113,16 +143,16 @@ const DiscoverMovie = () => {
 		() => {
 			handleStateChange();
 		},
-		[ state, isDescending, genreState, currentPageNumber ]
+		[ state, isDescending, genreState, networkState, currentPageNumber ]
 	);
 
 	return (
 		<main>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
-					<p className="carousel-top-bar-title">Discover Movies</p>
+					<p className="carousel-top-bar-title">Discover Shows</p>
 				</div>
-				<MovieDiscoverForm
+				<ShowDiscoverForm
 					state={state}
 					handleChange={handleChange}
 					genreState={genreState}
@@ -130,20 +160,22 @@ const DiscoverMovie = () => {
 					isDescending={isDescending}
 					onAscChange={onAscChange}
 					onDescChange={onDescChange}
+					onNetworkChange={onNetworkChange}
+					networkState={networkState}
 				/>
 			</section>
 			<section className="carousel-section">
 				<div className="carousel-top-bar" ref={containerRef}>
-					<p className="carousel-top-bar-title">Discovered Movies</p>
+					<p className="carousel-top-bar-title">Discovered Shows</p>
 				</div>
-				{movies &&
-				movies.results &&
-				movies.results.length > 0 && (
+				{shows &&
+				shows.results &&
+				shows.results.length > 0 && (
 					<div className="cards-container">
-						{movies.results.map((cur) => {
+						{shows.results.map((cur) => {
 							return (
 								<div className="card-container">
-									<MovieShowLargeCard current={cur} />
+									<MovieShowLargeCard current={cur} isShow={true} />
 								</div>
 							);
 						})}
@@ -194,4 +226,4 @@ const DiscoverMovie = () => {
 	);
 };
 
-export default DiscoverMovie;
+export default DiscoverShow;

@@ -1,14 +1,24 @@
-import theme from "../../src/theme";
+import theme from "../src/theme";
 import Link from "next/link";
-import CircularRating from "../CircularRating";
-import HeartIcon from "../icons/HeartIcon";
+import CircularRating from "./CircularRating";
+import HeartIcon from "./icons/HeartIcon";
 
-const MovieLargeCard = ({ current }) => {
-	let year = current.release_date || "";
+const MovieLargeCard = ({ current, isShow }) => {
+	let title = current.title || current.name || "";
+
+	let year = current.release_date || current.first_air_date || "";
 	year = year.slice(0, 4);
 
-	const hrefUrl = `/movie/detail/[pid]`;
-	const asUrl = `/movie/detail/${current.id}`;
+	let hrefUrl = "";
+	let asUrl = "";
+
+	if (isShow) {
+		hrefUrl = `/show/detail/[tid]`;
+		asUrl = `/show/detail/${current.id}`;
+	} else {
+		hrefUrl = `/movie/detail/[pid]`;
+		asUrl = `/movie/detail/${current.id}`;
+	}
 
 	let overview = current.overview || false;
 
@@ -34,7 +44,7 @@ const MovieLargeCard = ({ current }) => {
 						/>
 					</div>
 					<div className="movie-info-container">
-						<h2 className="movie-title">{current.title}</h2>
+						<h2 className="movie-title">{title}</h2>
 						<p className="movie-year-votes">
 							{year}
 							{numOfVotes && ` - ${numOfVotes} Votes`}
@@ -98,6 +108,7 @@ const MovieLargeCard = ({ current }) => {
                 .movie-title{
                     width: 70%;
                     margin-bottom: .7rem;
+					font-weight: bold;
                 }
 
                 .movie-year-votes{

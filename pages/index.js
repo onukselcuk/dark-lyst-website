@@ -6,18 +6,30 @@ import HeroMovieContainer from "../components/HeroMovieContainer";
 import CarouselContainer from "../components/CarouselContainer";
 import theme from "../src/theme";
 import PeopleCard from "../components/PeopleCard";
+import Link from "next/link";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
 	const [ movies, setMovies ] = useState();
 	const [ heroMovies, setHeroMovies ] = useState();
 	const [ people, setPeople ] = useState();
+	const [ netflix, setNetflix ] = useState();
+	const [ apple, setApple ] = useState();
 	const { deviceType } = props;
 
 	const getLatest = () => {
 		axios.get("/api/movies/trending-hero").then((res) => {
 			setHeroMovies(res.data.results);
 		});
+
+		axios.get("/api/shows/netflix").then((res) => {
+			setNetflix(res.data.results);
+		});
+
+		axios.get("/api/shows/apple").then((res) => {
+			setApple(res.data.results);
+		});
+
 		axios.get("/api/shows/latest").then((res) => {
 			setShows(res.data.results);
 		});
@@ -68,7 +80,39 @@ const Home = (props) => {
 			</section>
 			<section className="tv-shows-section">
 				<div className="section-header-container">
-					<h2 className="section-header">TV Shows On Air</h2>
+					<Link href="/shows/[slug]" as="/shows/latest-on-netflix">
+						<a className="header-link">
+							<h2 className="section-header">Latest Shows On Netflix</h2>
+						</a>
+					</Link>
+				</div>
+				{netflix && (
+					<CarouselContainer deviceType={deviceType} isSmall={true}>
+						{netflix.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
+					</CarouselContainer>
+				)}
+			</section>
+			<section className="tv-shows-section">
+				<div className="section-header-container">
+					<Link href="/shows/[slug]" as="/shows/latest-on-apple-tv-plus">
+						<a className="header-link">
+							<h2 className="section-header">Latest Shows On Apple TV+</h2>
+						</a>
+					</Link>
+				</div>
+				{apple && (
+					<CarouselContainer deviceType={deviceType} isSmall={true}>
+						{apple.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
+					</CarouselContainer>
+				)}
+			</section>
+			<section className="tv-shows-section">
+				<div className="section-header-container">
+					<Link href="/shows/[slug]" as="/shows/on-the-air">
+						<a className="header-link">
+							<h2 className="section-header">TV Shows On Air</h2>
+						</a>
+					</Link>
 				</div>
 				{shows && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
@@ -78,7 +122,11 @@ const Home = (props) => {
 			</section>
 			<section className="tv-shows-section">
 				<div className="section-header-container">
-					<h2 className="section-header">Now Playing In Theaters</h2>
+					<Link href="/movies/[slug]" as="/movies/now-playing">
+						<a className="header-link">
+							<h2 className="section-header">Now Playing In Theaters</h2>
+						</a>
+					</Link>
 				</div>
 				{movies && (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
@@ -114,6 +162,11 @@ const Home = (props) => {
 				.section-header {
 					padding: 2rem;
 					font-size: 2.5rem;
+					color: #fff;
+				}
+
+				.header-link {
+					text-decoration: none;
 					color: #fff;
 				}
 			`}</style>

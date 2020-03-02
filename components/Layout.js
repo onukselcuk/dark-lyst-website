@@ -22,7 +22,7 @@ const Layout = (props) => {
 					box-sizing: inherit;
 					margin: 0;
 					padding: 0;
-					font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
+					font-family: Lato, -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
 				}
 
 				:global(body) {

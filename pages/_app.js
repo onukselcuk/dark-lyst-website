@@ -5,6 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import "../styles/carouselStyles.css";
 import "react-circular-progressbar/dist/styles.css";
 import "../styles/modalStyles.css";
+import "../styles/paginationStyles.css";
 
 function MyApp ({ Component, pageProps }) {
 	return (

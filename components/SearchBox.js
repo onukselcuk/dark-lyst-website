@@ -107,22 +107,9 @@ const SearchBox = (props) => {
 		}
 	};
 
-	// const downshiftOnChange = (selectedMedia, stateAndHelpers) => {
-	// 	if (selectedMedia) {
-	// 		const urls = getLinkUrls(selectedMedia);
-	// 		Router.push(urls.hrefUrl, urls.asUrl);
-	// 		stateAndHelpers.clearSelection();
-	// 		inputRef.current.blur();
-	// 	}
-	// };
-
 	return (
 		<Fragment>
-			<Downshift
-				onStateChange={onStateChange}
-				//onChange={downshiftOnChange}
-				itemToString={(item) => (item ? item.title : "")}
-			>
+			<Downshift onStateChange={onStateChange} itemToString={(item) => (item ? item.title : "")}>
 				{({
 					selectedItem,
 					getInputProps,
@@ -197,12 +184,11 @@ const SearchBox = (props) => {
 															</p>
 															{mediaType && <p>{mediaType}</p>}
 														</div>
-														{item.vote_average &&
-														item.vote_average > 2 && (
+														{item.vote_average && item.vote_average > 2 ? (
 															<div className="rating-container">
 																<CircularRating rating={item.vote_average} />
 															</div>
-														)}
+														) : null}
 													</div>
 												</a>
 											</Link>
@@ -259,6 +245,7 @@ const SearchBox = (props) => {
 					justify-content: center;
 					flex-direction: column;
 					padding: 1rem;
+					padding-left: 2rem;
 					margin-right: auto;
 				}
 
