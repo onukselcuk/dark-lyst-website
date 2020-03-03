@@ -1,9 +1,10 @@
 import { Fragment } from "react";
-import Link from "next/link";
 import CircularRating from "../CircularRating";
 import HeartIcon from "../icons/HeartIcon";
+import { connect } from "react-redux";
+import { toggleMovieHeart } from "../../store/actions/movieActions";
 
-const MovieIntro = ({ movieDetails, getGenres }) => {
+const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) => {
 	const filterProduction = (prodArr) => {
 		return prodArr.filter((cur) => cur.logo_path !== null);
 	};
@@ -18,6 +19,19 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 		: movieDetails.images.backdrops[0] ? movieDetails.images.backdrops[0].file_path : null;
 
 	const prod_countries = movieDetails.production_countries.slice(0, 3);
+
+	const genresList = getGenres(movieDetails.genres);
+
+	let isLiked;
+
+	if (movieDetails) {
+		isLiked = movieList.includes(movieDetails.id);
+	}
+
+	const handleHeart = (e) => {
+		e.preventDefault();
+		toggleMovieHeart(movieDetails.id, !isLiked);
+	};
 
 	return (
 		<Fragment>
@@ -36,18 +50,19 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 						<div className="rating-container">
 							<CircularRating rating={movieDetails.vote_average} />
 						</div>
-						<div className="heart-container">
-							<HeartIcon detail={true} />
+						<div onClick={handleHeart} className="heart-container">
+							<HeartIcon isLiked={isLiked} detail={true} />
 						</div>
 					</div>
 					<div className="movie-info-container">
 						<p className="movie-year"> {movieDetails.release_date.slice(0, 4)} </p>
 						<div className="genres-list">
-							{getGenres(movieDetails.genres).map((cur) => {
+							{genresList.map((cur, index) => {
 								return (
-									<Link key={`/movie/discover/${cur.id}`} href={`/movie/discover/${cur.id}`}>
-										<a className="genre-link">{cur.name} </a>
-									</Link>
+									<span className="genre-link" key={cur.id}>
+										{cur.name}
+										{index + 1 < genresList.length && ","}
+									</span>
 								);
 							})}
 						</div>
@@ -199,4 +214,10 @@ const MovieIntro = ({ movieDetails, getGenres }) => {
 	);
 };
 
-export default MovieIntro;
+const mapStateToProps = (state) => {
+	return {
+		movieList: state.movies.movieList
+	};
+};
+
+export default connect(mapStateToProps, { toggleMovieHeart })(MovieIntro);

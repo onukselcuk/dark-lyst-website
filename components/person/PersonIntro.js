@@ -1,9 +1,11 @@
 import { Fragment } from "react";
 import HeartIcon from "../icons/HeartIcon";
 import format from "date-fns/format";
+import { connect } from "react-redux";
+import { togglePersonHeart } from "../../store/actions/personActions";
 
-const PersonIntro = ({ personDetails, personImages }) => {
-	const getBackgroundUrlPath = (images) => {
+const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonHeart, personList }) => {
+	const getBackgroundUrlPath = (images, credits) => {
 		let url = "";
 		if (images) {
 			for (let i = 0; i < images.length; i++) {
@@ -13,6 +15,25 @@ const PersonIntro = ({ personDetails, personImages }) => {
 				}
 			}
 		}
+
+		if (credits && url === "" && credits.cast && credits.cast.length > 0) {
+			for (let i = 0; i < credits.cast.length; i++) {
+				if (credits.cast[i].backdrop_path !== (null || "")) {
+					url = credits.cast[i].backdrop_path;
+					break;
+				}
+			}
+		}
+
+		if (credits && url === "" && credits.crew && credits.crew.length > 0) {
+			for (let i = 0; i < credits.crew.length; i++) {
+				if (credits.crew[i].backdrop_path !== (null || "")) {
+					url = credits.crew[i].backdrop_path;
+					break;
+				}
+			}
+		}
+
 		return url;
 	};
 
@@ -20,6 +41,17 @@ const PersonIntro = ({ personDetails, personImages }) => {
 		let dateArrange = date.split("-");
 		let dateFormatted = format(new Date(dateArrange[0], dateArrange[1] - 1, dateArrange[2]), "MMMM do, yyyy");
 		return dateFormatted;
+	};
+
+	let isLiked;
+
+	if (personDetails) {
+		isLiked = personList.includes(personDetails.id);
+	}
+
+	const handleHeart = (e) => {
+		e.preventDefault();
+		togglePersonHeart(personDetails.id, !isLiked);
 	};
 
 	return (
@@ -36,8 +68,8 @@ const PersonIntro = ({ personDetails, personImages }) => {
 				<div className="person-detail-container">
 					<h1 className="person-name">{personDetails.name}</h1>
 					<div className="action-container">
-						<div className="heart-container">
-							<HeartIcon detail={true} />
+						<div onClick={handleHeart} className="heart-container">
+							<HeartIcon isLiked={isLiked} detail={true} />
 						</div>
 					</div>
 					<div className="person-info-container">
@@ -62,9 +94,10 @@ const PersonIntro = ({ personDetails, personImages }) => {
 				.person-hero-section {
 					width: 100%;
 					height: 70vh;
-					${personImages
+					${personImages && personCredits
 						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${getBackgroundUrlPath(
-								personImages
+								personImages,
+								personCredits
 							)}") ;`
 						: null};
 					background-size: cover;
@@ -132,4 +165,10 @@ const PersonIntro = ({ personDetails, personImages }) => {
 	);
 };
 
-export default PersonIntro;
+const mapStateToProps = (state) => {
+	return {
+		personList: state.people.personList
+	};
+};
+
+export default connect(mapStateToProps, { togglePersonHeart })(PersonIntro);

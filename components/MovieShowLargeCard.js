@@ -2,8 +2,11 @@ import theme from "../src/theme";
 import Link from "next/link";
 import CircularRating from "./CircularRating";
 import HeartIcon from "./icons/HeartIcon";
+import { connect } from "react-redux";
+import { toggleMovieHeart } from "../store/actions/movieActions";
+import { toggleShowHeart } from "../store/actions/showActions";
 
-const MovieLargeCard = ({ current, isShow }) => {
+const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	let title = current.title || current.name || "";
 
 	let year = current.release_date || current.first_air_date || "";
@@ -28,8 +31,22 @@ const MovieLargeCard = ({ current, isShow }) => {
 
 	let numOfVotes = current.vote_count || false;
 
+	let isLiked;
+	if (current) {
+		if (isShow) {
+			isLiked = showList.includes(current.id);
+		} else {
+			isLiked = movieList.includes(current.id);
+		}
+	}
+
 	const handleHeart = (e) => {
 		e.preventDefault();
+		if (isShow) {
+			toggleShowHeart(current.id, !isLiked);
+		} else {
+			toggleMovieHeart(current.id, !isLiked);
+		}
 	};
 
 	return (
@@ -55,7 +72,7 @@ const MovieLargeCard = ({ current, isShow }) => {
 								<CircularRating rating={current.vote_average} />
 							</div>
 							<div onClick={handleHeart} className="heart-container">
-								<HeartIcon detail={true} />
+								<HeartIcon isLiked={isLiked} detail={true} />
 							</div>
 						</div>
 					</div>
@@ -142,4 +159,11 @@ const MovieLargeCard = ({ current, isShow }) => {
 	);
 };
 
-export default MovieLargeCard;
+const mapStateToProps = (state) => {
+	return {
+		movieList: state.movies.movieList,
+		showList: state.shows.showList
+	};
+};
+
+export default connect(mapStateToProps, { toggleMovieHeart, toggleShowHeart })(MovieLargeCard);

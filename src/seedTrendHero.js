@@ -1,51 +1,9 @@
 module.exports = {
 	results: [
 		{
-			id: 496243,
-			video: true,
-			vote_count: 4395,
-			vote_average: 8.6,
-			title: "Parasite",
-			release_date: "2019-05-30",
-			original_language: "ko",
-			original_title: "기생충",
-			genre_ids: [ 35, 18, 53 ],
-			backdrop_path: "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
-			adult: false,
-			overview:
-				"All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
-			poster_path: "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
-			popularity: 238.92,
-			media_type: "movie",
-			videos: [
-				{
-					id: "5d5446ef55c92600162572e3",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "isOGD_7hNIY",
-					name: "Parasite [Official Trailer] – In Theaters October 11, 2019",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				},
-				{
-					id: "5dfdc9799824c80017df2566",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "PhPROyE0OaM",
-					name: "Parasite [Trailer 2] – Now Playing in New York & Los Angeles.",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				}
-			]
-		},
-		{
 			id: 330457,
 			video: true,
-			vote_count: 2440,
+			vote_count: 2591,
 			vote_average: 7,
 			title: "Frozen II",
 			release_date: "2019-11-20",
@@ -56,8 +14,8 @@ module.exports = {
 			adult: false,
 			overview:
 				"Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.",
-			poster_path: "/h6Wi81XNXCjTAcdstiCLRykN3Pa.jpg",
-			popularity: 125.845,
+			poster_path: "/pjeMs3yqRmFL3giJy4PMXWZTTPa.jpg",
+			popularity: 127.227,
 			media_type: "movie",
 			videos: [
 				{
@@ -85,9 +43,93 @@ module.exports = {
 			]
 		},
 		{
+			id: 496243,
+			video: true,
+			vote_count: 4728,
+			vote_average: 8.6,
+			title: "Parasite",
+			release_date: "2019-05-30",
+			original_language: "ko",
+			original_title: "기생충",
+			genre_ids: [ 35, 18, 53 ],
+			backdrop_path: "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+			adult: false,
+			overview:
+				"All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
+			poster_path: "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+			popularity: 176.819,
+			media_type: "movie",
+			videos: [
+				{
+					id: "5d5446ef55c92600162572e3",
+					iso_639_1: "en",
+					iso_3166_1: "US",
+					key: "isOGD_7hNIY",
+					name: "Parasite [Official Trailer] – In Theaters October 11, 2019",
+					site: "YouTube",
+					size: 1080,
+					type: "Trailer",
+					maxres: true
+				},
+				{
+					id: "5dfdc9799824c80017df2566",
+					iso_639_1: "en",
+					iso_3166_1: "US",
+					key: "PhPROyE0OaM",
+					name: "Parasite [Trailer 2] – Now Playing in New York & Los Angeles.",
+					site: "YouTube",
+					size: 1080,
+					type: "Trailer",
+					maxres: true
+				}
+			]
+		},
+		{
+			id: 512200,
+			video: true,
+			vote_count: 1864,
+			vote_average: 6.8,
+			title: "Jumanji: The Next Level",
+			release_date: "2019-12-04",
+			original_language: "en",
+			original_title: "Jumanji: The Next Level",
+			genre_ids: [ 28, 12, 35, 14 ],
+			backdrop_path: "/hreiLoPysWG79TsyQgMzFKaOTF5.jpg",
+			adult: false,
+			overview:
+				"As the gang return to Jumanji to rescue one of their own, they discover that nothing is as they expect. The players will have to brave parts unknown and unexplored in order to escape the world’s most dangerous game.",
+			poster_path: "/bB42KDdfWkOvmzmYkmK58ZlCa9P.jpg",
+			popularity: 233.733,
+			media_type: "movie",
+			videos: [
+				{
+					id: "5d1a1a9b30aa3163c6c5fe57",
+					iso_639_1: "en",
+					iso_3166_1: "US",
+					key: "rBxcF-r9Ibs",
+					name: "JUMANJI: THE NEXT LEVEL - Official Trailer (HD)",
+					site: "YouTube",
+					size: 1080,
+					type: "Trailer",
+					maxres: true
+				},
+				{
+					id: "5dbaf20c0792e100134ac14d",
+					iso_639_1: "en",
+					iso_3166_1: "US",
+					key: "F6QaLsw8EWY",
+					name: "JUMANJI: THE NEXT LEVEL - Final Trailer (HD)",
+					site: "YouTube",
+					size: 1080,
+					type: "Trailer",
+					maxres: false
+				}
+			]
+		},
+		{
 			id: 546554,
 			video: true,
-			vote_count: 2294,
+			vote_count: 2469,
 			vote_average: 7.8,
 			title: "Knives Out",
 			release_date: "2019-11-27",
@@ -99,7 +141,7 @@ module.exports = {
 			overview:
 				"When renowned crime novelist Harlan Thrombey is found dead at his estate just after his 85th birthday, the inquisitive and debonair Detective Benoit Blanc is mysteriously enlisted to investigate. From Harlan's dysfunctional family to his devoted staff, Blanc sifts through a web of red herrings and self-serving lies to uncover the truth behind Harlan's untimely death.",
 			poster_path: "/pThyQovXQrw2m0s9x82twj48Jq4.jpg",
-			popularity: 129.147,
+			popularity: 108.054,
 			media_type: "movie",
 			videos: [
 				{
@@ -127,104 +169,29 @@ module.exports = {
 			]
 		},
 		{
-			id: 290859,
+			id: 458897,
 			video: true,
-			vote_count: 1515,
-			vote_average: 6.2,
-			title: "Terminator: Dark Fate",
-			release_date: "2019-10-23",
+			vote_count: 547,
+			vote_average: 6.4,
+			title: "Charlie's Angels",
+			release_date: "2019-11-14",
 			original_language: "en",
-			original_title: "Terminator: Dark Fate",
-			genre_ids: [ 28, 878 ],
-			backdrop_path: "/riTANvQ8GKmQbgtC1ps3OfkU43A.jpg",
+			original_title: "Charlie's Angels",
+			genre_ids: [ 28, 12, 35 ],
+			backdrop_path: "/a0xTB1vBxMGt6LGG4N7k1wO9lfL.jpg",
 			adult: false,
 			overview:
-				"Decades after Sarah Connor prevented Judgment Day, a lethal new Terminator is sent to eliminate the future leader of the resistance. In a fight to save mankind, battle-hardened Sarah Connor teams up with an unexpected ally and an enhanced super soldier to stop the deadliest Terminator yet.",
-			poster_path: "/vqzNJRH4YyquRiWxCCOH0aXggHI.jpg",
-			popularity: 88.67,
+				"When a systems engineer blows the whistle on a dangerous technology, Charlie's Angels from across the globe are called into action, putting their lives on the line to protect society.",
+			poster_path: "/1DPUFG6QnGqzpvEaDEv7TaepycM.jpg",
+			popularity: 110.74,
 			media_type: "movie",
 			videos: [
 				{
-					id: "5ce69e9ac3a368536b21298a",
+					id: "5d14cb82af58cb0030b71989",
 					iso_639_1: "en",
 					iso_3166_1: "US",
-					key: "8CjYw1hARhY",
-					name: "TERMINATOR DARK FATE | OFFICIAL HD TRAILER #1 | 2019",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				},
-				{
-					id: "5d693fd2b7fbbd3b3512985d",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "oxy8udgWRmo",
-					name: "Terminator: Dark Fate - Official Trailer (2019) - Paramount Pictures",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				},
-				{
-					id: "5da8898d70309f0016661faa",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "jCyEX6u-Yhs",
-					name: "Terminator: Dark Fate - Official Teaser Trailer (2019) - Paramount Pictures",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				},
-				{
-					id: "5daa998a223a8b001855765c",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "UqxnFHoKwzE",
-					name: "Terminator: Dark Fate (2019) - Extended Red Band TV Spot - Paramount Pictures",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				}
-			]
-		},
-		{
-			id: 359724,
-			video: true,
-			vote_count: 1640,
-			vote_average: 7.8,
-			title: "Ford v Ferrari",
-			release_date: "2019-11-13",
-			original_language: "en",
-			original_title: "Ford v Ferrari",
-			genre_ids: [ 28, 18 ],
-			backdrop_path: "/n3UanIvmnBlH531pykuzNs4LbH6.jpg",
-			adult: false,
-			overview:
-				"American car designer Carroll Shelby and the British-born driver Ken Miles work together to battle corporate interference, the laws of physics, and their own personal demons to build a revolutionary race car for Ford Motor Company and take on the dominating race cars of Enzo Ferrari at the 24 Hours of Le Mans in France in 1966.",
-			poster_path: "/6ApDtO7xaWAfPqfi2IARXIzj8QS.jpg",
-			popularity: 76.481,
-			media_type: "movie",
-			videos: [
-				{
-					id: "5cf4c8b0c3a36853571e62bb",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "zyYgDtY2AMY",
-					name: "FORD v FERRARI | Official Trailer [HD] | 20th Century FOX",
-					site: "YouTube",
-					size: 1080,
-					type: "Trailer",
-					maxres: true
-				},
-				{
-					id: "5d7e39bf2866fa04723891e8",
-					iso_639_1: "en",
-					iso_3166_1: "US",
-					key: "I3h9Z89U9ZA",
-					name: "FORD v FERRARI | Official Trailer 2 [HD] | 20th Century FOX",
+					key: "RSUq4VfWfjE",
+					name: "CHARLIE'S ANGELS - Official Trailer (HD)",
 					site: "YouTube",
 					size: 1080,
 					type: "Trailer",

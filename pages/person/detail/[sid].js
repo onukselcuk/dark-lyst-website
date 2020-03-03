@@ -106,7 +106,11 @@ const PersonDetail = ({ sid, deviceType }) => {
 		<main>
 			{personDetails && (
 				<Fragment>
-					<PersonIntro personDetails={personDetails} personImages={personTaggedImages} />
+					<PersonIntro
+						personDetails={personDetails}
+						personImages={personTaggedImages}
+						personCredits={personCombinedCredits}
+					/>
 					{personTaggedImages &&
 					personTaggedImages.length > 0 && (
 						<section className="carousel-section">

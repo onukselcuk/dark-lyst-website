@@ -28,6 +28,10 @@
 		"react-js-pagination": "^3.0.3",
 		"react-multi-carousel": "^2.5.2",
 		"react-player": "^1.15.2",
-		"react-select": "^3.0.8"
+		"react-redux": "^7.2.0",
+		"react-select": "^3.0.8",
+		"redux": "^4.0.5",
+		"redux-devtools-extension": "^2.13.8",
+		"redux-thunk": "^2.3.0"
 	}
 }

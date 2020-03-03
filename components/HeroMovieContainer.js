@@ -10,6 +10,12 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 		setShow(true);
 	};
 
+	const handlePictureError = (e, url) => {
+		console.log(url);
+		e.target.src = url;
+		e.target.onerror = null;
+	};
+
 	return (
 		<div className="hero-movie-container">
 			{isHero && (
@@ -19,11 +25,13 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 			)}
 			<div className="video-thumbnail-container" onClick={handleShow}>
 				<div className="top-backdrop" />
+
 				<img
 					className="video-thumbnail"
 					src={thumbnailUrl}
 					alt={`${cur.title || cur.name} Youtube Video Thumbnail`}
 				/>
+
 				{!isGallery && (
 					<div className="play-icon-container">
 						<PlayIcon />

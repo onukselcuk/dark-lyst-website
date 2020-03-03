@@ -2,8 +2,11 @@ import { Fragment } from "react";
 import HeartIcon from "./icons/HeartIcon";
 import Link from "next/link";
 import CircularRating from "./CircularRating";
+import { connect } from "react-redux";
+import { toggleMovieHeart } from "../store/actions/movieActions";
+import { toggleShowHeart } from "../store/actions/showActions";
 
-const MovieShowCard = ({ cur, isHero, isShow, isProfile }) => {
+const MovieShowCard = ({ cur, isHero, isShow, isProfile, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	// const url = `https://image.tmdb.org/t/p/${isHero ? "w400" : "w300"}${cur.poster_path}`;
 	const url = `https://cdn.onukselcuk.com/${isHero ? "w342" : "w300"}${cur.poster_path}`;
 	let title = cur.name || cur.title;
@@ -23,9 +26,21 @@ const MovieShowCard = ({ cur, isHero, isShow, isProfile }) => {
 		asLink = `/movie/detail/${cur.id}`;
 	}
 
+	let isLiked;
+
+	if (isShow) {
+		isLiked = showList.includes(cur.id);
+	} else if (!isShow) {
+		isLiked = movieList.includes(cur.id);
+	}
+
 	const handleHeart = (e) => {
 		e.preventDefault();
-		alert("clicked");
+		if (isShow) {
+			toggleShowHeart(cur.id, !isLiked);
+		} else if (!isShow) {
+			toggleMovieHeart(cur.id, !isLiked);
+		}
 	};
 
 	let date;
@@ -75,7 +90,7 @@ const MovieShowCard = ({ cur, isHero, isShow, isProfile }) => {
 					</div>
 
 					<div onClick={handleHeart} className="heart-container">
-						<HeartIcon />
+						<HeartIcon isLiked={isLiked} />
 					</div>
 				</div>
 				<style jsx>{`
@@ -192,4 +207,11 @@ const MovieShowCard = ({ cur, isHero, isShow, isProfile }) => {
 	);
 };
 
-export default MovieShowCard;
+const mapStateToProps = (state) => {
+	return {
+		movieList: state.movies.movieList,
+		showList: state.shows.showList
+	};
+};
+
+export default connect(mapStateToProps, { toggleMovieHeart, toggleShowHeart })(MovieShowCard);

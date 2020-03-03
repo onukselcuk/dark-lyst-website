@@ -62,6 +62,7 @@ const Home = (props) => {
 								const filteredVideoArray = filterVideos(cur.videos);
 								const chosenVideoObj = filteredVideoArray[filteredVideoArray.length - 1];
 								const thumbnailUrl = `https://i.ytimg.com/vi/${chosenVideoObj.key}/maxresdefault.jpg`;
+
 								return (
 									<HeroMovieContainer
 										key={`hero-movie-container ${cur.title}`}

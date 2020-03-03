@@ -1,9 +1,10 @@
 import { Fragment } from "react";
-import Link from "next/link";
 import CircularRating from "../CircularRating";
 import HeartIcon from "../icons/HeartIcon";
+import { toggleShowHeart } from "../../store/actions/showActions";
+import { connect } from "react-redux";
 
-const ShowIntro = ({ showDetails, getGenres }) => {
+const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 	const filterProduction = (prodArr) => {
 		return prodArr.filter((cur) => cur.logo_path !== null);
 	};
@@ -25,6 +26,17 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 
 	const genresList = getGenres(showDetails.genres);
 
+	let isLiked;
+
+	if (showDetails) {
+		isLiked = showList.includes(showDetails.id);
+	}
+
+	const handleHeart = (e) => {
+		e.preventDefault();
+		toggleShowHeart(showDetails.id, !isLiked);
+	};
+
 	return (
 		<Fragment>
 			<section className="show-hero-section" />
@@ -42,8 +54,8 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 						<div className="rating-container">
 							<CircularRating rating={showDetails.vote_average} />
 						</div>
-						<div className="heart-container">
-							<HeartIcon detail={true} />
+						<div onClick={handleHeart} className="heart-container">
+							<HeartIcon detail={true} isLiked={isLiked} />
 						</div>
 					</div>
 					<div className="show-info-container">
@@ -57,12 +69,10 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 						<div className="genres-list">
 							{genresList.map((cur, index) => {
 								return (
-									<Link key={`/show/discover/${cur.id}`} href={`/show/discover/${cur.id}`}>
-										<a className="genre-link">
-											{cur.name}
-											{index + 1 < genresList.length && ","}
-										</a>
-									</Link>
+									<span key={cur.id} className="genre-link">
+										{cur.name}
+										{index + 1 < genresList.length && ","}
+									</span>
 								);
 							})}
 						</div>
@@ -210,4 +220,10 @@ const ShowIntro = ({ showDetails, getGenres }) => {
 	);
 };
 
-export default ShowIntro;
+const mapStateToProps = (state) => {
+	return {
+		showList: state.shows.showList
+	};
+};
+
+export default connect(mapStateToProps, { toggleShowHeart })(ShowIntro);
