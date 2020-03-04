@@ -1,0 +1,37 @@
+.sign-up-form .form-label {
+	font-size: 1.8rem;
+}
+
+.sign-up-form .form-control {
+	font-size: 2.3rem;
+	background-color: rgba(0, 0, 0, .4);
+	color: #fff;
+}
+
+.sign-up-form .form-control:active {
+	background-color: rgba(0, 0, 0, .4);
+	color: #fff;
+}
+
+.sign-up-form .btn {
+	margin-top: 1rem;
+	font-size: 2.4rem;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, .4);
+	border: none;
+	padding: 1rem 3rem;
+}
+
+.sign-up-form .btn:hover {
+	background-color: rgba(0, 0, 0, .6);
+}
+
+.sign-up-form .btn:active {
+	background-color: white !important;
+	color: black !important;
+}
+
+.sign-up-form .button-container {
+	display: flex;
+	justify-content: center;
+}

@@ -6,6 +6,7 @@ import "../styles/carouselStyles.css";
 import "react-circular-progressbar/dist/styles.css";
 import "../styles/modalStyles.css";
 import "../styles/paginationStyles.css";
+import "../styles/formStyles.css";
 import { Provider } from "react-redux";
 import store from "../store/store";
 

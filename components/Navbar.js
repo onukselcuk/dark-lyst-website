@@ -26,12 +26,12 @@ const Navbar = () => (
 					</Link>
 				</li>
 				<li className="navbar-link-item">
-					<Link href="/">
+					<Link href="/sign-up">
 						<a className="navbar-anchor-link">Sign Up</a>
 					</Link>
 				</li>
 				<li className="navbar-link-item">
-					<Link href="/">
+					<Link href="/login">
 						<a className="navbar-anchor-link">Login</a>
 					</Link>
 				</li>
