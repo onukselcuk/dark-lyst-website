@@ -10,7 +10,7 @@ import Router from "next/router";
 import Link from "next/link";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import loaderStyles from "../styles/loader.module.css";
-import CircularRating from "./CircularRating";
+import CircularRating from "./icons/CircularRating";
 
 const SearchBox = (props) => {
 	const [ movies, setMovies ] = useState([]);

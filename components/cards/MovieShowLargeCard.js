@@ -1,10 +1,10 @@
-import theme from "../src/theme";
+import theme from "../../src/theme";
 import Link from "next/link";
-import CircularRating from "./CircularRating";
-import HeartIcon from "./icons/HeartIcon";
+import CircularRating from "../icons/CircularRating";
+import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
-import { toggleMovieHeart } from "../store/actions/movieActions";
-import { toggleShowHeart } from "../store/actions/showActions";
+import { toggleMovieHeart } from "../../store/actions/movieActions";
+import { toggleShowHeart } from "../../store/actions/showActions";
 
 const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	let title = current.title || current.name || "";

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import CircularRating from "../CircularRating";
+import CircularRating from "../icons/CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 import { toggleShowHeart } from "../../store/actions/showActions";
 import { connect } from "react-redux";

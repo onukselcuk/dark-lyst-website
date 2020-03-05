@@ -1,31 +1,31 @@
 import { Fragment } from "react";
 import theme from "../src/theme";
-import SignUpForm from "../components/forms/SignUpForm";
+import LoginForm from "../components/forms/LoginForm";
 import Link from "next/link";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
 
-const SignUp = ({ isRegisterLoading }) => {
+const Login = ({ isLoginLoading }) => {
 	return (
 		<main>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
-					<p className="carousel-top-bar-title">Sign Up</p>
+					<p className="carousel-top-bar-title">Login</p>
 				</div>
-				{isRegisterLoading ? (
+				{isLoginLoading ? (
 					<div className="loader-container">
 						<div className={loaderStyles.loader}>Loading...</div>
 					</div>
 				) : (
 					<Fragment>
 						<div className="form-container">
-							<SignUpForm />
+							<LoginForm />
 						</div>
 						<div className="redirect-container">
 							<p className="sub-button-note">
-								If you already have an account,&nbsp;
-								<Link href="/login">
-									<a>Login</a>
+								If you don't have an account,&nbsp;
+								<Link href="/sign-up">
+									<a>Sign up</a>
 								</Link>
 							</p>
 						</div>
@@ -76,7 +76,7 @@ const SignUp = ({ isRegisterLoading }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		isRegisterLoading: state.auth.isRegisterLoading
+		isLoginLoading: state.auth.isLoginLoading
 	};
 };
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(Login);

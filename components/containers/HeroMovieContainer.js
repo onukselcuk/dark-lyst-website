@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MovieShowCard from "./MovieShowCard";
-import PlayIcon from "./icons/PlayIcon";
-import VideoImageModal from "./VideoImageModal";
+import MovieShowCard from "../cards/MovieShowCard";
+import PlayIcon from "../icons/PlayIcon";
+import VideoImageModal from "../modals/VideoImageModal";
 
 const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery, isShow, isProfile }) => {
 	const [ show, setShow ] = useState(false);

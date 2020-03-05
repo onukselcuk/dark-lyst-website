@@ -6,13 +6,15 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import * as yup from "yup";
 import ReCAPTCHA from "react-google-recaptcha";
+import { connect } from "react-redux";
+import { registerUser } from "../../store/actions/authActions";
 
 const schema = yup.object({
 	name: yup.string().required("Name is required"),
 	email: yup.string().email("Email is invalid").required("Email is required"),
 	password: yup
 		.string()
-		.min(2, "Password must be at least 8 characters")
+		.min(8, "Password must be at least 8 characters")
 		.max(32, "Password cannot be longer than 32 characters")
 		.required("Password is required"),
 	confirm: yup
@@ -22,7 +24,7 @@ const schema = yup.object({
 	recaptcha: yup.string().required("Recaptcha is required")
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ registerUser, isAuthenticated }) => {
 	const recaptchaRef = useRef(null);
 
 	const executeCaptcha = function () {
@@ -34,7 +36,7 @@ const SignUpForm = () => {
 	};
 
 	const handleFormSubmit = (response) => {
-		console.log(response);
+		registerUser(response);
 	};
 
 	return (
@@ -170,4 +172,10 @@ const SignUpForm = () => {
 	);
 };
 
-export default SignUpForm;
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.isAuthenticated
+	};
+};
+
+export default connect(mapStateToProps, { registerUser })(SignUpForm);

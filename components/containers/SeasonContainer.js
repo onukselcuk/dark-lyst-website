@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import loadable from "@loadable/component";
 
-const LazyModal = loadable(() => import("./SeasonModal"));
+const LazyModal = loadable(() => import("../modals/SeasonModal"));
 
 const SeasonContainer = ({ cur, showId, showDetails }) => {
 	const [ show, setShow ] = useState(false);

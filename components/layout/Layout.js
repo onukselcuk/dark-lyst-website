@@ -1,13 +1,32 @@
 import Navbar from "./Navbar";
 import { Fragment } from "react";
-import theme from "../src/theme";
+import theme from "../../src/theme";
 import Footer from "./Footer";
+import Alert from "react-bootstrap/Alert";
+import { connect } from "react-redux";
 
-const Layout = (props) => {
+const Layout = ({ alerts, children }) => {
+	// const alerts = [
+	// 	{ id: 1, msg: "test", alertType: "danger" },
+	// 	{ id: 2, msg: "test", alertType: "primary" },
+	// 	{ id: 3, msg: "test", alertType: "secondary" },
+	// 	{ id: 4, msg: "test", alertType: "warning" },
+	// 	{ id: 5, msg: "Lorem asdfasdfasdf asdfasdfasdfasfasdf asdfasdfasdfasdfasdf asdfasdf", alertType: "success" }
+	// ];
+
 	return (
 		<Fragment>
 			<Navbar />
-			<div className="root">{props.children}</div>
+			<div className="alert-container">
+				{alerts !== null &&
+					alerts.length > 0 &&
+					alerts.map((cur) => (
+						<Alert key={cur.id} variant={cur.alertType}>
+							<p>{cur.msg}</p>
+						</Alert>
+					))}
+			</div>
+			<div className="root">{children}</div>
 			<Footer />
 			<style jsx>{`
 				:global(html) {
@@ -51,9 +70,20 @@ const Layout = (props) => {
 				.root {
 					min-height: calc(100vh - 180px);
 				}
+
+				.alert-container {
+					width: 75%;
+					margin: 2rem auto;
+				}
 			`}</style>
 		</Fragment>
 	);
 };
 
-export default Layout;
+const mapStateToProps = (state) => {
+	return {
+		alerts: state.alerts
+	};
+};
+
+export default connect(mapStateToProps)(Layout);

@@ -1,11 +1,11 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import MovieIntro from "../../../components/movie/MovieIntro";
-import MovieShowCredits from "../../../components/MovieShowCredits";
-import MovieShowCard from "../../../components/MovieShowCard";
+import MovieShowCredits from "../../../components/credits/MovieShowCredits";
+import MovieShowCard from "../../../components/cards/MovieShowCard";
 import MobileDetect from "mobile-detect";
-import HeroMovieContainer from "../../../components/HeroMovieContainer";
-import CarouselContainer from "../../../components/CarouselContainer";
+import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
+import CarouselContainer from "../../../components/containers/CarouselContainer";
 import theme from "../../../src/theme";
 
 const MovieDetail = ({ pid, deviceType }) => {

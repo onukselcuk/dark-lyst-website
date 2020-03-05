@@ -11,9 +11,14 @@ const showRoutes = require("./routes/api/showRoutes");
 const personRoutes = require("./routes/api/personRoutes");
 const searchRoutes = require("./routes/api/searchRoutes");
 const discoverRoutes = require("./routes/api/discoverRoutes");
+const authRoutes = require("./routes/api/authRoutes");
+const connectDB = require("./config/db");
+
+connectDB();
 
 app.prepare().then(() => {
 	const server = express();
+	server.use(express.json({ extended: false }));
 	server.use("/api/shows", showsRoutes);
 	server.use("/api/movies", moviesRoutes);
 	server.use("/api/movie", movieRoutes);
@@ -21,6 +26,7 @@ app.prepare().then(() => {
 	server.use("/api/person", personRoutes);
 	server.use("/api/search", searchRoutes);
 	server.use("/api/discover", discoverRoutes);
+	server.use("/api/auth", authRoutes);
 
 	server.get("*", (req, res) => {
 		return handle(req, res);

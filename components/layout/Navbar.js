@@ -1,9 +1,11 @@
-import React from "react";
+import { Fragment } from "react";
 import Link from "next/link";
-import theme from "../src/theme";
-import SearchBox from "./SearchBox";
+import theme from "../../src/theme";
+import SearchBox from "../SearchBox";
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/authActions";
 
-const Navbar = () => (
+const Navbar = ({ isAuthenticated, logout }) => (
 	<header className="header">
 		<nav className="navbar">
 			<ul className="navbar-list navbar-first">
@@ -25,16 +27,26 @@ const Navbar = () => (
 						<a className="navbar-anchor-link">Watchlist</a>
 					</Link>
 				</li>
-				<li className="navbar-link-item">
-					<Link href="/sign-up">
-						<a className="navbar-anchor-link">Sign Up</a>
-					</Link>
-				</li>
-				<li className="navbar-link-item">
-					<Link href="/login">
-						<a className="navbar-anchor-link">Login</a>
-					</Link>
-				</li>
+				{isAuthenticated ? (
+					<li className="navbar-link-item">
+						<a onClick={logout} className="navbar-anchor-link">
+							Logout
+						</a>
+					</li>
+				) : (
+					<Fragment>
+						<li className="navbar-link-item">
+							<Link href="/sign-up">
+								<a className="navbar-anchor-link">Sign Up</a>
+							</Link>
+						</li>
+						<li className="navbar-link-item">
+							<Link href="/login">
+								<a className="navbar-anchor-link">Login</a>
+							</Link>
+						</li>
+					</Fragment>
+				)}
 			</ul>
 		</nav>
 		<style jsx>{`
@@ -80,4 +92,10 @@ const Navbar = () => (
 	</header>
 );
 
-export default Navbar;
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.isAuthenticated
+	};
+};
+
+export default connect(mapStateToProps, { logout })(Navbar);

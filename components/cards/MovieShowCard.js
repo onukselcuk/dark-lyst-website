@@ -1,10 +1,10 @@
 import { Fragment } from "react";
-import HeartIcon from "./icons/HeartIcon";
+import HeartIcon from "../icons/HeartIcon";
 import Link from "next/link";
-import CircularRating from "./CircularRating";
+import CircularRating from "../icons/CircularRating";
 import { connect } from "react-redux";
-import { toggleMovieHeart } from "../store/actions/movieActions";
-import { toggleShowHeart } from "../store/actions/showActions";
+import { toggleMovieHeart } from "../../store/actions/movieActions";
+import { toggleShowHeart } from "../../store/actions/showActions";
 
 const MovieShowCard = ({ cur, isHero, isShow, isProfile, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	// const url = `https://image.tmdb.org/t/p/${isHero ? "w400" : "w300"}${cur.poster_path}`;

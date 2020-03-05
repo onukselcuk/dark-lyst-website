@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import CreditContainer from "./CreditContainer";
-import theme from "../src/theme";
-import SeasonsContainer from "./SeasonsContainer";
-import CarouselContainer from "./CarouselContainer";
+import theme from "../../src/theme";
+import SeasonsContainer from "../containers/SeasonsContainer";
+import CarouselContainer from "../containers/CarouselContainer";
 
 const MovieShowCredits = ({ getDirector, movieCredits, deviceType, showDetails, isShow }) => {
 	const [ seasonBarState, setSeasonBarState ] = useState(false);

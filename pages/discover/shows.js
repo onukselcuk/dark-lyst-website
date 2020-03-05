@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import theme from "../../src/theme";
 import ShowDiscoverForm from "../../components/show/ShowDiscoverForm";
-import MovieShowLargeCard from "../../components/MovieShowLargeCard";
+import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 
 const DiscoverShow = () => {

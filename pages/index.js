@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MobileDetect from "mobile-detect";
-import MovieShowCard from "../components/MovieShowCard";
-import HeroMovieContainer from "../components/HeroMovieContainer";
-import CarouselContainer from "../components/CarouselContainer";
+import MovieShowCard from "../components/cards/MovieShowCard";
+import HeroMovieContainer from "../components/containers/HeroMovieContainer";
+import CarouselContainer from "../components/containers/CarouselContainer";
 import theme from "../src/theme";
-import PeopleCard from "../components/PeopleCard";
+import PeopleCard from "../components/cards/PeopleCard";
 import Link from "next/link";
 
 const Home = (props) => {

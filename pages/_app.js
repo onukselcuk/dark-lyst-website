@@ -1,5 +1,5 @@
 //import App from "next/app";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import "../styles/carouselStyles.css";
@@ -7,10 +7,22 @@ import "react-circular-progressbar/dist/styles.css";
 import "../styles/modalStyles.css";
 import "../styles/paginationStyles.css";
 import "../styles/formStyles.css";
+import "../styles/alertStyles.css";
 import { Provider } from "react-redux";
 import store from "../store/store";
+import { loadUser } from "../store/actions/authActions";
+import { useEffect } from "react";
+import setAuthToken from "../utils/setAuthToken";
 
 function MyApp ({ Component, pageProps }) {
+	if (typeof localStorage !== "undefined") {
+		setAuthToken(localStorage.token);
+	}
+
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
+
 	return (
 		<Provider store={store}>
 			<Layout>
