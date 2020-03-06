@@ -29,17 +29,17 @@ const MovieShowCard = ({ cur, isHero, isShow, isProfile, movieList, showList, to
 	let isLiked;
 
 	if (isShow) {
-		isLiked = showList.includes(cur.id);
+		isLiked = showList.some((current) => current.tmdbId === cur.id);
 	} else if (!isShow) {
-		isLiked = movieList.includes(cur.id);
+		isLiked = movieList.some((current) => current.tmdbId === cur.id);
 	}
 
 	const handleHeart = (e) => {
 		e.preventDefault();
 		if (isShow) {
-			toggleShowHeart(cur.id, !isLiked);
+			toggleShowHeart(cur, !isLiked);
 		} else if (!isShow) {
-			toggleMovieHeart(cur.id, !isLiked);
+			toggleMovieHeart(cur, !isLiked);
 		}
 	};
 

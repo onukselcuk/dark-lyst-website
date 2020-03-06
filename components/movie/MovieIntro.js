@@ -25,12 +25,12 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 	let isLiked;
 
 	if (movieDetails) {
-		isLiked = movieList.includes(movieDetails.id);
+		isLiked = movieList.some((current) => current.tmdbId === movieDetails.id);
 	}
 
 	const handleHeart = (e) => {
 		e.preventDefault();
-		toggleMovieHeart(movieDetails.id, !isLiked);
+		toggleMovieHeart(movieDetails, !isLiked);
 	};
 
 	return (

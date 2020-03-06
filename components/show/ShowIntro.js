@@ -29,12 +29,12 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 	let isLiked;
 
 	if (showDetails) {
-		isLiked = showList.includes(showDetails.id);
+		isLiked = showList.some((current) => current.tmdbId === showDetails.id);
 	}
 
 	const handleHeart = (e) => {
 		e.preventDefault();
-		toggleShowHeart(showDetails.id, !isLiked);
+		toggleShowHeart(showDetails, !isLiked);
 	};
 
 	return (

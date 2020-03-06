@@ -12,10 +12,14 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import Router from "next/router";
 import { setAlert } from "./alertActions";
+import { setMovies } from "./movieActions";
+import { setShows } from "./showActions";
 
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
+	} else {
+		return;
 	}
 
 	try {
@@ -25,6 +29,10 @@ export const loadUser = () => async (dispatch) => {
 			type: USER_LOADED,
 			payload: res.data
 		});
+
+		dispatch(setMovies(res.data.movieList));
+
+		dispatch(setShows(res.data.showList));
 	} catch (error) {
 		dispatch({
 			type: LOGOUT

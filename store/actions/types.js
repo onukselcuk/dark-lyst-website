@@ -1,3 +1,6 @@
+export const SET_MOVIES = "SET_MOVIES";
+export const SET_SHOWS = "SET_SHOWS";
+export const SET_PEOPLE = "SET_PEOPLE";
 export const ADD_MOVIE_HEART = "ADD_MOVIE_HEART";
 export const REMOVE_MOVIE_HEART = "REMOVE_MOVIE_HEART";
 export const ADD_SHOW_HEART = "ADD_SHOW_HEART";

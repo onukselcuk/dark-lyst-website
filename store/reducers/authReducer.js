@@ -27,7 +27,13 @@ export default (state = initialState, action) => {
 				...state,
 				isAuthenticated: true,
 				loading: false,
-				user: payload
+				user: {
+					id: payload._id,
+					name: payload.name,
+					email: payload.email,
+					avatar: payload.avatar,
+					date: payload.date
+				}
 			};
 
 		case REGISTER_SUCCESS:

@@ -11,7 +11,10 @@ const gravatar = require("gravatar");
 router.get("/", auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id).select("-password");
-		res.json(user);
+
+		let userData = await user.populate("movieList").populate("showList").execPopulate();
+
+		res.json(userData);
 	} catch (error) {
 		console.log(error.message);
 		res.status(500).send("Server Error");
@@ -94,7 +97,8 @@ router.post(
 	"/login",
 	[
 		check("email", "Please include a valid email address").isEmail(),
-		check("password", "Password is reqired").exists()
+		check("password", "Password is reqired").exists(),
+		check("recaptcha", "Captcha code is invalid").exists()
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -102,9 +106,18 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { email, password } = req.body;
+		const { email, password, recaptcha } = req.body;
 
 		try {
+			const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env
+				.RECAPTCHA_SECRET_KEY}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+
+			const recaptchaResponse = await axios.post(recaptchaUrl);
+
+			if (!recaptchaResponse.data.success) {
+				return res.status(400).json({ errors: [ { msg: "Recaptcha token is not valid" } ] });
+			}
+
 			let user = await User.findOne({ email });
 
 			if (!user) {

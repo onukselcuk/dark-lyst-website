@@ -12,6 +12,7 @@ const personRoutes = require("./routes/api/personRoutes");
 const searchRoutes = require("./routes/api/searchRoutes");
 const discoverRoutes = require("./routes/api/discoverRoutes");
 const authRoutes = require("./routes/api/authRoutes");
+const heartRoutes = require("./routes/api/heartRoutes");
 const connectDB = require("./config/db");
 
 connectDB();
@@ -27,6 +28,7 @@ app.prepare().then(() => {
 	server.use("/api/search", searchRoutes);
 	server.use("/api/discover", discoverRoutes);
 	server.use("/api/auth", authRoutes);
+	server.use("/api/heart", heartRoutes);
 
 	server.get("*", (req, res) => {
 		return handle(req, res);

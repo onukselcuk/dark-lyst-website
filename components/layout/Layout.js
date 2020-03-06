@@ -17,15 +17,16 @@ const Layout = ({ alerts, children }) => {
 	return (
 		<Fragment>
 			<Navbar />
-			<div className="alert-container">
-				{alerts !== null &&
-					alerts.length > 0 &&
-					alerts.map((cur) => (
+			{alerts !== null &&
+			alerts.length > 0 && (
+				<div className="alert-container">
+					{alerts.map((cur) => (
 						<Alert key={cur.id} variant={cur.alertType}>
 							<p>{cur.msg}</p>
 						</Alert>
 					))}
-			</div>
+				</div>
+			)}
 			<div className="root">{children}</div>
 			<Footer />
 			<style jsx>{`

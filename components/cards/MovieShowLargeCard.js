@@ -34,18 +34,18 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 	let isLiked;
 	if (current) {
 		if (isShow) {
-			isLiked = showList.includes(current.id);
+			isLiked = showList.some((cur) => cur.tmdbId === current.id);
 		} else {
-			isLiked = movieList.includes(current.id);
+			isLiked = movieList.some((cur) => cur.tmdbId === current.id);
 		}
 	}
 
 	const handleHeart = (e) => {
 		e.preventDefault();
 		if (isShow) {
-			toggleShowHeart(current.id, !isLiked);
+			toggleShowHeart(current, !isLiked);
 		} else {
-			toggleMovieHeart(current.id, !isLiked);
+			toggleMovieHeart(current, !isLiked);
 		}
 	};
 

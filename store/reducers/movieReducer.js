@@ -1,20 +1,36 @@
-import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART } from "../actions/types";
+import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART, SET_MOVIES } from "../actions/types";
 
 const initialState = {
 	movieList: []
 };
 
 export default (state = initialState, action) => {
-	switch (action.type) {
+	const { type, payload } = action;
+
+	switch (type) {
 		case ADD_MOVIE_HEART:
+			const movieObj = {
+				tmdbId: payload.id,
+				title: payload.title,
+				posterPath: payload.poster_path,
+				voteAverage: payload.vote_average,
+				overview: payload.overview,
+				releaseDate: payload.release_date,
+				voteCount: payload.vote_count,
+				backdropPath: payload.backdrop_path
+			};
 			return {
 				...state,
-				movieList: [ ...state.movieList, action.payload ]
+				movieList: [ movieObj, ...state.movieList ]
 			};
 		case REMOVE_MOVIE_HEART:
 			return {
 				...state,
-				movieList: state.movieList.filter((cur) => cur !== action.payload)
+				movieList: state.movieList.filter((cur) => cur.tmdbId !== payload)
+			};
+		case SET_MOVIES:
+			return {
+				movieList: payload
 			};
 		default:
 			return state;

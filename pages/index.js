@@ -44,7 +44,9 @@ const Home = (props) => {
 		});
 	};
 
-	useEffect(getLatest, []);
+	useEffect(() => {
+		getLatest();
+	}, []);
 
 	const filterVideos = (videoArr) => {
 		return videoArr.filter((cur) => {
