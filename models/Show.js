@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const showSchema = new Schema({
 	tmdbId: {
-		type: String
+		type: Number
 	},
 	name: {
 		type: String

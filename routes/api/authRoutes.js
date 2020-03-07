@@ -12,7 +12,7 @@ router.get("/", auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id).select("-password");
 
-		let userData = await user.populate("movieList").populate("showList").execPopulate();
+		let userData = await user.populate("movieList").populate("showList").populate("personList").execPopulate();
 
 		res.json(userData);
 	} catch (error) {

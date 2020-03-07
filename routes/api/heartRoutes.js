@@ -4,6 +4,9 @@ const auth = require("../../middlewares/auth");
 const User = require("../../models/User");
 const Movie = require("../../models/Movie");
 const Show = require("../../models/Show");
+const Person = require("../../models/Person");
+
+// todo handle errors
 
 // add movie to user's movie list
 router.post("/movie", auth, async (req, res) => {
@@ -118,6 +121,80 @@ router.delete("/show", auth, async (req, res) => {
 		await user.save();
 
 		res.status(200).json({ success: true, msg: "Show is removed from the watchlist" });
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+// add person to user's person list
+router.post("/person", auth, async (req, res) => {
+	const {
+		profile_path,
+		id,
+		name,
+		biography,
+		birthday,
+		known_for_department,
+		deathday,
+		gender,
+		popularity,
+		place_of_birth
+	} = req.body.details;
+	const backgroundUrl = req.body.backgroundPath;
+
+	try {
+		let person = await Person.findOne({ tmdbId: id });
+
+		if (!person) {
+			person = new Person({
+				tmdbId: id,
+				name,
+				knownForDepartment: known_for_department,
+				profilePath: profile_path,
+				backdropPath: backgroundUrl,
+				biography,
+				gender,
+				birthday,
+				deathday,
+				placeOfBirth: place_of_birth,
+				popularity
+			});
+			await person.save();
+		} else {
+			person.backdropPath = backgroundUrl;
+			person.biography = biography;
+			person.deathday = deathday;
+			person.popularity = popularity;
+
+			await person.save();
+		}
+
+		const user = await User.findById(req.user.id);
+
+		user.personList.unshift(person);
+
+		await user.save();
+
+		res.status(200).json({ success: true, msg: "Person is added to watchlist" });
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+//remove person from user's person list
+router.delete("/person", auth, async (req, res) => {
+	const { personId } = req.body;
+
+	try {
+		let person = await Person.findOne({ tmdbId: personId });
+
+		let user = await User.findById(req.user.id);
+
+		user.personList = user.personList.filter((current) => current.toString() !== person.id);
+
+		await user.save();
+
+		res.status(200).json({ success: true, msg: "Person is removed from the watchlist" });
 	} catch (error) {
 		console.log(error);
 	}

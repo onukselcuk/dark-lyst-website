@@ -37,6 +37,12 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 		return url;
 	};
 
+	let backgroundUrl = "";
+
+	if (personImages && personCredits) {
+		backgroundUrl = getBackgroundUrlPath(personImages, personCredits);
+	}
+
 	const getFormattedDate = (date) => {
 		let dateArrange = date.split("-");
 		let dateFormatted = format(new Date(dateArrange[0], dateArrange[1] - 1, dateArrange[2]), "MMMM do, yyyy");
@@ -46,12 +52,12 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 	let isLiked;
 
 	if (personDetails) {
-		isLiked = personList.includes(personDetails.id);
+		isLiked = personList.some((current) => current.tmdbId === personDetails.id);
 	}
 
 	const handleHeart = (e) => {
 		e.preventDefault();
-		togglePersonHeart(personDetails.id, !isLiked);
+		togglePersonHeart(personDetails, backgroundUrl, !isLiked);
 	};
 
 	return (
@@ -95,10 +101,7 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 					width: 100%;
 					height: 70vh;
 					${personImages && personCredits
-						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${getBackgroundUrlPath(
-								personImages,
-								personCredits
-							)}") ;`
+						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${backgroundUrl}") ;`
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;

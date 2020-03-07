@@ -14,6 +14,7 @@ import Router from "next/router";
 import { setAlert } from "./alertActions";
 import { setMovies } from "./movieActions";
 import { setShows } from "./showActions";
+import { setPeople } from "./personActions";
 
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
@@ -33,6 +34,8 @@ export const loadUser = () => async (dispatch) => {
 		dispatch(setMovies(res.data.movieList));
 
 		dispatch(setShows(res.data.showList));
+
+		dispatch(setPeople(res.data.personList));
 	} catch (error) {
 		dispatch({
 			type: LOGOUT
