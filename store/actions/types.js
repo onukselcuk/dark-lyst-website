@@ -18,3 +18,6 @@ export const USER_LOADED = "USER_LOADED";
 export const LOGOUT = "LOGOUT";
 export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
+export const CLEAR_MOVIES = "CLEAR_MOVIES";
+export const CLEAR_SHOWS = "CLEAR_SHOWS";
+export const CLEAR_PEOPLE = "CLEAR_PEOPLE";

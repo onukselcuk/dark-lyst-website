@@ -1,4 +1,4 @@
-import { ADD_PERSON_HEART, REMOVE_PERSON_HEART, SET_PEOPLE } from "../actions/types";
+import { ADD_PERSON_HEART, REMOVE_PERSON_HEART, SET_PEOPLE, CLEAR_PEOPLE } from "../actions/types";
 
 const initialState = {
 	personList: []
@@ -33,6 +33,10 @@ export default (state = initialState, action) => {
 		case SET_PEOPLE:
 			return {
 				personList: payload
+			};
+		case CLEAR_PEOPLE:
+			return {
+				personList: []
 			};
 		default:
 			return state;

@@ -7,6 +7,7 @@ import CarouselContainer from "../components/containers/CarouselContainer";
 import theme from "../src/theme";
 import PeopleCard from "../components/cards/PeopleCard";
 import Link from "next/link";
+import loaderStyles from "../styles/loader.module.css";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
@@ -57,7 +58,7 @@ const Home = (props) => {
 	return (
 		<main className="root">
 			<section className="tv-shows-section">
-				{heroMovies && (
+				{heroMovies ? (
 					<CarouselContainer deviceType={deviceType} isSmall={false} isHero={true}>
 						{heroMovies.map((cur) => {
 							if (cur.videos.length > 0) {
@@ -79,6 +80,10 @@ const Home = (props) => {
 							}
 						})}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<section className="tv-shows-section">
@@ -89,10 +94,14 @@ const Home = (props) => {
 						</a>
 					</Link>
 				</div>
-				{netflix && (
+				{netflix ? (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{netflix.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<section className="tv-shows-section">
@@ -103,10 +112,14 @@ const Home = (props) => {
 						</a>
 					</Link>
 				</div>
-				{apple && (
+				{apple ? (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{apple.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<section className="tv-shows-section">
@@ -117,10 +130,14 @@ const Home = (props) => {
 						</a>
 					</Link>
 				</div>
-				{shows && (
+				{shows ? (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{shows.map((cur) => <MovieShowCard cur={cur} isShow={true} />)}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<section className="tv-shows-section">
@@ -131,20 +148,28 @@ const Home = (props) => {
 						</a>
 					</Link>
 				</div>
-				{movies && (
+				{movies ? (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{movies.map((cur) => <MovieShowCard cur={cur} isShow={false} />)}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<section className="tv-shows-section">
 				<div className="section-header-container">
 					<h2 className="section-header">Trending People</h2>
 				</div>
-				{people && (
+				{people ? (
 					<CarouselContainer deviceType={deviceType} isSmall={true}>
 						{people.map((cur) => <PeopleCard cur={cur} />)}
 					</CarouselContainer>
+				) : (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				)}
 			</section>
 			<style jsx>{`

@@ -66,7 +66,6 @@ router.get("/discover/:genreId", async (req, res) => {
 
 //* get detail of a particular season of a particular show, this is called lazily by frontend to improve performance
 router.get("/:id/season/:seasonNumber", async (req, res) => {
-	console.log(`season ${req.params.seasonNumber} is hit`);
 	const showId = req.params.id;
 	const seasonNumber = req.params.seasonNumber;
 	const movieDiscoverUrl = `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}?api_key=${process.env

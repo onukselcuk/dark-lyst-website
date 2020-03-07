@@ -7,8 +7,7 @@ import { toggleMovieHeart } from "../../store/actions/movieActions";
 import { toggleShowHeart } from "../../store/actions/showActions";
 
 const MovieShowCard = ({ cur, isHero, isShow, isProfile, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
-	// const url = `https://image.tmdb.org/t/p/${isHero ? "w400" : "w300"}${cur.poster_path}`;
-	const url = `https://cdn.onukselcuk.com/${isHero ? "w342" : "w300"}${cur.poster_path}`;
+	const url = `https://image.tmdb.org/t/p/${isHero ? "w342" : "w300"}${cur.poster_path}`;
 	let title = cur.name || cur.title;
 	if (title.length > 25) {
 		title = `${title.slice(0, 25)}...`;

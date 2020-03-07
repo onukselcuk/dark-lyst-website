@@ -6,7 +6,10 @@ import {
 	LOGIN_START,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
-	LOGOUT
+	LOGOUT,
+	CLEAR_MOVIES,
+	CLEAR_SHOWS,
+	CLEAR_PEOPLE
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
@@ -118,4 +121,7 @@ export const loginUser = (userData) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
 	dispatch({ type: LOGOUT });
+	dispatch({ type: CLEAR_MOVIES });
+	dispatch({ type: CLEAR_SHOWS });
+	dispatch({ type: CLEAR_PEOPLE });
 };

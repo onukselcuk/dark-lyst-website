@@ -1,4 +1,4 @@
-import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART, SET_MOVIES } from "../actions/types";
+import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART, SET_MOVIES, CLEAR_MOVIES } from "../actions/types";
 
 const initialState = {
 	movieList: []
@@ -31,6 +31,10 @@ export default (state = initialState, action) => {
 		case SET_MOVIES:
 			return {
 				movieList: payload
+			};
+		case CLEAR_MOVIES:
+			return {
+				movieList: []
 			};
 		default:
 			return state;

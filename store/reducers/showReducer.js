@@ -1,4 +1,4 @@
-import { ADD_SHOW_HEART, REMOVE_SHOW_HEART, SET_SHOWS } from "../actions/types";
+import { ADD_SHOW_HEART, REMOVE_SHOW_HEART, SET_SHOWS, CLEAR_SHOWS } from "../actions/types";
 
 const initialState = {
 	showList: []
@@ -31,6 +31,10 @@ export default (state = initialState, action) => {
 		case SET_SHOWS:
 			return {
 				showList: payload
+			};
+		case CLEAR_SHOWS:
+			return {
+				showList: []
 			};
 		default:
 			return state;
