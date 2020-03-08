@@ -21,6 +21,26 @@ router.get("/", auth, async (req, res) => {
 	}
 });
 
+router.get("/verify", async (req, res) => {
+	const token = req.headers.authorization;
+
+	if (!token) {
+		return res.status(401).json({ msg: "No token, authorization denied", success: false });
+	}
+
+	try {
+		await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+			if (error) {
+				res.status(401).json({ msg: "Token is not valid", success: false });
+			} else {
+				res.status(200).json({ msg: "Valid Token", success: true });
+			}
+		});
+	} catch (error) {
+		res.status(500).json({ msg: "Server Error", success: false });
+	}
+});
+
 router.post(
 	"/register",
 	[

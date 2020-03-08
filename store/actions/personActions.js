@@ -1,4 +1,4 @@
-import { ADD_PERSON_HEART, REMOVE_PERSON_HEART, SET_PEOPLE } from "./types";
+import { ADD_PERSON_HEART, REMOVE_PERSON_HEART, SET_PEOPLE, LOGOUT } from "./types";
 import Router from "next/router";
 import axios from "axios";
 
@@ -29,6 +29,9 @@ export const togglePersonHeart = (current, backgroundUrl, status) => async (disp
 				payload: current,
 				url: backgroundUrl
 			});
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	} else {
 		const response = await axios.delete("/api/heart/person", {
@@ -45,6 +48,9 @@ export const togglePersonHeart = (current, backgroundUrl, status) => async (disp
 				type: REMOVE_PERSON_HEART,
 				payload: current.id
 			});
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	}
 };

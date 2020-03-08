@@ -58,15 +58,16 @@ export const registerUser = (userData) => async (dispatch) => {
 			}
 		});
 		if (response.data.success) {
-			Router.push("/");
-			dispatch(loadUser());
-
-			dispatch(setAlert(response.data.msg, "success", 5000));
-
 			dispatch({
 				type: REGISTER_SUCCESS,
 				payload: response.data
 			});
+			Router.push("/");
+			dispatch(setAlert(response.data.msg, "success", 3000));
+			dispatch(loadUser());
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	} catch (error) {
 		const errors = error.response.data.errors;
@@ -95,15 +96,16 @@ export const loginUser = (userData) => async (dispatch) => {
 		});
 
 		if (response.data.success) {
-			Router.push("/");
-
-			dispatch(loadUser());
-
-			dispatch(setAlert(response.data.msg, "success", 5000));
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: response.data
 			});
+			Router.push("/");
+			dispatch(setAlert(response.data.msg, "success", 3000));
+			dispatch(loadUser());
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	} catch (error) {
 		const errors = error.response.data.errors;
@@ -120,6 +122,7 @@ export const loginUser = (userData) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
+	Router.push("/login");
 	dispatch({ type: LOGOUT });
 	dispatch({ type: CLEAR_MOVIES });
 	dispatch({ type: CLEAR_SHOWS });

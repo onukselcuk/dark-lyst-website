@@ -13,10 +13,16 @@ import store from "../store/store";
 import { loadUser } from "../store/actions/authActions";
 import { useEffect } from "react";
 import setAuthToken from "../utils/setAuthToken";
+//import { useCookies } from "react-cookie";
 
 function MyApp ({ Component, pageProps }) {
-	if (typeof localStorage !== "undefined") {
+	//const [ cookies, setCookie, removeCookie ] = useCookies([ "token" ]);
+
+	if (typeof localStorage !== "undefined" && localStorage.token) {
 		setAuthToken(localStorage.token);
+		//setCookie("token", localStorage.token, { path: "/" });
+	} else {
+		//removeCookie("token");
 	}
 
 	useEffect(() => {

@@ -1,4 +1,4 @@
-import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART, SET_MOVIES } from "./types";
+import { ADD_MOVIE_HEART, REMOVE_MOVIE_HEART, SET_MOVIES, LOGOUT } from "./types";
 import axios from "axios";
 import Router from "next/router";
 
@@ -23,6 +23,9 @@ export const toggleMovieHeart = (current, status) => async (dispatch, getState) 
 				type: ADD_MOVIE_HEART,
 				payload: current
 			});
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	} else {
 		const response = await axios.delete("/api/heart/movie", {
@@ -39,6 +42,9 @@ export const toggleMovieHeart = (current, status) => async (dispatch, getState) 
 				type: REMOVE_MOVIE_HEART,
 				payload: current.id
 			});
+		} else {
+			dispatch({ type: LOGOUT });
+			Router.push("/login");
 		}
 	}
 };

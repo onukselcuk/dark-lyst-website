@@ -9,6 +9,8 @@ import {
 	LOGOUT
 } from "../actions/types";
 
+import cookie from "react-cookies";
+
 const initialState = {
 	token: typeof localStorage !== "undefined" ? localStorage.getItem("token") : null,
 	isAuthenticated: typeof localStorage === "undefined" ? null : localStorage.getItem("token") ? true : null,
@@ -38,6 +40,7 @@ export default (state = initialState, action) => {
 
 		case REGISTER_SUCCESS:
 			localStorage.setItem("token", payload.token);
+			cookie.save("token", payload.token, { path: "/", maxAge: 360000 });
 			return {
 				...state,
 				token: payload.token,
@@ -64,6 +67,7 @@ export default (state = initialState, action) => {
 
 		case LOGIN_SUCCESS:
 			localStorage.setItem("token", payload.token);
+			cookie.save("token", payload.token, { path: "/", maxAge: 360000 });
 			return {
 				...state,
 				token: payload.token,
@@ -77,11 +81,13 @@ export default (state = initialState, action) => {
 			};
 		case LOGOUT:
 			localStorage.removeItem("token");
+			cookie.remove("token");
 			return {
 				...state,
 				token: null,
 				isAuthenticated: false,
-				loading: false
+				loading: false,
+				user: null
 			};
 		default:
 			return state;
