@@ -1,0 +1,40 @@
+:global(.pagination).Pagination {
+	justify-content: center;
+}
+
+:global(.page-link).PageLink {
+	background-color: rgba(0, 0, 0, .4);
+	border: none;
+	font-size: 2rem;
+	color: white;
+	padding: 1rem 2rem;
+}
+
+:global(.page-item).PageItem:hover :global(.page-link).PageLink {
+	color: black;
+	border: none;
+}
+
+:global(.page-item).PageItem:global(.active) :global(.page-link).PageLink {
+	background-color: white;
+	color: black;
+}
+
+:global(.page-item).PageItem:global(.disabled) :global(.page-link).PageLink {
+	background-color: rgba(0, 0, 0, .4);
+	color: gray;
+}
+
+:global(.page-item).PageItem:first-child :global(.page-link).PageLink {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+:global(.page-item).PageItem:last-child :global(.page-link).PageLink {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+:global(.page-link).PageLink:focus {
+	box-shadow: none;
+}

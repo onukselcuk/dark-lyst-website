@@ -1,19 +1,19 @@
-.sign-up-form .form-label {
+.SignUpForm :global(.form-label) {
 	font-size: 1.8rem;
 }
 
-.sign-up-form .form-control {
+.SignUpForm :global(.form-control).FormControl {
 	font-size: 2.3rem;
 	background-color: rgba(0, 0, 0, .4);
 	color: #fff;
 }
 
-.sign-up-form .form-control:active {
+.SignUpForm :global(.form-control).FormControl:active {
 	background-color: rgba(0, 0, 0, .4);
 	color: #fff;
 }
 
-.sign-up-form .btn {
+.SignUpForm :global(.btn).Button {
 	margin-top: 1rem;
 	font-size: 2.4rem;
 	border-radius: 10px;
@@ -22,16 +22,16 @@
 	padding: 1rem 3rem;
 }
 
-.sign-up-form .btn:hover {
+.SignUpForm :global(.btn).Button:hover {
 	background-color: rgba(0, 0, 0, .6);
 }
 
-.sign-up-form .btn:active {
+.SignUpForm :global(.btn).Button:active {
 	background-color: white !important;
 	color: black !important;
 }
 
-.sign-up-form .button-container {
+.SignUpForm .ButtonContainer {
 	display: flex;
 	justify-content: center;
 }

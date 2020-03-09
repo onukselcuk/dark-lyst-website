@@ -1,0 +1,10 @@
+.AlertContainer {
+	width: 75%;
+	margin: 2rem auto !important;
+}
+
+.AlertContainer .Alert {
+	font-size: 2rem;
+	text-align: center;
+	padding: 1.5rem;
+}

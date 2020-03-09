@@ -8,6 +8,7 @@ import * as yup from "yup";
 import ReCAPTCHA from "react-google-recaptcha";
 import { connect } from "react-redux";
 import { registerUser } from "../../store/actions/authActions";
+import formStyles from "../../styles/formStyles.module.css";
 
 const schema = yup.object({
 	name: yup.string().required("Name is required"),
@@ -62,7 +63,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 				setFieldValue,
 				validateForm
 			}) => (
-				<Form className="sign-up-form" noValidate>
+				<Form className={formStyles.SignUpForm} noValidate>
 					<Form.Group as={Col} controlId="validationFormikName">
 						<Form.Label>Name</Form.Label>
 						<InputGroup>
@@ -75,6 +76,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 								isValid={touched.name && !errors.name}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
 						</InputGroup>
@@ -91,6 +93,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 								isValid={touched.email && !errors.email}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
 						</InputGroup>
@@ -107,6 +110,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 								isValid={touched.password && !errors.password}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
 						</InputGroup>
@@ -123,6 +127,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 								isValid={touched.confirm && !errors.confirm}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.confirm}</Form.Control.Feedback>
 						</InputGroup>
@@ -149,7 +154,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 							}}
 						/>
 					</Form.Group>
-					<Form.Group className="button-container" as={Col} controlId="validationFormikConfirm">
+					<Form.Group className={formStyles.ButtonContainer} as={Col} controlId="validationFormikConfirm">
 						<Button
 							size="lg"
 							onClick={async () => {
@@ -162,6 +167,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
 									executeCaptcha();
 								}
 							}}
+							className={formStyles.Button}
 						>
 							Sign Up
 						</Button>

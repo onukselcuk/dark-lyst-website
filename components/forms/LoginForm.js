@@ -8,6 +8,7 @@ import * as yup from "yup";
 import ReCAPTCHA from "react-google-recaptcha";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/authActions";
+import formStyles from "../../styles/formStyles.module.css";
 
 const schema = yup.object({
 	email: yup.string().email("Email is invalid").required("Email is required"),
@@ -55,7 +56,7 @@ const LoginForm = ({ loginUser, isAuthenticated }) => {
 				setFieldValue,
 				validateForm
 			}) => (
-				<Form className="sign-up-form" noValidate>
+				<Form className={formStyles.SignUpForm} noValidate>
 					<Form.Group as={Col} controlId="validationFormikEmail">
 						<Form.Label>Email Address</Form.Label>
 						<InputGroup>
@@ -68,6 +69,7 @@ const LoginForm = ({ loginUser, isAuthenticated }) => {
 								isValid={touched.email && !errors.email}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
 						</InputGroup>
@@ -84,6 +86,7 @@ const LoginForm = ({ loginUser, isAuthenticated }) => {
 								isValid={touched.password && !errors.password}
 								onBlur={handleBlur}
 								size="lg"
+								className={formStyles.FormControl}
 							/>
 							<Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
 						</InputGroup>
@@ -111,7 +114,7 @@ const LoginForm = ({ loginUser, isAuthenticated }) => {
 							}}
 						/>
 					</Form.Group>
-					<Form.Group className="button-container" as={Col} controlId="validationFormikConfirm">
+					<Form.Group className={formStyles.ButtonContainer} as={Col} controlId="validationFormikConfirm">
 						<Button
 							size="lg"
 							onClick={async () => {
@@ -124,6 +127,7 @@ const LoginForm = ({ loginUser, isAuthenticated }) => {
 									executeCaptcha();
 								}
 							}}
+							className={formStyles.Button}
 						>
 							Login
 						</Button>

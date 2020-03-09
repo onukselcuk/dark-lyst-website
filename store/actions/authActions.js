@@ -9,7 +9,10 @@ import {
 	LOGOUT,
 	CLEAR_MOVIES,
 	CLEAR_SHOWS,
-	CLEAR_PEOPLE
+	CLEAR_PEOPLE,
+	PASSWORD_CHANGE_START,
+	PASSWORD_CHANGE_SUCCESS,
+	PASSWORD_CHANGE_FAIL
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
@@ -121,6 +124,38 @@ export const loginUser = (userData) => async (dispatch) => {
 		}
 		dispatch({
 			type: LOGIN_FAIL
+		});
+	}
+};
+
+export const changePassword = (userData) => async (dispatch) => {
+	dispatch({
+		type: PASSWORD_CHANGE_START
+	});
+
+	try {
+		const response = await axios.post("/api/auth/change-password", userData, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (response.data.success) {
+			dispatch({
+				type: PASSWORD_CHANGE_SUCCESS
+			});
+			dispatch(setAlert(response.data.msg, "success", 8000));
+		}
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((cur) => {
+				dispatch(setAlert(cur.msg, "danger", 5000));
+			});
+		}
+		dispatch({
+			type: PASSWORD_CHANGE_FAIL
 		});
 	}
 };

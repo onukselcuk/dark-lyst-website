@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import modalStyles from "../../styles/modalStyles.module.css";
 
 const SeasonModal = ({ show, setShow, cur, showId, showDetails }) => {
 	const [ seasonInfo, setSeasonInfo ] = useState();
@@ -25,16 +26,16 @@ const SeasonModal = ({ show, setShow, cur, showId, showDetails }) => {
 			<Modal
 				show={show}
 				onHide={() => setShow(false)}
-				dialogClassName="season-modal"
+				dialogClassName={modalStyles.SeasonModal}
 				aria-labelledby="example-custom-modal-styling-title"
 				centered={true}
 			>
-				<Modal.Header closeButton>
-					<Modal.Title id="example-custom-modal-styling-title">
+				<Modal.Header className={modalStyles.ModalHeader} closeButton>
+					<Modal.Title className={modalStyles.ModalTitle} id="example-custom-modal-styling-title">
 						{showDetails.name} Season {cur.season_number}
 					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
+				<Modal.Body className={modalStyles.ModalBody}>
 					{seasonInfo && (
 						<div className="all-season-container">
 							<div className="season-poster-container">

@@ -1,56 +1,56 @@
-.video-modal {
+.VideoModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.gallery-modal {
+.GalleryModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.season-modal {
+.SeasonModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.modal-header {
+.ModalHeader {
 	background-color: #1b262c;
 	border: none;
 	align-items: center;
 }
 
-.modal-header .modal-title {
+.ModalHeader .ModalTitle {
 	font-size: 2rem;
 	padding-left: 1rem;
 }
 
-.modal-header .close span {
+.ModalHeader :global(.close span) {
 	color: white;
 	font-size: 3rem;
 	line-height: .8;
 }
 
-.modal-header .close:focus {
+.ModalHeader :global(.close:focus) {
 	outline: none;
 }
 
-.video-modal .modal-body {
+.VideoModal .ModalBody {
 	position: relative;
 	background-color: #1b262c;
 	padding-top: 56.25%;
 }
 
-.gallery-modal .modal-body {
+.GalleryModal .ModalBody {
 	position: relative;
 	background-color: #1b262c;
 }
 
-.season-modal .modal-body {
+.SeasonModal .ModalBody {
 	position: relative;
 	background-color: #1b262c;
 }
 
-.react-player {
+.ReactPlayer {
 	position: absolute;
 	top: 0;
 	left: 0;

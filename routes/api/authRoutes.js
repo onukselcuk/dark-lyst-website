@@ -169,4 +169,59 @@ router.post(
 	}
 );
 
+router.post(
+	"/change-password",
+	[
+		check("oldPassword", "Old Password is required").exists(),
+		check("password", "Please enter a password with 8 or more characters").isLength({ min: 8 }),
+		check("confirm", "Please confirm your password")
+			.exists()
+			.custom((value, { req }) => value === req.body.password),
+		check("recaptcha", "Captcha code is invalid").exists()
+	],
+	auth,
+	async (req, res) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { oldPassword, password, recaptcha } = req.body;
+
+		try {
+			const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env
+				.RECAPTCHA_SECRET_KEY}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+
+			const recaptchaResponse = await axios.post(recaptchaUrl);
+
+			if (!recaptchaResponse.data.success) {
+				return res.status(400).json({ errors: [ { msg: "Recaptcha token is not valid" } ] });
+			}
+
+			let user = await User.findById(req.user.id);
+
+			if (!user) {
+				return res.status(400).json({ errors: [ { msg: "Invalid Credentials" } ] });
+			}
+
+			const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+			if (!isMatch) {
+				return res.status(400).json({ errors: [ { msg: "Invalid Credentials" } ] });
+			}
+
+			const salt = await bcrypt.genSalt(10);
+
+			user.password = await bcrypt.hash(password, salt);
+
+			await user.save();
+
+			res.json({ success: true, msg: "Your password is changed successfully" });
+		} catch (error) {
+			res.status(500).json({ errors: [ { msg: "Server Error!, Try again later please" } ] });
+		}
+	}
+);
+
 module.exports = router;

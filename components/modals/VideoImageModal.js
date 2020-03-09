@@ -1,9 +1,10 @@
 import { Fragment } from "react";
 import Modal from "react-bootstrap/Modal";
 import ReactPlayer from "react-player";
+import modalStyles from "../../styles/modalStyles.module.css";
 
 const VideoModal = ({ show, setShow, chosenVideo, title, isGallery }) => {
-	const modalClassName = isGallery ? "gallery-modal" : "video-modal";
+	const modalClassName = isGallery ? modalStyles.GalleryModal : modalStyles.VideoModal;
 
 	return (
 		<Fragment>
@@ -14,10 +15,12 @@ const VideoModal = ({ show, setShow, chosenVideo, title, isGallery }) => {
 				aria-labelledby="example-custom-modal-styling-title"
 				centered={true}
 			>
-				<Modal.Header closeButton>
-					<Modal.Title id="example-custom-modal-styling-title">{title}</Modal.Title>
+				<Modal.Header className={modalStyles.ModalHeader} closeButton>
+					<Modal.Title className={modalStyles.ModalTitle} id="example-custom-modal-styling-title">
+						{title}
+					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
+				<Modal.Body className={modalStyles.ModalBody}>
 					{isGallery ? (
 						<img
 							className="gallery-img"
@@ -28,7 +31,7 @@ const VideoModal = ({ show, setShow, chosenVideo, title, isGallery }) => {
 					) : (
 						<ReactPlayer
 							url={`https://www.youtube.com/watch?v=${chosenVideo.key}`}
-							className="react-player"
+							className={modalStyles.ReactPlayer}
 							playing
 							width="100%"
 							height="100%"

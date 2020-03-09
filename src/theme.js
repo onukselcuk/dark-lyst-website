@@ -29,6 +29,9 @@ const theme = {
 		},
 		eight: {
 			main: "rgba(0, 0, 0, .4)"
+		},
+		ninth: {
+			main: "rgba(255,255,255,.5)"
 		}
 	}
 };

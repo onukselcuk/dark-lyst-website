@@ -4,8 +4,9 @@ import theme from "../../src/theme";
 import Footer from "./Footer";
 import Alert from "react-bootstrap/Alert";
 import { connect } from "react-redux";
+import alertStyles from "../../styles/alertStyles.module.css";
 
-const Layout = ({ alerts, children }) => {
+const Layout = ({ children, alerts }) => {
 	// const alerts = [
 	// 	{ id: 1, msg: "test", alertType: "danger" },
 	// 	{ id: 2, msg: "test", alertType: "primary" },
@@ -19,9 +20,9 @@ const Layout = ({ alerts, children }) => {
 			<Navbar />
 			{alerts !== null &&
 			alerts.length > 0 && (
-				<div className="alert-container">
+				<div className={alertStyles.AlertContainer}>
 					{alerts.map((cur) => (
-						<Alert key={cur.id} variant={cur.alertType}>
+						<Alert className={alertStyles.Alert} key={cur.id} variant={cur.alertType}>
 							<p>{cur.msg}</p>
 						</Alert>
 					))}
@@ -70,11 +71,6 @@ const Layout = ({ alerts, children }) => {
 
 				.root {
 					min-height: calc(100vh - 180px);
-				}
-
-				.alert-container {
-					width: 75%;
-					margin: 2rem auto;
 				}
 			`}</style>
 		</Fragment>

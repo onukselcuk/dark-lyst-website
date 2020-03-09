@@ -6,7 +6,10 @@ import {
 	LOGIN_START,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
-	LOGOUT
+	LOGOUT,
+	PASSWORD_CHANGE_START,
+	PASSWORD_CHANGE_SUCCESS,
+	PASSWORD_CHANGE_FAIL
 } from "../actions/types";
 
 import cookie from "react-cookies";
@@ -17,7 +20,8 @@ const initialState = {
 	loading: true,
 	isRegisterLoading: false,
 	isLoginLoading: false,
-	user: null
+	user: null,
+	isPasswordChangeLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -37,7 +41,6 @@ export default (state = initialState, action) => {
 					date: payload.date
 				}
 			};
-
 		case REGISTER_SUCCESS:
 			localStorage.setItem("token", payload.token);
 			cookie.save("token", payload.token, { path: "/", maxAge: 360000 });
@@ -58,13 +61,11 @@ export default (state = initialState, action) => {
 				...state,
 				isRegisterLoading: false
 			};
-
 		case LOGIN_START:
 			return {
 				...state,
 				isLoginLoading: true
 			};
-
 		case LOGIN_SUCCESS:
 			localStorage.setItem("token", payload.token);
 			cookie.save("token", payload.token, { path: "/", maxAge: 360000 });
@@ -88,6 +89,21 @@ export default (state = initialState, action) => {
 				isAuthenticated: false,
 				loading: false,
 				user: null
+			};
+		case PASSWORD_CHANGE_START:
+			return {
+				...state,
+				isPasswordChangeLoading: true
+			};
+		case PASSWORD_CHANGE_SUCCESS:
+			return {
+				...state,
+				isPasswordChangeLoading: false
+			};
+		case PASSWORD_CHANGE_FAIL:
+			return {
+				...state,
+				isPasswordChangeLoading: false
 			};
 		default:
 			return state;
