@@ -1,6 +1,7 @@
-import { ADD_SHOW_HEART, REMOVE_SHOW_HEART, SET_SHOWS, LOGOUT } from "./types";
+import { ADD_SHOW_HEART, REMOVE_SHOW_HEART, SET_SHOWS } from "./types";
 import Router from "next/router";
 import axios from "axios";
+import { logout } from "./authActions";
 
 export const toggleShowHeart = (current, status) => async (dispatch, getState) => {
 	const state = getState();
@@ -24,8 +25,7 @@ export const toggleShowHeart = (current, status) => async (dispatch, getState) =
 				payload: current
 			});
 		} else {
-			dispatch({ type: LOGOUT });
-			Router.push("/login");
+			dispatch(logout());
 		}
 	} else {
 		const response = await axios.delete("/api/heart/show", {
@@ -43,8 +43,7 @@ export const toggleShowHeart = (current, status) => async (dispatch, getState) =
 				payload: current.id
 			});
 		} else {
-			dispatch({ type: LOGOUT });
-			Router.push("/login");
+			dispatch(logout());
 		}
 	}
 };

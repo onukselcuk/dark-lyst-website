@@ -4,6 +4,9 @@ import SignUpForm from "../components/forms/SignUpForm";
 import Link from "next/link";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
+import Router from "next/router";
+import cookies from "next-cookies";
+import cookie from "react-cookies";
 
 const SignUp = ({ isRegisterLoading }) => {
 	return (
@@ -79,4 +82,25 @@ const mapStateToProps = (state) => {
 		isRegisterLoading: state.auth.isRegisterLoading
 	};
 };
+
+SignUp.getInitialProps = (ctx) => {
+	let token = null;
+
+	if (ctx.req) {
+		token = cookies(ctx).token;
+		if (token) {
+			ctx.res.writeHead(302, {
+				Location: "/"
+			});
+			ctx.res.end();
+		}
+	} else {
+		token = cookie.load("token");
+		if (token) {
+			Router.replace("/");
+		}
+	}
+	return {};
+};
+
 export default connect(mapStateToProps)(SignUp);

@@ -19,6 +19,14 @@ import { setMovies } from "./movieActions";
 import { setShows } from "./showActions";
 import { setPeople } from "./personActions";
 
+export const logout = () => (dispatch) => {
+	dispatch({ type: LOGOUT });
+	dispatch({ type: CLEAR_MOVIES });
+	dispatch({ type: CLEAR_SHOWS });
+	dispatch({ type: CLEAR_PEOPLE });
+	Router.push("/login");
+};
+
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
@@ -40,9 +48,7 @@ export const loadUser = () => async (dispatch) => {
 
 		dispatch(setPeople(res.data.personList));
 	} catch (error) {
-		dispatch({
-			type: LOGOUT
-		});
+		dispatch(logout());
 	}
 };
 
@@ -66,8 +72,7 @@ export const registerUser = (userData) => async (dispatch) => {
 			dispatch(setAlert(response.data.msg, "success", 3000));
 			dispatch(loadUser());
 		} else {
-			dispatch({ type: LOGOUT });
-			Router.push("/login");
+			dispatch(logout());
 		}
 	} catch (error) {
 		const errors = error.response.data.errors;
@@ -104,8 +109,7 @@ export const loginUser = (userData) => async (dispatch) => {
 			dispatch(setAlert(response.data.msg, "success", 3000));
 			dispatch(loadUser());
 		} else {
-			dispatch({ type: LOGOUT });
-			Router.push("/login");
+			dispatch(logout());
 		}
 	} catch (error) {
 		const errors = error.response.data.errors;
@@ -119,12 +123,4 @@ export const loginUser = (userData) => async (dispatch) => {
 			type: LOGIN_FAIL
 		});
 	}
-};
-
-export const logout = () => (dispatch) => {
-	Router.push("/login");
-	dispatch({ type: LOGOUT });
-	dispatch({ type: CLEAR_MOVIES });
-	dispatch({ type: CLEAR_SHOWS });
-	dispatch({ type: CLEAR_PEOPLE });
 };

@@ -20,29 +20,36 @@ const mapStateToProps = (state) => {
 
 dashboard.getInitialProps = async (ctx) => {
 	let token = null;
+	// server-side
 	if (ctx.req) {
 		token = cookies(ctx).token;
 	} else {
+		//client side
 		token = cookie.load("token");
 		if (!token) {
-			return Router.push("/login");
+			// if there is no token, don't even check return a redirect
+			return Router.replace("/login");
 		}
 	}
 
 	try {
+		//this check happens on both client and server side
 		const response = await axios.get("/api/auth/verify", {
 			headers: {
 				Authorization: token
 			}
 		});
 	} catch (error) {
+		// if token is not valid, catch block runs
+		// server side redirect
 		if (ctx.res) {
 			ctx.res.writeHead(302, {
 				Location: "/login"
 			});
 			ctx.res.end();
 		} else {
-			Router.push("/login");
+			// client side redirect
+			Router.replace("/login");
 		}
 	}
 

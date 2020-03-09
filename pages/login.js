@@ -4,6 +4,9 @@ import LoginForm from "../components/forms/LoginForm";
 import Link from "next/link";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
+import cookies from "next-cookies";
+import cookie from "react-cookies";
+import Router from "next/router";
 
 const Login = ({ isLoginLoading }) => {
 	return (
@@ -79,4 +82,25 @@ const mapStateToProps = (state) => {
 		isLoginLoading: state.auth.isLoginLoading
 	};
 };
+
+Login.getInitialProps = (ctx) => {
+	let token = null;
+
+	if (ctx.req) {
+		token = cookies(ctx).token;
+		if (token) {
+			ctx.res.writeHead(302, {
+				Location: "/"
+			});
+			ctx.res.end();
+		}
+	} else {
+		token = cookie.load("token");
+		if (token) {
+			Router.replace("/");
+		}
+	}
+	return {};
+};
+
 export default connect(mapStateToProps)(Login);
