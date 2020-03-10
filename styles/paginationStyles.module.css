@@ -13,6 +13,7 @@
 :global(.page-item).PageItem:hover :global(.page-link).PageLink {
 	color: black;
 	border: none;
+	background-color: #e9ecef;
 }
 
 :global(.page-item).PageItem:global(.active) :global(.page-link).PageLink {

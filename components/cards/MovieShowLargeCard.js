@@ -9,7 +9,7 @@ import { toggleShowHeart } from "../../store/actions/showActions";
 const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	let title = current.title || current.name || "";
 
-	let year = current.release_date || current.first_air_date || "";
+	let year = current.release_date || current.first_air_date || current.releaseDate || current.firstAirDate || "";
 	year = year.slice(0, 4);
 
 	let hrefUrl = "";
@@ -17,10 +17,10 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 
 	if (isShow) {
 		hrefUrl = `/show/detail/[tid]`;
-		asUrl = `/show/detail/${current.id}`;
+		asUrl = `/show/detail/${current.id || current.tmdbId}`;
 	} else {
 		hrefUrl = `/movie/detail/[pid]`;
-		asUrl = `/movie/detail/${current.id}`;
+		asUrl = `/movie/detail/${current.id || current.tmdbId}`;
 	}
 
 	let overview = current.overview || false;
@@ -29,14 +29,14 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 		overview = `${overview.slice(0, 180)}...`;
 	}
 
-	let numOfVotes = current.vote_count || false;
+	let numOfVotes = current.vote_count || current.voteCount || false;
 
 	let isLiked;
 	if (current) {
 		if (isShow) {
-			isLiked = showList.some((cur) => cur.tmdbId === current.id);
+			isLiked = showList.some((cur) => cur.tmdbId === (current.id || current.tmdbId));
 		} else {
-			isLiked = movieList.some((cur) => cur.tmdbId === current.id);
+			isLiked = movieList.some((cur) => cur.tmdbId === (current.id || current.tmdbId));
 		}
 	}
 
@@ -56,7 +56,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 					<div className="poster-image-container">
 						<img
 							className="poster-image"
-							src={`http://image.tmdb.org/t/p/w300${current.poster_path}`}
+							src={`http://image.tmdb.org/t/p/w300${current.poster_path || current.posterPath}`}
 							alt=""
 						/>
 					</div>
@@ -69,7 +69,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 						<p className="movie-overview">{overview}</p>
 						<div className="action-container">
 							<div className="rating-container">
-								<CircularRating rating={current.vote_average} />
+								<CircularRating rating={current.vote_average || current.voteAverage} />
 							</div>
 							<div onClick={handleHeart} className="heart-container">
 								<HeartIcon isLiked={isLiked} detail={true} />
@@ -88,7 +88,8 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 					display: flex;
                     height: 100%;
 					overflow: hidden;
-                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${current.backdrop_path}");
+                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${current.backdrop_path ||
+						current.backdropPath}");
                     background-repeat: no-repeat;
                     background-color: ${theme.palette.eight.main};
                     background-size: cover;

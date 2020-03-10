@@ -33,14 +33,14 @@ export const toggleShowHeart = (current, status) => async (dispatch, getState) =
 				"Content-Type": "application/json"
 			},
 			data: {
-				showId: current.id
+				showId: current.id || current.tmdbId
 			}
 		});
 
 		if (response.data.success) {
 			dispatch({
 				type: REMOVE_SHOW_HEART,
-				payload: current.id
+				payload: current.id || current.tmdbId
 			});
 		} else {
 			dispatch(logout());

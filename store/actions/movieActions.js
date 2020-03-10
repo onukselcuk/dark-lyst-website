@@ -33,14 +33,14 @@ export const toggleMovieHeart = (current, status) => async (dispatch, getState) 
 				"Content-Type": "application/json"
 			},
 			data: {
-				movieId: current.id
+				movieId: current.id || current.tmdbId
 			}
 		});
 
 		if (response.data.success) {
 			dispatch({
 				type: REMOVE_MOVIE_HEART,
-				payload: current.id
+				payload: current.id || current.tmdbId
 			});
 		} else {
 			dispatch(logout());

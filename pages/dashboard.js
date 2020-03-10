@@ -8,8 +8,10 @@ import theme from "../src/theme";
 import ProfileContainer from "../components/containers/ProfileContainer";
 import AccountContainer from "../components/containers/AccountContainer";
 import ChangePasswordForm from "../components/forms/ChangePasswordForm";
+import MovieWatchlistContainer from "../components/containers/MovieWatchlistContainer";
+import ShowWatchlistContainer from "../components/containers/ShowWatchlistContainer";
 
-const dashboard = ({ isAuthenticated, user }) => {
+const dashboard = ({ isAuthenticated, user, success }) => {
 	const [ barState, setBarState ] = useState("account");
 	const [ isChangingPassword, setIsChangingPassword ] = useState(false);
 
@@ -47,6 +49,10 @@ const dashboard = ({ isAuthenticated, user }) => {
 						<AccountContainer setIsChangingPassword={setIsChangingPassword} />
 					)}
 				</Fragment>
+			) : barState === "movies" ? (
+				<MovieWatchlistContainer />
+			) : barState === "shows" ? (
+				<ShowWatchlistContainer />
 			) : null}
 
 			<style jsx>{`
@@ -99,12 +105,16 @@ const mapStateToProps = (state) => {
 
 dashboard.getInitialProps = async (ctx) => {
 	let token = null;
+	let serverUrl = null;
+	let success = false;
 	// server-side
 	if (ctx.req) {
 		token = cookies(ctx).token;
+		serverUrl = "http://localhost:3000";
 	} else {
 		//client side
 		token = cookie.load("token");
+		serverUrl = "";
 		if (!token) {
 			// if there is no token, don't even check return a redirect
 			return Router.replace("/login");
@@ -113,11 +123,12 @@ dashboard.getInitialProps = async (ctx) => {
 
 	try {
 		//this check happens on both client and server side
-		const response = await axios.get("/api/auth/verify", {
+		const response = await axios.get(`${serverUrl}/api/auth/verify`, {
 			headers: {
 				Authorization: token
 			}
 		});
+		success = true;
 	} catch (error) {
 		// if token is not valid, catch block runs
 		// server side redirect
@@ -132,7 +143,7 @@ dashboard.getInitialProps = async (ctx) => {
 		}
 	}
 
-	return {};
+	return { success };
 };
 
 export default connect(mapStateToProps)(dashboard);
