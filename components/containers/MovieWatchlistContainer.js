@@ -45,8 +45,7 @@ const MovieWatchlistContainer = ({ movieList }) => {
 
 	return (
 		<div className="cards-container" ref={containerRef}>
-			{movieList &&
-				movieList.length > 0 &&
+			{movieList && movieList.length > 0 ? (
 				movieList
 					.slice((currentPageNumber - 1) * numOfPageItems, currentPageNumber * numOfPageItems)
 					.map((cur) => {
@@ -55,10 +54,9 @@ const MovieWatchlistContainer = ({ movieList }) => {
 								<MovieShowLargeCard current={cur} isShow={false} />
 							</div>
 						);
-					})}
-			{currentPageNumber &&
-			totalResultNumber &&
-			totalResultNumber > numOfPageItems && (
+					})
+			) : null}
+			{currentPageNumber && totalResultNumber && totalResultNumber > numOfPageItems ? (
 				<div className="paginator-container">
 					<Paginator
 						current={currentPageNumber}
@@ -66,7 +64,7 @@ const MovieWatchlistContainer = ({ movieList }) => {
 						handlePageChange={handlePageChange}
 					/>
 				</div>
-			)}
+			) : null}
 			<style jsx>{`
 				.cards-container {
 					width: 100%;

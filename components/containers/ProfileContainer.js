@@ -31,7 +31,7 @@ const ProfileContainer = ({ user }) => {
 					</div>
 				</div>
 				<div className="profile-image-container">
-					<img className="profile-image" src={user.avatar} alt="user avatar" />
+					<img className="profile-image" src={`${user.avatar}&s=100`} alt="user avatar" />
 				</div>
 			</div>
 			<style jsx>{`

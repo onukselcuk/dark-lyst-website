@@ -1,8 +1,19 @@
+.dropdownButtonContainer {
+	max-width: 180px;
+}
+
 .dropdownButtonContainer .dropdownButton {
 	font-size: 1.8rem;
 	background-color: #1b262c;
-	border-color: #fff;
 	padding: .5rem 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.dropdownButtonContainer .dropdownButton:hover {
+	background-color: #1b262c;
 }
 
 .dropdownButtonContainer .dropdownButton:focus {

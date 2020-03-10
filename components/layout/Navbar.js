@@ -47,13 +47,39 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 								size="lg"
 								id="user-dropdown-button"
 							>
-								{user ? getUserName(user) : "user"}
+								{user && (
+									<div className="dropdown-button-inner-container">
+										<div className="dropdown-avatar-container">
+											<img
+												className="dropdown-button-avatar"
+												src={`${user.avatar}&s=30`}
+												alt=""
+											/>
+										</div>
+										<span className="dropdown-username">{getUserName(user)}</span>
+									</div>
+								)}
 							</Dropdown.Toggle>
 							<Dropdown.Menu className={dropDownStyles.dropdownMenu}>
-								<Link href="/dashboard" passHref={true}>
-									<Dropdown.Item className={dropDownStyles.dropdownItem}>Your Profile</Dropdown.Item>
+								<Link href="/dashboard/[lid]" as="/dashboard/profile" passHref={true}>
+									<Dropdown.Item className={dropDownStyles.dropdownItem}>Profile</Dropdown.Item>
 								</Link>
-
+								<Link href="/dashboard/[lid]" as="/dashboard/account" passHref={true}>
+									<Dropdown.Item className={dropDownStyles.dropdownItem}>Account</Dropdown.Item>
+								</Link>
+								<Link href="/dashboard/[lid]" as="/dashboard/movies" passHref={true}>
+									<Dropdown.Item className={dropDownStyles.dropdownItem}>
+										Movie Watchlist
+									</Dropdown.Item>
+								</Link>
+								<Link href="/dashboard/[lid]" as="/dashboard/shows" passHref={true}>
+									<Dropdown.Item className={dropDownStyles.dropdownItem}>
+										Show Watchlist
+									</Dropdown.Item>
+								</Link>
+								<Link href="/dashboard/[lid]" as="/dashboard/stars" passHref={true}>
+									<Dropdown.Item className={dropDownStyles.dropdownItem}>Star List</Dropdown.Item>
+								</Link>
 								<Dropdown.Item as="button" onClick={logout} className={dropDownStyles.dropdownItem}>
 									Sign out
 								</Dropdown.Item>
@@ -114,6 +140,28 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 
 				.navbar-anchor-link:hover {
 					background-color: ${theme.palette.sixth.main};
+				}
+
+				.dropdown-button-inner-container {
+					display: flex;
+					align-items: center;
+				}
+
+				.dropdown-avatar-container {
+					width: 20%;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					margin-right: 2rem;
+				}
+
+				.dropdown-button-avatar {
+					width: 100%;
+					border-radius: 50%;
+					flex-shrink: 0;
+				}
+
+				.dropdown-username {
 				}
 			`}</style>
 		</header>
