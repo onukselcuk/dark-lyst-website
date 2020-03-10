@@ -39,14 +39,14 @@ export const togglePersonHeart = (current, backgroundUrl, status) => async (disp
 				"Content-Type": "application/json"
 			},
 			data: {
-				personId: current.id
+				personId: current.id || current.tmdbId
 			}
 		});
 
 		if (response.data.success) {
 			dispatch({
 				type: REMOVE_PERSON_HEART,
-				payload: current.id
+				payload: current.id || current.tmdbId
 			});
 		} else {
 			dispatch(logout());

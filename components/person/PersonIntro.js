@@ -75,7 +75,7 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 					<h1 className="person-name">{personDetails.name}</h1>
 					<div className="action-container">
 						<div onClick={handleHeart} className="heart-container">
-							<HeartIcon isLiked={isLiked} detail={true} />
+							<HeartIcon isLiked={isLiked} detail={true} isPerson={true} />
 						</div>
 					</div>
 					<div className="person-info-container">

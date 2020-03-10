@@ -2,13 +2,21 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import theme from "../../src/theme";
 
-const HeartIcon = ({ detail, isLiked }) => {
+const HeartIcon = ({ detail, isLiked, isPerson }) => {
 	return (
 		<OverlayTrigger
 			placement={`${detail ? "top" : "left"}`}
 			overlay={
 				<Tooltip className="watchlist-tooltip" style={{ fontSize: "1.8rem" }} id="watchlist-tooltip">
-					{isLiked ? "Remove from watchlist" : "Add to watchlist"}
+					{isPerson ? isLiked ? (
+						"Remove from starlist"
+					) : (
+						"Add to starlist"
+					) : isLiked ? (
+						"Remove from watchlist"
+					) : (
+						"Add to watchlist"
+					)}
 				</Tooltip>
 			}
 		>

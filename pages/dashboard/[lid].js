@@ -11,8 +11,9 @@ import AccountContainer from "../../components/containers/AccountContainer";
 import ChangePasswordForm from "../../components/forms/ChangePasswordForm";
 import MovieWatchlistContainer from "../../components/containers/MovieWatchlistContainer";
 import ShowWatchlistContainer from "../../components/containers/ShowWatchlistContainer";
+import StarListContainer from "../../components/containers/StarListContainer";
 
-const dashboardTemplate = ({ isAuthenticated, user, lid }) => {
+const dashboardTemplate = ({ user, lid }) => {
 	const [ barState, setBarState ] = useState("profile");
 	const [ isChangingPassword, setIsChangingPassword ] = useState(false);
 
@@ -75,6 +76,8 @@ const dashboardTemplate = ({ isAuthenticated, user, lid }) => {
 						<MovieWatchlistContainer />
 					) : barState === "shows" ? (
 						<ShowWatchlistContainer />
+					) : barState === "stars" ? (
+						<StarListContainer />
 					) : null}
 
 					<style jsx>{`
@@ -116,7 +119,6 @@ const dashboardTemplate = ({ isAuthenticated, user, lid }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: state.auth.isAuthenticated,
 		user: state.auth.user
 	};
 };
