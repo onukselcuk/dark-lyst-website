@@ -1,0 +1,24 @@
+.dropdownMenu:global(.dropdown-menu) {
+	background-color: #1b262c;
+}
+
+.dropdownItem:global(.dropdown-item) {
+	padding: 1rem 2rem;
+}
+
+.dropdownItem:global(.dropdown-item):focus,
+.dropdownItem:global(.dropdown-item):active {
+	background-color: #fff;
+}
+
+.dropdownItem:global(.dropdown-item) :global(.dropdown-link) {
+	color: #fff;
+	text-decoration: none;
+	font-size: 1.6rem;
+}
+
+.dropdownItem:global(.dropdown-item):focus :global(.dropdown-link),
+.dropdownItem:global(.dropdown-item):hover :global(.dropdown-link) {
+	background-color: #f8f9fa;
+	color: #1b262c;
+}

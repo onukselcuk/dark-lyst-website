@@ -1,25 +1,25 @@
-.VideoModal {
+:global(.modal-dialog).VideoModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.GalleryModal {
+:global(.modal-dialog).GalleryModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.SeasonModal {
+:global(.modal-dialog).SeasonModal {
 	width: 90%;
 	max-width: 1500px;
 }
 
-.ModalHeader {
+:global(.modal-header).ModalHeader {
 	background-color: #1b262c;
 	border: none;
 	align-items: center;
 }
 
-.ModalHeader .ModalTitle {
+:global(.modal-header).ModalHeader .ModalTitle {
 	font-size: 2rem;
 	padding-left: 1rem;
 }
@@ -43,6 +43,7 @@
 .GalleryModal .ModalBody {
 	position: relative;
 	background-color: #1b262c;
+	padding: 0;
 }
 
 .SeasonModal .ModalBody {

@@ -206,7 +206,7 @@ const SearchBox = (props) => {
 			<style jsx>{`
 				.search-container {
 					position: relative;
-					width: 40%;
+					width: 35%;
 				}
 
 				.downshift-dropdown {

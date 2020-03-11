@@ -8,36 +8,33 @@
 }
 
 .searchForm .searchInput {
-	width: 50% !important;
+	width: 100%;
 	transition: all .5s;
-	background-color: #1b262c;
-	padding-left: 4rem;
-	font-size: 2rem;
+	opacity: .6;
+	padding-left: 2rem;
+	font-size: 1.8rem;
 }
 
 .searchForm .searchInput::placeholder {
-	color: white;
+	color: #1b262c;
 }
 
 .searchForm .searchInput:focus {
-	outline: none;
-	border: none;
-	box-shadow: none;
-	width: 100% !important;
-	opacity: .6;
 	color: #1b262c;
+	border: 2px solid #fff;
+	box-shadow: 0px 0px 0px 2px #fff;
 }
 
 .searchIcon {
 	position: absolute;
-	left: 2%;
+	right: 5%;
 	top: 50%;
 	transform: translateY(-50%);
 	font-size: 1.8rem;
-	color: white;
+	color: #1b262c;
 	transition: all .5s;
 }
 
 .searchForm .searchInput:focus ~ .searchIcon {
-	color: #1b262c;
+	color: black;
 }
