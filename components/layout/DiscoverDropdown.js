@@ -43,12 +43,12 @@ const DiscoverDropdown = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="1">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="1">
 						<Link href="/discover/movies">
 							<a className="dropdown-link">Discover Movies</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="2">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="2">
 						<Link href="/discover/shows">
 							<a className="dropdown-link">Discover Shows</a>
 						</Link>

@@ -43,28 +43,28 @@ const TvDropdown = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="1">
-						<Link href="/shows/on-the-air">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="1">
+						<Link as="/shows/on-the-air" href="/shows/[slug]">
 							<a className="dropdown-link">TV Shows On Air</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="2">
-						<Link href="/shows/popular">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="2">
+						<Link as="/shows/popular" href="/shows/[slug]">
 							<a className="dropdown-link">Popular Shows</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="3">
-						<Link href="/shows/top-rated">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="3">
+						<Link as="/shows/top-rated" href="/shows/[slug]">
 							<a className="dropdown-link">Top Rated Shows</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="4">
-						<Link href="/shows/latest-on-netflix">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="4">
+						<Link as="/shows/latest-on-netflix" href="/shows/[slug]">
 							<a className="dropdown-link">Latest Shows On Netflix</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="5">
-						<Link href="/shows/latest-on-apple-tv-plus">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="5">
+						<Link as="/shows/latest-on-apple-tv-plus" href="/shows/[slug]">
 							<a className="dropdown-link">Latest Shows On Apple TV+</a>
 						</Link>
 					</Dropdown.Item>

@@ -43,23 +43,23 @@ const MovieDropdown = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="1">
-						<Link href="/movies/now-playing">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="1">
+						<Link href="/movies/[slug]" as="/movies/now-playing">
 							<a className="dropdown-link">Movies Now Playing In Theaters</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="2">
-						<Link href="/movies/popular">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="2">
+						<Link href="/movies/[slug]" as="/movies/popular">
 							<a className="dropdown-link">Popular Movies</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="3">
-						<Link href="/movies/top-rated">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="3">
+						<Link href="/movies/[slug]" as="/movies/top-rated">
 							<a className="dropdown-link">Top Rated Movies</a>
 						</Link>
 					</Dropdown.Item>
-					<Dropdown.Item className={styles.dropdownItem} eventKey="4">
-						<Link href="/movies/upcoming">
+					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="4">
+						<Link href="/movies/[slug]" as="/movies/upcoming">
 							<a className="dropdown-link">Upcoming Movies</a>
 						</Link>
 					</Dropdown.Item>
