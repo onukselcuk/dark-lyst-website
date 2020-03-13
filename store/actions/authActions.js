@@ -12,7 +12,13 @@ import {
 	CLEAR_PEOPLE,
 	PASSWORD_CHANGE_START,
 	PASSWORD_CHANGE_SUCCESS,
-	PASSWORD_CHANGE_FAIL
+	PASSWORD_CHANGE_FAIL,
+	PASSWORD_RESET_REQUEST_START,
+	PASSWORD_RESET_REQUEST_SUCCESS,
+	PASSWORD_RESET_REQUEST_FAIL,
+	PASSWORD_RESET_START,
+	PASSWORD_RESET_FAIL,
+	PASSWORD_RESET_SUCCESS
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
@@ -156,6 +162,74 @@ export const changePassword = (userData) => async (dispatch) => {
 		}
 		dispatch({
 			type: PASSWORD_CHANGE_FAIL
+		});
+	}
+};
+
+export const passwordResetRequest = (userData) => async (dispatch) => {
+	dispatch({
+		type: PASSWORD_RESET_REQUEST_START
+	});
+
+	try {
+		const response = await axios.post("/api/auth/password-reset-request", userData, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (response.data.success) {
+			dispatch({
+				type: PASSWORD_RESET_REQUEST_SUCCESS
+			});
+
+			dispatch(setAlert(response.data.msg, "success", 5000));
+		}
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((cur) => {
+				dispatch(setAlert(cur.msg, "danger", 5000));
+			});
+		}
+
+		dispatch({
+			type: PASSWORD_RESET_REQUEST_FAIL
+		});
+	}
+};
+
+export const resetPassword = (userData) => async (dispatch) => {
+	dispatch({
+		type: PASSWORD_RESET_START
+	});
+
+	try {
+		const response = await axios.post("/api/auth/reset-password", userData, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (response.data.success) {
+			dispatch({
+				type: PASSWORD_RESET_SUCCESS
+			});
+
+			dispatch(setAlert(response.data.msg, "success", 5000));
+		}
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((cur) => {
+				dispatch(setAlert(cur.msg, "danger", 5000));
+			});
+		}
+
+		dispatch({
+			type: PASSWORD_RESET_FAIL
 		});
 	}
 };

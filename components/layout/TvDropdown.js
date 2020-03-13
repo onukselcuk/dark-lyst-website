@@ -43,31 +43,31 @@ const TvDropdown = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="1">
-						<Link as="/shows/on-the-air" href="/shows/[slug]">
-							<a className="dropdown-link">TV Shows On Air</a>
-						</Link>
-					</Dropdown.Item>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="2">
-						<Link as="/shows/popular" href="/shows/[slug]">
-							<a className="dropdown-link">Popular Shows</a>
-						</Link>
-					</Dropdown.Item>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="3">
-						<Link as="/shows/top-rated" href="/shows/[slug]">
-							<a className="dropdown-link">Top Rated Shows</a>
-						</Link>
-					</Dropdown.Item>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="4">
-						<Link as="/shows/latest-on-netflix" href="/shows/[slug]">
-							<a className="dropdown-link">Latest Shows On Netflix</a>
-						</Link>
-					</Dropdown.Item>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="5">
-						<Link as="/shows/latest-on-apple-tv-plus" href="/shows/[slug]">
-							<a className="dropdown-link">Latest Shows On Apple TV+</a>
-						</Link>
-					</Dropdown.Item>
+					<Link as="/shows/on-the-air" href="/shows/[slug]" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="1">
+							TV Shows On Air
+						</Dropdown.Item>
+					</Link>
+					<Link as="/shows/popular" href="/shows/[slug]" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="2">
+							Popular Shows
+						</Dropdown.Item>
+					</Link>
+					<Link as="/shows/top-rated" href="/shows/[slug]" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="3">
+							Top Rated Shows
+						</Dropdown.Item>
+					</Link>
+					<Link as="/shows/latest-on-netflix" href="/shows/[slug]" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="4">
+							Latest Shows On Netflix
+						</Dropdown.Item>
+					</Link>
+					<Link as="/shows/latest-on-apple-tv-plus" href="/shows/[slug]" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="5">
+							Latest Shows On Apple TV+
+						</Dropdown.Item>
+					</Link>
 				</Dropdown.Menu>
 			</Dropdown>
 		</Fragment>

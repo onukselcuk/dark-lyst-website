@@ -7,10 +7,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middlewares/auth");
 const gravatar = require("gravatar");
+const passResetMailer = require("../../utils/passResetMailer");
+const randomStringGenerator = require("../../utils/randomStringGenerator");
+const dev = process.env.NODE_ENV !== "production";
 
 router.get("/", auth, async (req, res) => {
 	try {
-		const user = await User.findById(req.user.id).select("-password");
+		const user = await User.findById(req.user.id).select("-password -passwordResetToken -passwordResetExpiry");
 
 		let userData = await user.populate("movieList").populate("showList").populate("personList").execPopulate();
 
@@ -218,6 +221,168 @@ router.post(
 			await user.save();
 
 			res.json({ success: true, msg: "Your password is changed successfully" });
+		} catch (error) {
+			res.status(500).json({ errors: [ { msg: "Server Error!, Try again later please" } ] });
+		}
+	}
+);
+
+router.post(
+	"/password-reset-request",
+	[
+		check("email", "Please include a valid email address").isEmail(),
+		check("recaptcha", "Captcha code is invalid").exists()
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { email, recaptcha } = req.body;
+
+		try {
+			const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env
+				.RECAPTCHA_SECRET_KEY}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+
+			const recaptchaResponse = await axios.post(recaptchaUrl);
+
+			if (!recaptchaResponse.data.success) {
+				return res.status(400).json({ errors: [ { msg: "Recaptcha token is not valid" } ] });
+			}
+
+			let user = await User.findOne({ email });
+
+			if (user) {
+				const resetToken = await randomStringGenerator();
+
+				user.passwordResetToken = resetToken;
+
+				user.passwordResetExpiry = Date.now() + 86400000; // 24 hours = 86400000ms
+
+				await user.save();
+
+				let resetUrl = dev ? "http://localhost:3000" : "https://www.darklyst.com";
+
+				resetUrl = `${resetUrl}/reset-password?reset_token=${resetToken}&email=${user.email}`;
+
+				await passResetMailer(user.name, user.email, resetUrl);
+				res.json({
+					success: true,
+					msg: "An email has been sent to your email address with instructions to reset your password"
+				});
+			}
+		} catch (error) {
+			res.status(500).json({ errors: [ { msg: "Server Error!, Try again later please" } ] });
+		}
+	}
+);
+
+router.post(
+	"/reset-token-verify",
+	[
+		check("email", "Invalid Credentials").isEmail(),
+		check("resetToken", "Invalid Credentials").isLength({ min: 128 })
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { email, resetToken } = req.body;
+
+		let user = await User.findOne({ email });
+
+		try {
+			if (!user) {
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (!user.passwordResetToken || !user.passwordResetExpiry) {
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (user.passwordResetExpiry < Date.now() || user.passwordResetToken !== resetToken) {
+				user.passwordResetToken = null;
+				user.passwordResetExpiry = null;
+				await user.save();
+
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (user.passwordResetExpiry > Date.now() && user.passwordResetToken === resetToken) {
+				res.json({ success: true });
+			} else {
+				throw new Error();
+			}
+		} catch (error) {
+			res.status(500).json({ errors: [ { msg: "Server Error!, Try again later please" } ] });
+		}
+	}
+);
+
+router.post(
+	"/reset-password",
+	[
+		check("email", "Invalid Credentials").isEmail(),
+		check("resetToken", "Invalid Credentials").isLength({ min: 128 }),
+		check("password", "Please enter a password with 8 or more characters").isLength({ min: 8 }),
+		check("confirm", "Please confirm your password")
+			.exists()
+			.custom((value, { req }) => value === req.body.password),
+		check("recaptcha", "Captcha code is invalid").exists()
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { email, resetToken, password, recaptcha } = req.body;
+
+		let user = await User.findOne({ email });
+
+		try {
+			const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env
+				.RECAPTCHA_SECRET_KEY}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+
+			const recaptchaResponse = await axios.post(recaptchaUrl);
+
+			if (!recaptchaResponse.data.success) {
+				return res.status(400).json({ errors: [ { msg: "Recaptcha token is not valid" } ] });
+			}
+
+			if (!user) {
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (!user.passwordResetToken || !user.passwordResetExpiry) {
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (user.passwordResetExpiry < Date.now() || user.passwordResetToken !== resetToken) {
+				user.passwordResetToken = null;
+				user.passwordResetExpiry = null;
+				await user.save();
+
+				return res.status(400).json({ errors: [ { msg: "This link has expired or it's invalid." } ] });
+			}
+
+			if (user.passwordResetExpiry > Date.now() && user.passwordResetToken === resetToken) {
+				const salt = await bcrypt.genSalt(10);
+
+				user.password = await bcrypt.hash(password, salt);
+
+				await user.save();
+
+				res.json({ success: true, msg: "Your password is changed successfully" });
+			} else {
+				throw new Error();
+			}
 		} catch (error) {
 			res.status(500).json({ errors: [ { msg: "Server Error!, Try again later please" } ] });
 		}

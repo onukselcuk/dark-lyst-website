@@ -15,6 +15,12 @@ const userSchema = new Schema({
 		type: String,
 		required: true
 	},
+	passwordResetToken: {
+		type: String
+	},
+	passwordResetExpiry: {
+		type: Date
+	},
 	avatar: {
 		type: String
 	},

@@ -43,16 +43,16 @@ const DiscoverDropdown = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="1">
-						<Link href="/discover/movies">
-							<a className="dropdown-link">Discover Movies</a>
-						</Link>
-					</Dropdown.Item>
-					<Dropdown.Item as="div" className={styles.dropdownItem} eventKey="2">
-						<Link href="/discover/shows">
-							<a className="dropdown-link">Discover Shows</a>
-						</Link>
-					</Dropdown.Item>
+					<Link href="/discover/movies" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="1">
+							Discover Movies
+						</Dropdown.Item>
+					</Link>
+					<Link href="/discover/shows" passHref={true}>
+						<Dropdown.Item className={styles.dropdownItem} eventKey="2">
+							Discover Shows
+						</Dropdown.Item>
+					</Link>
 				</Dropdown.Menu>
 			</Dropdown>
 		</Fragment>

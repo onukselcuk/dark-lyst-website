@@ -1,41 +1,26 @@
 import { Fragment } from "react";
 import theme from "../src/theme";
-import LoginForm from "../components/forms/LoginForm";
-import Link from "next/link";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
-import cookies from "next-cookies";
-import cookie from "react-cookies";
 import Router from "next/router";
+import ResetPasswordForm from "../components/forms/ResetPasswordForm";
+import axios from "axios";
 
-const Login = ({ isLoginLoading }) => {
+const ResetPassword = ({ isPasswordResetLoading, resetToken, email }) => {
 	return (
 		<main>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
-					<p className="carousel-top-bar-title">Login</p>
+					<p className="carousel-top-bar-title">Reset Password</p>
 				</div>
-				{isLoginLoading ? (
+				{isPasswordResetLoading ? (
 					<div className="loader-container">
 						<div className={loaderStyles.loader}>Loading...</div>
 					</div>
 				) : (
 					<Fragment>
 						<div className="form-container">
-							<LoginForm />
-						</div>
-						<div className="redirect-container">
-							<p className="sub-button-note">
-								If you don't have an account,&nbsp;
-								<Link href="/sign-up">
-									<a>Sign up</a>
-								</Link>
-							</p>
-							<p className="sub-button-note">
-								<Link href="/forgot-password">
-									<a>Forgot your password?</a>
-								</Link>
-							</p>
+							<ResetPasswordForm resetToken={resetToken} email={email} />
 						</div>
 					</Fragment>
 				)}
@@ -84,28 +69,52 @@ const Login = ({ isLoginLoading }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoginLoading: state.auth.isLoginLoading
+		isPasswordResetLoading: state.auth.isPasswordResetLoading
 	};
 };
 
-Login.getInitialProps = (ctx) => {
-	let token = null;
+ResetPassword.getInitialProps = async (ctx) => {
+	let resetToken = ctx.query.reset_token;
 
-	if (ctx.req) {
-		token = cookies(ctx).token;
-		if (token) {
+	let email = ctx.query.email;
+
+	if (!resetToken || !email) {
+		if (ctx.res) {
 			ctx.res.writeHead(302, {
 				Location: "/"
 			});
 			ctx.res.end();
+		} else {
+			return Router.replace("/");
 		}
-	} else {
-		token = cookie.load("token");
-		if (token) {
+	}
+
+	const serverUrl = ctx.req ? "http://localhost:3000" : "";
+
+	const tokenObj = {
+		resetToken,
+		email
+	};
+
+	try {
+		const tokenResponse = await axios.post(`${serverUrl}/api/auth/reset-token-verify`, tokenObj, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+	} catch (error) {
+		if (ctx.res) {
+			ctx.res.writeHead(302, {
+				Location: "/"
+			});
+			ctx.res.end();
+		} else {
+			// client side redirect
 			Router.replace("/");
 		}
 	}
-	return {};
+
+	return { resetToken, email };
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(ResetPassword);

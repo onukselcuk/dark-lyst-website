@@ -1,41 +1,27 @@
 import { Fragment } from "react";
 import theme from "../src/theme";
-import LoginForm from "../components/forms/LoginForm";
-import Link from "next/link";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
 import cookies from "next-cookies";
 import cookie from "react-cookies";
 import Router from "next/router";
+import ForgottenPasswordForm from "../components/forms/ForgottenPasswordForm";
 
-const Login = ({ isLoginLoading }) => {
+const ForgotPassword = ({ isPasswordResetReqLoading }) => {
 	return (
 		<main>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
-					<p className="carousel-top-bar-title">Login</p>
+					<p className="carousel-top-bar-title">Forgotten Password</p>
 				</div>
-				{isLoginLoading ? (
+				{isPasswordResetReqLoading ? (
 					<div className="loader-container">
 						<div className={loaderStyles.loader}>Loading...</div>
 					</div>
 				) : (
 					<Fragment>
 						<div className="form-container">
-							<LoginForm />
-						</div>
-						<div className="redirect-container">
-							<p className="sub-button-note">
-								If you don't have an account,&nbsp;
-								<Link href="/sign-up">
-									<a>Sign up</a>
-								</Link>
-							</p>
-							<p className="sub-button-note">
-								<Link href="/forgot-password">
-									<a>Forgot your password?</a>
-								</Link>
-							</p>
+							<ForgottenPasswordForm />
 						</div>
 					</Fragment>
 				)}
@@ -84,12 +70,13 @@ const Login = ({ isLoginLoading }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoginLoading: state.auth.isLoginLoading
+		isPasswordResetReqLoading: state.auth.isPasswordResetReqLoading
 	};
 };
 
-Login.getInitialProps = (ctx) => {
+ForgotPassword.getInitialProps = (ctx) => {
 	let token = null;
+	let success = true;
 
 	if (ctx.req) {
 		token = cookies(ctx).token;
@@ -105,7 +92,7 @@ Login.getInitialProps = (ctx) => {
 			Router.replace("/");
 		}
 	}
-	return {};
+	return { success };
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(ForgotPassword);

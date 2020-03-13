@@ -9,7 +9,13 @@ import {
 	LOGOUT,
 	PASSWORD_CHANGE_START,
 	PASSWORD_CHANGE_SUCCESS,
-	PASSWORD_CHANGE_FAIL
+	PASSWORD_CHANGE_FAIL,
+	PASSWORD_RESET_REQUEST_START,
+	PASSWORD_RESET_REQUEST_SUCCESS,
+	PASSWORD_RESET_REQUEST_FAIL,
+	PASSWORD_RESET_START,
+	PASSWORD_RESET_SUCCESS,
+	PASSWORD_RESET_FAIL
 } from "../actions/types";
 
 import cookie from "react-cookies";
@@ -21,7 +27,9 @@ const initialState = {
 	isRegisterLoading: false,
 	isLoginLoading: false,
 	user: null,
-	isPasswordChangeLoading: false
+	isPasswordChangeLoading: false,
+	isPasswordResetReqLoading: false,
+	isPasswordResetLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -104,6 +112,36 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isPasswordChangeLoading: false
+			};
+		case PASSWORD_RESET_REQUEST_START:
+			return {
+				...state,
+				isPasswordResetReqLoading: true
+			};
+		case PASSWORD_RESET_REQUEST_SUCCESS:
+			return {
+				...state,
+				isPasswordResetReqLoading: false
+			};
+		case PASSWORD_RESET_REQUEST_FAIL:
+			return {
+				...state,
+				isPasswordResetReqLoading: false
+			};
+		case PASSWORD_RESET_START:
+			return {
+				...state,
+				isPasswordResetLoading: true
+			};
+		case PASSWORD_RESET_SUCCESS:
+			return {
+				...state,
+				isPasswordResetLoading: false
+			};
+		case PASSWORD_RESET_FAIL:
+			return {
+				...state,
+				isPasswordResetLoading: false
 			};
 		default:
 			return state;
