@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../middlewares/auth");
 const gravatar = require("gravatar");
 const passResetMailer = require("../../utils/passResetMailer");
+const noAccountPassResetMailer = require("../../utils/noAccountPassResetMailer");
 const randomStringGenerator = require("../../utils/randomStringGenerator");
 const dev = process.env.NODE_ENV !== "production";
 
@@ -268,6 +269,12 @@ router.post(
 				resetUrl = `${resetUrl}/reset-password?reset_token=${resetToken}&email=${user.email}`;
 
 				await passResetMailer(user.name, user.email, resetUrl);
+				res.json({
+					success: true,
+					msg: "An email has been sent to your email address with instructions to reset your password"
+				});
+			} else {
+				noAccountPassResetMailer(user.email);
 				res.json({
 					success: true,
 					msg: "An email has been sent to your email address with instructions to reset your password"

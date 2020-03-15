@@ -10,6 +10,7 @@ import Logo from "../icons/Logo";
 import TvDropdown from "./TvDropdown";
 import MovieDropdown from "./MovieDropdown";
 import DiscoverDropdown from "./DiscoverDropdown";
+import loaderStyles from "../../styles/smallLoader.module.css";
 
 const Navbar = ({ isAuthenticated, logout, user }) => {
 	const getUserName = (userData) => {
@@ -42,7 +43,7 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 					<MovieDropdown />
 					<DiscoverDropdown />
 				</ul>
-				{isAuthenticated ? (
+				{isAuthenticated && user ? (
 					<Dropdown className={dropDownStyles.dropdownButtonContainer}>
 						<Dropdown.Toggle
 							className={dropDownStyles.dropdownButton}
@@ -50,14 +51,12 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 							size="lg"
 							id="user-dropdown-button"
 						>
-							{user && (
-								<div className="dropdown-button-inner-container">
-									<div className="dropdown-avatar-container">
-										<img className="dropdown-button-avatar" src={`${user.avatar}&s=30`} alt="" />
-									</div>
-									<span className="dropdown-username">{getUserName(user)}</span>
+							<div className="dropdown-button-inner-container">
+								<div className="dropdown-avatar-container">
+									<img className="dropdown-button-avatar" src={`${user.avatar}&s=30`} alt="" />
 								</div>
-							)}
+								<span className="dropdown-username">{getUserName(user)}</span>
+							</div>
 						</Dropdown.Toggle>
 						<Dropdown.Menu className={dropDownStyles.dropdownMenu}>
 							<Link href="/dashboard/[lid]" as="/dashboard/profile" passHref={true}>
@@ -80,6 +79,10 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
+				) : isAuthenticated && !user ? (
+					<div className="loader-container">
+						<div className={loaderStyles.loader}>Loading...</div>
+					</div>
 				) : (
 					<Fragment>
 						<ul className="navbar-list">
@@ -149,17 +152,25 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 				}
 
 				.dropdown-avatar-container {
-					width: 20%;
+					width: 25px;
 					height: 100%;
 					display: flex;
 					align-items: center;
-					margin-right: 2rem;
+					margin-right: 1rem;
 				}
 
 				.dropdown-button-avatar {
 					width: 100%;
 					border-radius: 50%;
 					flex-shrink: 0;
+				}
+
+				.dropdown-username {
+					width: 70px;
+				}
+
+				.loader-container {
+					width: 180px;
 				}
 			`}</style>
 		</header>

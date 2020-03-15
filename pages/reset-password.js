@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import theme from "../src/theme";
 import { connect } from "react-redux";
 import loaderStyles from "../styles/loader.module.css";
@@ -6,7 +6,13 @@ import Router from "next/router";
 import ResetPasswordForm from "../components/forms/ResetPasswordForm";
 import axios from "axios";
 
-const ResetPassword = ({ isPasswordResetLoading, resetToken, email }) => {
+const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) => {
+	useEffect(() => {
+		if (errors) {
+			Router.replace("/");
+		}
+	}, []);
+
 	return (
 		<main>
 			<section className="carousel-section">
@@ -73,28 +79,30 @@ const mapStateToProps = (state) => {
 	};
 };
 
-ResetPassword.getInitialProps = async (ctx) => {
-	let resetToken = ctx.query.reset_token;
+ResetPassword.getInitialProps = async ({ query, res, req }) => {
+	let resetToken = query.reset_token;
 
-	let email = ctx.query.email;
+	let email = query.email;
 
 	if (!resetToken || !email) {
-		if (ctx.res) {
-			ctx.res.writeHead(302, {
+		if (res) {
+			res.writeHead(302, {
 				Location: "/"
 			});
-			ctx.res.end();
+			return res.end();
 		} else {
 			return Router.replace("/");
 		}
 	}
 
-	const serverUrl = ctx.req ? "http://localhost:3000" : "";
+	const serverUrl = req ? "http://localhost:3000" : "";
 
 	const tokenObj = {
 		resetToken,
 		email
 	};
+
+	let errors;
 
 	try {
 		const tokenResponse = await axios.post(`${serverUrl}/api/auth/reset-token-verify`, tokenObj, {
@@ -103,18 +111,19 @@ ResetPassword.getInitialProps = async (ctx) => {
 			}
 		});
 	} catch (error) {
-		if (ctx.res) {
-			ctx.res.writeHead(302, {
+		errors = error.response.data.errors;
+		if (res) {
+			res.writeHead(302, {
 				Location: "/"
 			});
-			ctx.res.end();
+			res.end();
 		} else {
 			// client side redirect
 			Router.replace("/");
 		}
 	}
 
-	return { resetToken, email };
+	return { resetToken, email, errors };
 };
 
 export default connect(mapStateToProps)(ResetPassword);
