@@ -69,7 +69,7 @@ const Footer = () => {
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
-					width: 75%;
+					width: 70%;
 					margin: 0 auto;
 				}
 
@@ -101,7 +101,7 @@ const Footer = () => {
 				.footer-link {
 					text-decoration: none;
 					color: #fff;
-					transition: all 400ms ease;
+					transition: all 300ms ease-in-out;
 				}
 
 				.footer-link:hover {

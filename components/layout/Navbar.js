@@ -11,8 +11,11 @@ import TvDropdown from "./TvDropdown";
 import MovieDropdown from "./MovieDropdown";
 import DiscoverDropdown from "./DiscoverDropdown";
 import loaderStyles from "../../styles/smallLoader.module.css";
+import breakpoints from "../../src/breakpoints";
+import Navbar from "react-bootstrap/Navbar";
+import { Nav } from "react-bootstrap";
 
-const Navbar = ({ isAuthenticated, logout, user }) => {
+const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 	const getUserName = (userData) => {
 		let userName;
 		userName = userData.name.split(" ")[0];
@@ -24,7 +27,7 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 
 	return (
 		<header className="header">
-			<nav className="navbar">
+			<Navbar className="navbar" expand="xl" variant="dark">
 				<div className="logo-container">
 					<Link href="/">
 						<a>
@@ -33,94 +36,112 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 					</Link>
 				</div>
 				<SearchBox />
-				<ul className="navbar-list">
-					<li className="navbar-link-item">
-						<Link href="/">
-							<a className="navbar-anchor-link">Home</a>
-						</Link>
-					</li>
-					<TvDropdown />
-					<MovieDropdown />
-					<DiscoverDropdown />
-				</ul>
-				{isAuthenticated && user ? (
-					<Dropdown className={dropDownStyles.dropdownButtonContainer}>
-						<Dropdown.Toggle
-							className={dropDownStyles.dropdownButton}
-							variant="secondary"
-							size="lg"
-							id="user-dropdown-button"
-						>
-							<div className="dropdown-button-inner-container">
-								<div className="dropdown-avatar-container">
-									<img className="dropdown-button-avatar" src={`${user.avatar}&s=30`} alt="" />
-								</div>
-								<span className="dropdown-username">{getUserName(user)}</span>
+
+				<Navbar.Collapse className="navbar-collapse-container">
+					<Nav className="navbar-list navbar-list-nav">
+						<li className="navbar-link-item">
+							<Link href="/">
+								<a className="navbar-anchor-link">Home</a>
+							</Link>
+						</li>
+						<TvDropdown />
+						<MovieDropdown />
+						<DiscoverDropdown />
+						{isAuthenticated && user ? (
+							<Dropdown className={dropDownStyles.dropdownButtonContainer}>
+								<Dropdown.Toggle
+									className={dropDownStyles.dropdownButton}
+									variant="secondary"
+									size="lg"
+									id="user-dropdown-button"
+								>
+									<div className="dropdown-button-inner-container">
+										<div className="dropdown-avatar-container">
+											<img
+												className="dropdown-button-avatar"
+												src={`${user.avatar}&s=30`}
+												alt=""
+											/>
+										</div>
+										<span className="dropdown-username">{getUserName(user)}</span>
+									</div>
+								</Dropdown.Toggle>
+								<Dropdown.Menu className={dropDownStyles.dropdownMenu}>
+									<Link href="/dashboard/[lid]" as="/dashboard/profile" passHref={true}>
+										<Dropdown.Item className={dropDownStyles.dropdownItem}>Profile</Dropdown.Item>
+									</Link>
+									<Link href="/dashboard/[lid]" as="/dashboard/account" passHref={true}>
+										<Dropdown.Item className={dropDownStyles.dropdownItem}>Account</Dropdown.Item>
+									</Link>
+									<Link href="/dashboard/[lid]" as="/dashboard/movies" passHref={true}>
+										<Dropdown.Item className={dropDownStyles.dropdownItem}>
+											Movie Watchlist
+										</Dropdown.Item>
+									</Link>
+									<Link href="/dashboard/[lid]" as="/dashboard/shows" passHref={true}>
+										<Dropdown.Item className={dropDownStyles.dropdownItem}>
+											Show Watchlist
+										</Dropdown.Item>
+									</Link>
+									<Link href="/dashboard/[lid]" as="/dashboard/stars" passHref={true}>
+										<Dropdown.Item className={dropDownStyles.dropdownItem}>Star List</Dropdown.Item>
+									</Link>
+									<Dropdown.Item as="button" onClick={logout} className={dropDownStyles.dropdownItem}>
+										Sign out
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+						) : isAuthenticated && !user ? (
+							<div className="loader-container">
+								<div className={loaderStyles.loader}>Loading...</div>
 							</div>
-						</Dropdown.Toggle>
-						<Dropdown.Menu className={dropDownStyles.dropdownMenu}>
-							<Link href="/dashboard/[lid]" as="/dashboard/profile" passHref={true}>
-								<Dropdown.Item className={dropDownStyles.dropdownItem}>Profile</Dropdown.Item>
-							</Link>
-							<Link href="/dashboard/[lid]" as="/dashboard/account" passHref={true}>
-								<Dropdown.Item className={dropDownStyles.dropdownItem}>Account</Dropdown.Item>
-							</Link>
-							<Link href="/dashboard/[lid]" as="/dashboard/movies" passHref={true}>
-								<Dropdown.Item className={dropDownStyles.dropdownItem}>Movie Watchlist</Dropdown.Item>
-							</Link>
-							<Link href="/dashboard/[lid]" as="/dashboard/shows" passHref={true}>
-								<Dropdown.Item className={dropDownStyles.dropdownItem}>Show Watchlist</Dropdown.Item>
-							</Link>
-							<Link href="/dashboard/[lid]" as="/dashboard/stars" passHref={true}>
-								<Dropdown.Item className={dropDownStyles.dropdownItem}>Star List</Dropdown.Item>
-							</Link>
-							<Dropdown.Item as="button" onClick={logout} className={dropDownStyles.dropdownItem}>
-								Sign out
-							</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
-				) : isAuthenticated && !user ? (
-					<div className="loader-container">
-						<div className={loaderStyles.loader}>Loading...</div>
-					</div>
-				) : (
-					<Fragment>
-						<ul className="navbar-list">
-							<li className="navbar-link-item">
-								<Link href="/sign-up">
-									<a className="navbar-anchor-link">Sign Up</a>
-								</Link>
-							</li>
-							<li className="navbar-link-item">
-								<Link href="/login">
-									<a className="navbar-anchor-link">Login</a>
-								</Link>
-							</li>
-						</ul>
-					</Fragment>
-				)}
-			</nav>
+						) : (
+							<div className="navbar-list-login">
+								<ul className="navbar-list">
+									<li className="navbar-link-item">
+										<Link href="/sign-up">
+											<a className="navbar-anchor-link">Sign&nbsp;Up</a>
+										</Link>
+									</li>
+									<li className="navbar-link-item">
+										<Link href="/login">
+											<a className="navbar-anchor-link">Login</a>
+										</Link>
+									</li>
+								</ul>
+							</div>
+						)}
+					</Nav>
+				</Navbar.Collapse>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+			</Navbar>
 			<style jsx>{`
 				.header {
 					width: 100%;
 					background-color: rgba(0, 0, 0, .2);
 				}
 
-				.navbar {
-					height: 90px;
-					width: 75%;
+				.header :global(.navbar) {
+					padding-top: 3rem;
+					padding-bottom: 3rem;
+					width: 70%;
 					margin: 0 auto;
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
 				}
 
-				.navbar-list {
+				:global(.navbar .navbar-collapse .navbar-list),
+				:global(.navbar .navbar-list) {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					padding: 0;
 					margin-bottom: 0;
+				}
+
+				:global(.navbar .navbar-collapse-container.navbar-collapse) {
+					flex-grow: 0;
 				}
 
 				.logo-container {
@@ -137,7 +158,6 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 					color: white;
 					border-radius: 5px;
 					padding: 10px 14px;
-					margin: 0 1rem;
 					cursor: pointer;
 					font-size: 1.7rem;
 				}
@@ -172,6 +192,59 @@ const Navbar = ({ isAuthenticated, logout, user }) => {
 				.loader-container {
 					width: 180px;
 				}
+
+				:global(.navbar .navbar-toggler) {
+					font-size: 1.8rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.header :global(.navbar) {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.header :global(.navbar) {
+						width: 80%;
+					}
+
+					.navbar-list-nav {
+						display: none;
+					}
+
+					:global(.navbar-list.navbar-list-nav) .navbar-link-item,
+					:global(.navbar-list.navbar-list-nav div) {
+						margin: 1rem 0;
+					}
+
+					:global(.navbar .navbar-collapse-container.navbar-collapse) {
+						order: 3;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.header :global(.navbar) {
+						width: 85%;
+					}
+
+					:global(.navbar .navbar-collapse-container.navbar-collapse .navbar-list) {
+						align-items: flex-start;
+						padding-top: 3rem;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.header :global(.navbar) {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.header :global(.navbar) {
+						width: 90%;
+						flex-wrap: wrap;
+					}
+				}
 			`}</style>
 		</header>
 	);
@@ -184,4 +257,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout })(NavbarComponent);

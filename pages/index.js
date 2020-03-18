@@ -8,6 +8,7 @@ import theme from "../src/theme";
 import PeopleCard from "../components/cards/PeopleCard";
 import Link from "next/link";
 import loaderStyles from "../styles/loader.module.css";
+import breakpoints from "../src/breakpoints";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
@@ -177,8 +178,32 @@ const Home = (props) => {
 					width: 100%;
 				}
 				.tv-shows-section {
-					width: 75%;
+					width: 70%;
 					margin: 1rem auto;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.tv-shows-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.tv-shows-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.tv-shows-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.tv-shows-section {
+						width: 90%;
+					}
 				}
 
 				.section-header-container {

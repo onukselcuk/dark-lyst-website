@@ -2,18 +2,13 @@ import { useState } from "react";
 import MovieShowCard from "../cards/MovieShowCard";
 import PlayIcon from "../icons/PlayIcon";
 import VideoImageModal from "../modals/VideoImageModal";
+import breakpoints from "../../src/breakpoints";
 
 const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery, isShow, isProfile }) => {
 	const [ show, setShow ] = useState(false);
 
 	const handleShow = () => {
 		setShow(true);
-	};
-
-	const handlePictureError = (e, url) => {
-		console.log(url);
-		e.target.src = url;
-		e.target.onerror = null;
 	};
 
 	return (
@@ -71,6 +66,7 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 				}
 
 				.video-thumbnail-container {
+					width: 80%;
 					position: relative;
 					cursor: pointer;
 					${!isHero && "width: 100%;"};
@@ -119,6 +115,16 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 				}
 				.video-thumbnail-container:hover .down-backdrop {
 					opacity: 1;
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.hero-left-container {
+						display: none;
+					}
+
+					.video-thumbnail-container {
+						width: 100%;
+					}
 				}
 			`}</style>
 		</div>

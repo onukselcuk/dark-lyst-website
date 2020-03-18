@@ -118,7 +118,6 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 					margin: 0 auto;
 					margin-top: -10rem;
 					display: flex;
-					justify-content: center;
 				}
 
 				.movie-poster-container {

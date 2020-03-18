@@ -131,7 +131,6 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 					margin: 0 auto;
 					margin-top: -10rem;
 					display: flex;
-					justify-content: center;
 				}
 
 				.show-poster-container {

@@ -11,6 +11,7 @@ import Link from "next/link";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import loaderStyles from "../styles/loader.module.css";
 import CircularRating from "./icons/CircularRating";
+import breakpoints from "../src/breakpoints";
 
 const SearchBox = (props) => {
 	const [ movies, setMovies ] = useState([]);
@@ -207,6 +208,8 @@ const SearchBox = (props) => {
 				.search-container {
 					position: relative;
 					width: 35%;
+					margin: 0 2rem;
+					min-width: 220px;
 				}
 
 				.downshift-dropdown {
@@ -268,6 +271,12 @@ const SearchBox = (props) => {
 					background-color: ${theme.palette.primary.main};
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.search-container {
+						width: 60%;
+					}
 				}
 			`}</style>
 		</Fragment>

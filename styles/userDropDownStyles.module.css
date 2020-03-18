@@ -2,6 +2,12 @@
 	width: 180px;
 }
 
+@media (max-width: 82.5em) {
+	.dropdownButtonContainer {
+		order: -1;
+	}
+}
+
 .dropdownButtonContainer .dropdownButton {
 	font-size: 1.8rem;
 	background-color: #1b262c;
