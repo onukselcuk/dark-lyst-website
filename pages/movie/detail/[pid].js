@@ -7,6 +7,7 @@ import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
 import CarouselContainer from "../../../components/containers/CarouselContainer";
 import theme from "../../../src/theme";
+import breakpoints from "../../../src/breakpoints";
 
 const MovieDetail = ({ pid, deviceType }) => {
 	const [ movieDetails, setMovieDetails ] = useState();
@@ -125,22 +126,24 @@ const MovieDetail = ({ pid, deviceType }) => {
 							<div className="carousel-top-bar">
 								<p className="carousel-top-bar-title">Trailers, Teasers & Clips</p>
 							</div>
-							<CarouselContainer deviceType={deviceType} isSmall={false}>
-								{movieDetails.videos.results
-									.filter((current) => current.site.toLowerCase() === "youtube")
-									.map((cur) => {
-										const thumbnailUrl = `https://i.ytimg.com/vi/${cur.key}/hqdefault.jpg`;
-										return (
-											<HeroMovieContainer
-												thumbnailUrl={thumbnailUrl}
-												chosenVideo={cur}
-												cur={movieDetails}
-												isHero={false}
-												isGallery={false}
-											/>
-										);
-									})}
-							</CarouselContainer>
+							<div className="carousel-container">
+								<CarouselContainer deviceType={deviceType} isSmall={false}>
+									{movieDetails.videos.results
+										.filter((current) => current.site.toLowerCase() === "youtube")
+										.map((cur) => {
+											const thumbnailUrl = `https://i.ytimg.com/vi/${cur.key}/hqdefault.jpg`;
+											return (
+												<HeroMovieContainer
+													thumbnailUrl={thumbnailUrl}
+													chosenVideo={cur}
+													cur={movieDetails}
+													isHero={false}
+													isGallery={false}
+												/>
+											);
+										})}
+								</CarouselContainer>
+							</div>
 						</section>
 					)}
 					{movieDetails.images &&
@@ -149,20 +152,22 @@ const MovieDetail = ({ pid, deviceType }) => {
 							<div className="carousel-top-bar">
 								<p className="carousel-top-bar-title">Gallery</p>
 							</div>
-							<CarouselContainer deviceType={deviceType} isSmall={false}>
-								{movieDetails.images.backdrops.map((cur) => {
-									const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.file_path}`;
-									return (
-										<HeroMovieContainer
-											thumbnailUrl={thumbnailUrl}
-											chosenVideo={cur}
-											cur={movieDetails}
-											isHero={false}
-											isGallery={true}
-										/>
-									);
-								})}
-							</CarouselContainer>
+							<div className="carousel-container">
+								<CarouselContainer deviceType={deviceType} isSmall={false}>
+									{movieDetails.images.backdrops.map((cur) => {
+										const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.file_path}`;
+										return (
+											<HeroMovieContainer
+												thumbnailUrl={thumbnailUrl}
+												chosenVideo={cur}
+												cur={movieDetails}
+												isHero={false}
+												isGallery={true}
+											/>
+										);
+									})}
+								</CarouselContainer>
+							</div>
 						</section>
 					)}
 					{recommendations &&
@@ -171,11 +176,13 @@ const MovieDetail = ({ pid, deviceType }) => {
 							<div className="carousel-top-bar">
 								<p className="carousel-top-bar-title">Recommended Movies For You</p>
 							</div>
-							<CarouselContainer deviceType={deviceType} isSmall={true}>
-								{recommendations.map((cur) => (
-									<MovieShowCard key={cur.title} cur={cur} isShow={false} />
-								))}
-							</CarouselContainer>
+							<div className="carousel-container">
+								<CarouselContainer deviceType={deviceType} isSmall={true}>
+									{recommendations.map((cur) => (
+										<MovieShowCard key={cur.title} cur={cur} isShow={false} />
+									))}
+								</CarouselContainer>
+							</div>
 						</section>
 					)}
 
@@ -187,11 +194,13 @@ const MovieDetail = ({ pid, deviceType }) => {
 									<div className="carousel-top-bar">
 										<p className="carousel-top-bar-title">{current.name} Movies</p>
 									</div>
-									<CarouselContainer deviceType={deviceType} isSmall={true}>
-										{current.results.map((cur) => (
-											<MovieShowCard key={cur.title} cur={cur} isShow={false} />
-										))}
-									</CarouselContainer>
+									<div className="carousel-container">
+										<CarouselContainer deviceType={deviceType} isSmall={true}>
+											{current.results.map((cur) => (
+												<MovieShowCard key={cur.title} cur={cur} isShow={false} />
+											))}
+										</CarouselContainer>
+									</div>
 								</section>
 							);
 						})}
@@ -211,6 +220,40 @@ const MovieDetail = ({ pid, deviceType }) => {
 				.carousel-top-bar-title {
 					font-size: 2.6rem;
 					padding: 2rem;
+				}
+
+				.carousel-container {
+					margin-top: 2rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.carousel-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.carousel-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.carousel-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.carousel-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.carousel-section {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</main>

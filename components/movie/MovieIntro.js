@@ -3,6 +3,7 @@ import CircularRating from "../icons/CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
 import { toggleMovieHeart } from "../../store/actions/movieActions";
+import breakpoints from "../../src/breakpoints";
 
 const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) => {
 	const filterProduction = (prodArr) => {
@@ -161,6 +162,7 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 					display: flex;
 					align-items: center;
 					margin-top: 1.5rem;
+					flex-wrap: wrap;
 				}
 
 				.movie-year {
@@ -171,18 +173,18 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 
 				.genres-list {
 					display: flex;
+					margin-right: 1.8rem;
 				}
 
 				.genre-link {
 					color: white;
 					font-size: 1.8rem;
-					margin: 0 4px;
+					margin-right: 4px;
 				}
 
 				.movie-runtime {
 					font-size: 1.8rem;
 					margin-bottom: 0;
-					padding-left: 1.8rem;
 					margin-right: 1.5rem;
 				}
 
@@ -198,15 +200,71 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 					display: flex;
 					align-items: center;
 					margin-top: 2rem;
+					flex-wrap: wrap;
 				}
 
 				.production-company-container {
-					margin-right: 1rem;
+					margin-right: 1.5rem;
+					margin-bottom: 1.5rem;
 				}
 
 				.production-company-logo {
 					height: 40px;
 					filter: grayscale(30%) invert(40%);
+					max-width: 100%;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.movie-detail-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.movie-detail-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.movie-detail-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.movie-detail-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.movie-hero-section {
+						height: 40vh;
+					}
+					.movie-detail-section {
+						flex-direction: column;
+						margin-top: -40rem;
+						align-items: center;
+					}
+
+					.movie-detail-container {
+						padding: 4rem 0;
+						width: 100%;
+					}
+
+					.movie-poster-container {
+						width: 100%;
+					}
+
+					.movie-poster {
+						width: 40%;
+					}
+				}
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.movie-detail-section {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</Fragment>

@@ -3,6 +3,7 @@ import CreditContainer from "./CreditContainer";
 import theme from "../../src/theme";
 import SeasonsContainer from "../containers/SeasonsContainer";
 import CarouselContainer from "../containers/CarouselContainer";
+import breakpoints from "../../src/breakpoints";
 
 const MovieShowCredits = ({ getDirector, movieCredits, deviceType, showDetails, isShow }) => {
 	const [ seasonBarState, setSeasonBarState ] = useState(false);
@@ -35,21 +36,25 @@ const MovieShowCredits = ({ getDirector, movieCredits, deviceType, showDetails, 
 				)}
 			</div>
 			{seasonBarState && isShow ? (
-				<SeasonsContainer deviceType={deviceType} showDetails={showDetails} />
+				<div className="carousel-container">
+					<SeasonsContainer deviceType={deviceType} showDetails={showDetails} />
+				</div>
 			) : (
-				<CarouselContainer isSmall={true} deviceType={deviceType}>
-					{getDirector(movieCredits.crew).slice(0, 2).map((cur) => {
-						return <CreditContainer cur={cur} />;
-					})}
-
-					{movieCredits.cast.slice(0, 10).map((cur) => {
-						if (cur) {
+				<div className="carousel-container">
+					<CarouselContainer isSmall={true} deviceType={deviceType}>
+						{getDirector(movieCredits.crew).slice(0, 2).map((cur) => {
 							return <CreditContainer cur={cur} />;
-						} else {
-							return null;
-						}
-					})}
-				</CarouselContainer>
+						})}
+
+						{movieCredits.cast.slice(0, 10).map((cur) => {
+							if (cur) {
+								return <CreditContainer cur={cur} />;
+							} else {
+								return null;
+							}
+						})}
+					</CarouselContainer>
+				</div>
 			)}
 
 			<style jsx>{`
@@ -84,6 +89,40 @@ const MovieShowCredits = ({ getDirector, movieCredits, deviceType, showDetails, 
 				.credits-top-bar-seasons {
 					background: none;
 					${seasonBarState && "background-color: #1b262c;"};
+				}
+
+				.carousel-container {
+					margin-top: 1.5rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.credits-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.credits-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.credits-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.credits-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.credits-section {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</section>

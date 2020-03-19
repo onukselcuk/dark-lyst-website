@@ -9,7 +9,7 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 		return prodArr.filter((cur) => cur.logo_path !== null);
 	};
 
-	const filteredProduction = filterProduction(showDetails.production_companies).slice(0, 4);
+	const filteredProduction = filterProduction(showDetails.networks || showDetails.production_companies).slice(0, 4);
 
 	const hour =
 		Math.floor(showDetails.episode_run_time / 60) > 0 ? Math.floor(showDetails.episode_run_time / 60) : false;
