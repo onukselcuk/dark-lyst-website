@@ -1,6 +1,7 @@
 import Logo from "../icons/Logo";
 import Link from "next/link";
 import TmdbLogo from "../icons/TmdbLogo";
+import breakpoints from "../../src/breakpoints";
 
 const Footer = () => {
 	return (
@@ -106,6 +107,32 @@ const Footer = () => {
 
 				.footer-link:hover {
 					color: #1f4287;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xxs}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						flex-direction: column;
+						align-items: center;
+					}
+
+					.top-container {
+						width: 100%;
+					}
+
+					.logo-container,
+					.tmdb-logo-container,
+					.top-footer-link-container {
+						width: 50%;
+						margin: .7rem auto;
+						text-align: center;
+					}
+
+					.copyright-container,
+					.developer-container {
+						text-align: center;
+						margin: .5rem auto;
+					}
 				}
 			`}</style>
 		</footer>

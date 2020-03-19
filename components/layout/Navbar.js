@@ -27,7 +27,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
 	return (
 		<header className="header">
-			<Navbar className="navbar" expand="xl" variant="dark">
+			<Navbar className="navbar" expand="lg" variant="dark">
 				<div className="logo-container">
 					<Link href="/">
 						<a>
@@ -208,15 +208,6 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 						width: 80%;
 					}
 
-					.navbar-list-nav {
-						display: none;
-					}
-
-					:global(.navbar-list.navbar-list-nav) .navbar-link-item,
-					:global(.navbar-list.navbar-list-nav div) {
-						margin: 1rem 0;
-					}
-
 					:global(.navbar .navbar-collapse-container.navbar-collapse) {
 						order: 3;
 					}
@@ -226,6 +217,17 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 					.header :global(.navbar) {
 						width: 85%;
 					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.header :global(.navbar) {
+						width: 90%;
+					}
+
+					:global(.navbar-list.navbar-list-nav) .navbar-link-item,
+					:global(.navbar-list.navbar-list-nav div) {
+						margin: 1rem 0;
+					}
 
 					:global(.navbar .navbar-collapse-container.navbar-collapse .navbar-list) {
 						align-items: flex-start;
@@ -233,16 +235,15 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 					}
 				}
 
-				@media (max-width: ${breakpoints.sizes.mdsm}) {
+				@media (max-width: ${breakpoints.sizes.sm}) {
 					.header :global(.navbar) {
 						width: 90%;
 					}
 				}
 
-				@media (max-width: ${breakpoints.sizes.sm}) {
+				@media (max-width: ${breakpoints.sizes.xs}) {
 					.header :global(.navbar) {
-						width: 90%;
-						flex-wrap: wrap;
+						width: 95%;
 					}
 				}
 			`}</style>

@@ -1,8 +1,9 @@
 .dropdownButtonContainer {
 	width: 180px;
+	margin-left: 1rem;
 }
 
-@media (max-width: 82.5em) {
+@media (max-width: 59.375em) {
 	.dropdownButtonContainer {
 		order: -1;
 	}

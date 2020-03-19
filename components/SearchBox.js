@@ -208,8 +208,7 @@ const SearchBox = (props) => {
 				.search-container {
 					position: relative;
 					width: 35%;
-					margin: 0 2rem;
-					min-width: 220px;
+					margin: 0 1rem;
 				}
 
 				.downshift-dropdown {
@@ -273,7 +272,7 @@ const SearchBox = (props) => {
 					border-bottom-right-radius: 5px;
 				}
 
-				@media (max-width: ${breakpoints.sizes.md}) {
+				@media (max-width: ${breakpoints.sizes.lg}) {
 					.search-container {
 						width: 60%;
 					}

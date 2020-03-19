@@ -206,6 +206,12 @@ const Home = (props) => {
 					}
 				}
 
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.tv-shows-section {
+						width: 95%;
+					}
+				}
+
 				.section-header-container {
 					background-color: ${theme.palette.eight.main};
 					border-radius: 10px;
