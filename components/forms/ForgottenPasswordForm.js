@@ -106,7 +106,7 @@ const ForgottenPasswordForm = ({ passwordResetRequest }) => {
 							}}
 							className={formStyles.Button}
 						>
-							I forgot my password
+							Submit
 						</Button>
 					</Form.Group>
 				</Form>

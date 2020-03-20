@@ -5,6 +5,7 @@ import loaderStyles from "../styles/loader.module.css";
 import Router from "next/router";
 import ResetPasswordForm from "../components/forms/ResetPasswordForm";
 import axios from "axios";
+import breakpoints from "../src/breakpoints";
 
 const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) => {
 	useEffect(() => {
@@ -58,7 +59,7 @@ const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) =>
 
 				.form-container {
 					width: 80%;
-					margin: 0 auto;
+					margin: 2rem auto;
 				}
 
 				.redirect-container {
@@ -67,6 +68,36 @@ const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) =>
 
 				.sub-button-note {
 					font-size: 1.8rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.carousel-section {
+						width: 55%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.carousel-section {
+						width: 70%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.carousel-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.carousel-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.carousel-section {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</main>

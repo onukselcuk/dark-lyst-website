@@ -225,7 +225,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 					}
 
 					:global(.navbar-list.navbar-list-nav) .navbar-link-item,
-					:global(.navbar-list.navbar-list-nav div) {
+					:global(.navbar-list.navbar-list-nav .dropdown) {
 						margin: 1rem 0;
 					}
 

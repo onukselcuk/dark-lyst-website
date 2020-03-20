@@ -6,6 +6,7 @@ import cookies from "next-cookies";
 import cookie from "react-cookies";
 import Router from "next/router";
 import ForgottenPasswordForm from "../components/forms/ForgottenPasswordForm";
+import breakpoints from "../src/breakpoints";
 
 const ForgotPassword = ({ isPasswordResetReqLoading }) => {
 	return (
@@ -53,7 +54,7 @@ const ForgotPassword = ({ isPasswordResetReqLoading }) => {
 
 				.form-container {
 					width: 80%;
-					margin: 0 auto;
+					margin: 2rem auto;
 				}
 
 				.redirect-container {
@@ -62,6 +63,35 @@ const ForgotPassword = ({ isPasswordResetReqLoading }) => {
 
 				.sub-button-note {
 					font-size: 1.8rem;
+				}
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.carousel-section {
+						width: 55%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.carousel-section {
+						width: 70%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.carousel-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.carousel-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.carousel-section {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</main>
