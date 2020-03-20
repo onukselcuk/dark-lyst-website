@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import theme from "../../src/theme";
 import Link from "next/link";
 import styles from "../../styles/navDropDownStyles.module.css";
+import { v4 as uuidv4 } from "uuid";
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -44,22 +45,22 @@ const MovieDropdown = () => {
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Link href="/movies/[slug]" as="/movies/now-playing" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="1">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Movies Now Playing In Theaters
 						</Dropdown.Item>
 					</Link>
 					<Link href="/movies/[slug]" as="/movies/popular" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="2">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Popular Movies
 						</Dropdown.Item>
 					</Link>
 					<Link href="/movies/[slug]" as="/movies/top-rated" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="3">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Top Rated Movies
 						</Dropdown.Item>
 					</Link>
 					<Link href="/movies/[slug]" as="/movies/upcoming" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="4">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Upcoming Movies
 						</Dropdown.Item>
 					</Link>

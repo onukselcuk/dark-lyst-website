@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import theme from "../../src/theme";
 import Link from "next/link";
 import styles from "../../styles/navDropDownStyles.module.css";
+import { v4 as uuidv4 } from "uuid";
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -44,27 +45,27 @@ const TvDropdown = () => {
 
 				<Dropdown.Menu className={styles.dropdownMenu}>
 					<Link as="/shows/on-the-air" href="/shows/[slug]" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="1">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							TV Shows On Air
 						</Dropdown.Item>
 					</Link>
 					<Link as="/shows/popular" href="/shows/[slug]" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="2">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Popular Shows
 						</Dropdown.Item>
 					</Link>
 					<Link as="/shows/top-rated" href="/shows/[slug]" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="3">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Top Rated Shows
 						</Dropdown.Item>
 					</Link>
 					<Link as="/shows/latest-on-netflix" href="/shows/[slug]" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="4">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Latest Shows On Netflix
 						</Dropdown.Item>
 					</Link>
 					<Link as="/shows/latest-on-apple-tv-plus" href="/shows/[slug]" passHref={true}>
-						<Dropdown.Item className={styles.dropdownItem} eventKey="5">
+						<Dropdown.Item className={styles.dropdownItem} eventKey={uuidv4()}>
 							Latest Shows On Apple TV+
 						</Dropdown.Item>
 					</Link>

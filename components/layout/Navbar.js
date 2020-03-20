@@ -27,7 +27,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
 	return (
 		<header className="header">
-			<Navbar className="navbar" expand="lg" variant="dark">
+			<Navbar className="navbar" expand="lg" variant="dark" collapseOnSelect={true}>
 				<div className="logo-container">
 					<Link href="/">
 						<a>

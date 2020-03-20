@@ -6,6 +6,7 @@ import showGenresList from "../../src/showGenresList";
 import languageList from "../../src/languageList";
 import yearsList from "../../src/yearsList";
 import theme from "../../src/theme";
+import breakpoints from "../../src/breakpoints";
 
 const sortByOptions = [
 	{ value: "popularity", label: "Popularity" },
@@ -127,8 +128,8 @@ const ShowDiscoverForm = ({
 					blurInputOnSelect={true}
 				/>
 			</div>
-			<div className="select-container years-select-container ">
-				<div className="year-inner-container">
+			<div className="select-container years-select-container years-select-container-1 ">
+				<div className="year-inner-container year-inner-container-1">
 					<label htmlFor="year-from-select-id">First Air Year From (Jan 1st)</label>
 					<Select
 						id="year-from-select-id"
@@ -142,7 +143,7 @@ const ShowDiscoverForm = ({
 						blurInputOnSelect={true}
 					/>
 				</div>
-				<div className="year-inner-container">
+				<div className="year-inner-container year-inner-container-2">
 					<label htmlFor="year-to-select-id">First Air Year To (Dec 31st)</label>
 					<Select
 						id="year-to-select-id"
@@ -157,8 +158,8 @@ const ShowDiscoverForm = ({
 					/>
 				</div>
 			</div>
-			<div className="select-container years-select-container ">
-				<div className="year-inner-container">
+			<div className="select-container years-select-container years-select-container-2">
+				<div className="year-inner-container year-inner-container-1">
 					<label htmlFor="year-from-select-id">Last Air Year From (Jan 1st)</label>
 					<Select
 						id="year-from-select-id"
@@ -172,7 +173,7 @@ const ShowDiscoverForm = ({
 						blurInputOnSelect={true}
 					/>
 				</div>
-				<div className="year-inner-container">
+				<div className="year-inner-container year-inner-container-2">
 					<label htmlFor="year-to-select-id">Last Air Year To (Dec 31st)</label>
 					<Select
 						id="year-to-select-id"
@@ -233,7 +234,6 @@ const ShowDiscoverForm = ({
 					flex-grow: 1;
 					margin-top: 1rem;
 					margin-bottom: 1rem;
-					margin-right: 2rem;
 				}
 
 				.sort-by-select-container {
@@ -246,12 +246,14 @@ const ShowDiscoverForm = ({
 
 				.genres-select-container {
 					width: 50%;
+					margin-right: 2rem;
 				}
 
 				.asc-desc-arrows-container {
 					width: 10%;
 					display: flex;
 					align-items: center;
+					justify-content: flex-end;
 				}
 
 				.asc-desc-arrows-container :glabal(svg) {
@@ -262,6 +264,10 @@ const ShowDiscoverForm = ({
 					transition: all 300ms ease;
 					position: relative;
 					top: 10%;
+				}
+
+				.asc-desc-arrows-container :glabal(svg:not(:last-of-type)) {
+					margin-right: 1rem;
 				}
 
 				.asc-desc-arrows-container :glabal(svg):hover {
@@ -283,9 +289,37 @@ const ShowDiscoverForm = ({
 					width: 40%;
 				}
 
+				.years-select-container-1 {
+					margin-right: 2rem;
+				}
+
 				.year-inner-container {
 					flex-grow: 1;
+				}
+
+				.year-inner-container-1 {
 					margin-right: .5rem;
+				}
+
+				.language-select-container {
+					margin-right: 2rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.years-select-container {
+						width: 100%;
+						margin-right: 0;
+					}
+					.sort-by-select-container {
+						margin-right: 2rem;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xxs}) {
+					.select-container:not(.sort-by-select-container) {
+						width: 100%;
+						margin-right: 0;
+					}
 				}
 			`}</style>
 		</div>

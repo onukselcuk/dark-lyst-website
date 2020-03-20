@@ -101,8 +101,8 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 				.person-hero-section {
 					width: 100%;
 					height: 70vh;
-					${personImages && personCredits
-						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${backgroundUrl}") ;`
+					background-image: ${personImages && personCredits
+						? `linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${backgroundUrl}")`
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
@@ -203,8 +203,8 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 						width: 100%;
 						min-height: calc(100vh - 75px);
 						margin-top: 0;
-						${personImages && personCredits
-							? `background-image: linear-gradient(to top, rgba(0, 0, 0, .8),rgba(0, 0, 0, .8) ),  url("https://image.tmdb.org/t/p/original${backgroundUrl}") ;`
+						background-image: ${personImages && personCredits
+							? `linear-gradient(to top, rgba(0, 0, 0, .8),rgba(0, 0, 0, .8) ),  url("https://image.tmdb.org/t/p/original${backgroundUrl}")`
 							: null};
 					}
 					.person-profile-picture-container {

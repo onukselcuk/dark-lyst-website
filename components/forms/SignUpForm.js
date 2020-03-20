@@ -11,7 +11,7 @@ import { registerUser } from "../../store/actions/authActions";
 import formStyles from "../../styles/formStyles.module.css";
 
 const schema = yup.object({
-	name: yup.string().required("Name is required"),
+	name: yup.string().max(20, "Name cannot be longer than 20 characters").required("Name is required"),
 	email: yup.string().email("Email is invalid").required("Email is required"),
 	password: yup
 		.string()

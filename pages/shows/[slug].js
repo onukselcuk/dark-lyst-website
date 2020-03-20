@@ -3,6 +3,7 @@ import axios from "axios";
 import theme from "../../src/theme";
 import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
+import breakpoints from "../../src/breakpoints";
 
 const ShowsTemplate = ({ slug }) => {
 	const [ shows, setShows ] = useState();
@@ -92,11 +93,13 @@ const ShowsTemplate = ({ slug }) => {
 			totalResultNumber &&
 			totalResultNumber > 20 && (
 				<section className="carousel-section">
-					<Paginator
-						current={currentPageNumber}
-						total={totalResultNumber}
-						handlePageChange={handlePageChange}
-					/>
+					<div className="paginator-container">
+						<Paginator
+							current={currentPageNumber}
+							total={totalResultNumber}
+							handlePageChange={handlePageChange}
+						/>
+					</div>
 				</section>
 			)}
 
@@ -126,6 +129,51 @@ const ShowsTemplate = ({ slug }) => {
 				.card-container {
 					width: 49%;
 					margin: 1rem 0;
+				}
+
+				.paginator-container {
+					max-width: 100%;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.carousel-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.carousel-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.carousel-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.carousel-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.card-container {
+						width: 100%;
+						margin: 1rem 0;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.carousel-section {
+						width: 95%;
+					}
+
+					.carousel-top-bar-title {
+						font-size: 2rem;
+					}
 				}
 			`}</style>
 		</main>

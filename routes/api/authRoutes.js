@@ -49,6 +49,7 @@ router.post(
 	"/register",
 	[
 		check("name", "Name is required").not().isEmpty(),
+		check("name", "Name cannot be longer than 20 characters").isLength({ max: 20 }),
 		check("email", "Please include a valid email address").isEmail(),
 		check("password", "Please enter a password with 8 or more characters").isLength({ min: 8 }),
 		check("confirm", "Please confirm your password")

@@ -88,6 +88,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 					display: flex;
                     height: 100%;
 					overflow: hidden;
+					align-items:center;
                     background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${current.backdrop_path ||
 						current.backdropPath}");
                     background-repeat: no-repeat;
@@ -108,6 +109,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 
 				.poster-image-container {
 					width: 30%;
+					min-width:140px;
 				}
 
 				.poster-image {
@@ -153,6 +155,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
                     height: 8%;
                     margin:1rem;        
                 }
+
 
 			`}</style>
 			</a>

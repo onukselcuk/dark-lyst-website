@@ -10,6 +10,18 @@
 	padding: 1rem 2rem;
 }
 
+@media (max-width: 46.875em) {
+	:global(.page-link).PageLink {
+		padding: .5rem 1rem;
+	}
+}
+
+@media (max-width: 36em) {
+	:global(.page-link).PageLink {
+		font-size: 1.6rem;
+	}
+}
+
 :global(.page-item).PageItem:hover :global(.page-link).PageLink {
 	color: black;
 	border: none;
