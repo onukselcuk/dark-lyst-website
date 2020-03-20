@@ -6,6 +6,7 @@ import MobileDetect from "mobile-detect";
 import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
 import CarouselContainer from "../../../components/containers/CarouselContainer";
 import theme from "../../../src/theme";
+import breakpoints from "../../../src/breakpoints";
 
 const PersonDetail = ({ sid, deviceType }) => {
 	const [ personDetails, setPersonDetails ] = useState();
@@ -117,21 +118,24 @@ const PersonDetail = ({ sid, deviceType }) => {
 							<div className="carousel-top-bar">
 								<p className="carousel-top-bar-title">Gallery</p>
 							</div>
-							<CarouselContainer deviceType={deviceType} isSmall={false}>
-								{personTaggedImages.map((cur) => {
-									const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.media.backdrop_path}`;
-									return (
-										<HeroMovieContainer
-											thumbnailUrl={thumbnailUrl}
-											chosenVideo={cur.media}
-											cur={cur.media}
-											isHero={false}
-											isGallery={true}
-											isProfile={true}
-										/>
-									);
-								})}
-							</CarouselContainer>
+							<div className="carousel-container">
+								<CarouselContainer deviceType={deviceType} isSmall={false}>
+									{personTaggedImages.map((cur) => {
+										const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.media
+											.backdrop_path}`;
+										return (
+											<HeroMovieContainer
+												thumbnailUrl={thumbnailUrl}
+												chosenVideo={cur.media}
+												cur={cur.media}
+												isHero={false}
+												isGallery={true}
+												isProfile={true}
+											/>
+										);
+									})}
+								</CarouselContainer>
+							</div>
 						</section>
 					)}
 
@@ -195,14 +199,63 @@ const PersonDetail = ({ sid, deviceType }) => {
 					padding: 2rem;
 				}
 
+				.carousel-container {
+					margin-top: 2rem;
+				}
+
 				.credits-container {
 					display: flex;
 					flex-wrap: wrap;
 				}
 
 				.credit-container {
-					width: 25%;
+					width: 20%;
 					margin: 1rem 0;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.carousel-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.carousel-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.carousel-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.carousel-section {
+						width: 90%;
+					}
+
+					.credit-container {
+						width: 25%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.credit-container {
+						width: 33%;
+					}
+				}
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.carousel-section {
+						width: 95%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xxs}) {
+					.credit-container {
+						width: 50%;
+					}
 				}
 			`}</style>
 		</main>

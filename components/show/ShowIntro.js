@@ -3,6 +3,7 @@ import CircularRating from "../icons/CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 import { toggleShowHeart } from "../../store/actions/showActions";
 import { connect } from "react-redux";
+import breakpoints from "../../src/breakpoints";
 
 const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 	const filterProduction = (prodArr) => {
@@ -118,8 +119,8 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 				.show-hero-section {
 					width: 100%;
 					height: 70vh;
-					${showDetails
-						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${imageUrlPath}") ;`
+					background-image: ${showDetails
+						? `linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${imageUrlPath}")`
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
@@ -174,6 +175,7 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 					display: flex;
 					align-items: center;
 					margin-top: 1.5rem;
+					flex-wrap: wrap;
 				}
 
 				.show-small-info {
@@ -184,16 +186,16 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 
 				.genres-list {
 					display: flex;
-					margin-right: 1.5rem;
-				}
-
-				.genre-link:not(:last-of-type) {
-					margin-right: 4px;
+					margin-right: 1.8rem;
 				}
 
 				.genre-link {
 					color: white;
 					font-size: 1.8rem;
+				}
+
+				.genre-link:not(:last-of-type) {
+					margin-right: 4px;
 				}
 
 				.show-overview {
@@ -204,15 +206,94 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 					display: flex;
 					align-items: center;
 					margin-top: 2rem;
+					flex-wrap: wrap;
 				}
 
 				.production-company-container {
 					margin-right: 1rem;
+					margin-bottom: 1.5rem;
 				}
 
 				.production-company-logo {
 					height: 40px;
 					filter: grayscale(30%) invert(40%);
+					max-width: 100%;
+				}
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.show-detail-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.show-detail-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.show-detail-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.show-detail-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.show-hero-section {
+						display: none;
+					}
+					.show-detail-section {
+						flex-direction: column;
+						margin-top: 0;
+						align-items: center;
+						justify-content: center;
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: 50% 25%;
+						width: 100%;
+						min-height: calc(100vh - 75px);
+						background-image: ${showDetails
+							? `linear-gradient(to top, rgba(0, 0, 0, .8),rgba(0, 0, 0, .8)),  url("https://image.tmdb.org/t/p/original${imageUrlPath}")`
+							: null};
+					}
+
+					.show-poster-container {
+						width: 90%;
+						margin-top: 1rem;
+					}
+					.show-poster {
+						width: 45%;
+					}
+
+					.show-detail-container {
+						padding: 4rem 0;
+						width: 90%;
+					}
+
+					.show-title {
+						font-size: 3rem;
+					}
+
+					.rating-container {
+						width: 50px;
+						height: 50px;
+					}
+
+					.heart-container {
+						width: 40px;
+						height: 40px;
+					}
+				}
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.show-detail-container,
+					.show-poster-container {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</Fragment>

@@ -3,6 +3,7 @@ import HeartIcon from "../icons/HeartIcon";
 import format from "date-fns/format";
 import { connect } from "react-redux";
 import { togglePersonHeart } from "../../store/actions/personActions";
+import breakpoints from "../../src/breakpoints";
 
 const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonHeart, personList }) => {
 	const getBackgroundUrlPath = (images, credits) => {
@@ -113,7 +114,6 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 					margin: 0 auto;
 					margin-top: -10rem;
 					display: flex;
-					justify-content: center;
 				}
 
 				.person-profile-picture-container {
@@ -151,6 +151,7 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 					display: flex;
 					align-items: center;
 					margin-top: 1.5rem;
+					flex-wrap: wrap;
 				}
 
 				.person-small-info {
@@ -162,6 +163,77 @@ const PersonIntro = ({ personDetails, personImages, personCredits, togglePersonH
 				.person-biography {
 					margin-top: 1rem;
 					font-size: 1.9rem;
+				}
+
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.person-detail-section {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.person-detail-section {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.person-detail-section {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.person-detail-section {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.person-hero-section {
+						display: none;
+					}
+					.person-detail-section {
+						flex-direction: column;
+						align-items: center;
+						justify-content: center;
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: 50% 25%;
+						width: 100%;
+						min-height: calc(100vh - 75px);
+						margin-top: 0;
+						${personImages && personCredits
+							? `background-image: linear-gradient(to top, rgba(0, 0, 0, .8),rgba(0, 0, 0, .8) ),  url("https://image.tmdb.org/t/p/original${backgroundUrl}") ;`
+							: null};
+					}
+					.person-profile-picture-container {
+						width: 90%;
+					}
+
+					.person-profile-picture {
+						width: 45%;
+					}
+
+					.person-detail-container {
+						padding: 4rem 0;
+						width: 90%;
+					}
+
+					.person-name {
+						font-size: 3rem;
+					}
+
+					.heart-container {
+						width: 40px;
+						height: 40px;
+					}
+				}
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.person-detail-container,
+					.person-profile-picture-container {
+						width: 95%;
+					}
 				}
 			`}</style>
 		</Fragment>

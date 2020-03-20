@@ -106,8 +106,8 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 				.movie-hero-section {
 					width: 100%;
 					height: 70vh;
-					${movieDetails
-						? `background-image: linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${imageUrlPath}") ;`
+					background-image: ${movieDetails
+						? `linear-gradient(to top, rgba(0, 0, 0, 1),rgba(0, 0, 0, .8) 10%, transparent 60%),  url("https://image.tmdb.org/t/p/original${imageUrlPath}")`
 						: null};
 					background-size: cover;
 					background-repeat: no-repeat;
@@ -132,7 +132,7 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 				}
 
 				.movie-detail-container {
-					width: 60%;
+					width: 75%;
 					padding: 4rem 3rem;
 				}
 
@@ -179,6 +179,9 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 				.genre-link {
 					color: white;
 					font-size: 1.8rem;
+				}
+
+				.genre-link:not(:last-of-type) {
 					margin-right: 4px;
 				}
 
@@ -240,29 +243,53 @@ const MovieIntro = ({ movieDetails, getGenres, toggleMovieHeart, movieList }) =>
 
 				@media (max-width: ${breakpoints.sizes.sm}) {
 					.movie-hero-section {
-						height: 40vh;
+						display: none;
 					}
 					.movie-detail-section {
 						flex-direction: column;
-						margin-top: -40rem;
+						margin-top: 0;
+						justify-content: center;
 						align-items: center;
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: 50% 25%;
+						width: 100%;
+						min-height: calc(100vh - 75px);
+						background-image: ${movieDetails
+							? `linear-gradient(to top, rgba(0, 0, 0, .8),rgba(0, 0, 0, .8)),  url("https://image.tmdb.org/t/p/original${imageUrlPath}")`
+							: null};
+					}
+					.movie-poster-container {
+						width: 90%;
+						margin-top: 1rem;
+					}
+
+					.movie-poster {
+						width: 45%;
 					}
 
 					.movie-detail-container {
 						padding: 4rem 0;
-						width: 100%;
+						width: 90%;
 					}
 
-					.movie-poster-container {
-						width: 100%;
+					.movie-title {
+						font-size: 3rem;
 					}
 
-					.movie-poster {
-						width: 40%;
+					.rating-container {
+						width: 50px;
+						height: 50px;
+					}
+
+					.heart-container {
+						width: 40px;
+						height: 40px;
 					}
 				}
 				@media (max-width: ${breakpoints.sizes.xs}) {
-					.movie-detail-section {
+					.movie-detail-container,
+					.movie-poster-container {
 						width: 95%;
 					}
 				}

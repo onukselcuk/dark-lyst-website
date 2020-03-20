@@ -57,12 +57,12 @@ const Footer = () => {
 				}
 
 				.top-footer {
-					background-color: rgba(0, 0, 0, .2);
+					background-color: rgba(0, 0, 0, .6);
 					border-bottom: 1px solid rgba(255, 255, 255, .1);
 				}
 
 				.bottom-footer {
-					background-color: rgba(0, 0, 0, .3);
+					background-color: rgba(0, 0, 0, .6);
 				}
 
 				.footer-inner-container-top,
@@ -87,11 +87,13 @@ const Footer = () => {
 				}
 
 				.logo-container {
-					width: 45%;
+					width: 50%;
+					min-width: 140px;
 				}
 
 				.tmdb-logo-container {
 					width: 35%;
+					min-width: 120px;
 					margin: 0 auto;
 				}
 
@@ -109,6 +111,48 @@ const Footer = () => {
 					color: #1f4287;
 				}
 
+				@media (max-width: ${breakpoints.sizes.xl}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 75%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.lg}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 80%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.md}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 85%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 90%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					.footer-inner-container-top,
+					.footer-inner-container-bottom {
+						width: 95%;
+					}
+				}
+
 				@media (max-width: ${breakpoints.sizes.xxs}) {
 					.footer-inner-container-top,
 					.footer-inner-container-bottom {
@@ -124,6 +168,7 @@ const Footer = () => {
 					.tmdb-logo-container,
 					.top-footer-link-container {
 						width: 50%;
+						max-width: 140px;
 						margin: .7rem auto;
 						text-align: center;
 					}
