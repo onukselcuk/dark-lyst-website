@@ -13,6 +13,7 @@ import MovieWatchlistContainer from "../../components/containers/MovieWatchlistC
 import ShowWatchlistContainer from "../../components/containers/ShowWatchlistContainer";
 import StarListContainer from "../../components/containers/StarListContainer";
 import breakpoints from "../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const dashboardTemplate = ({ user, lid }) => {
 	const [ barState, setBarState ] = useState("profile");
@@ -35,6 +36,14 @@ const dashboardTemplate = ({ user, lid }) => {
 		<Fragment>
 			{user && (
 				<section className="dashboard-section">
+					<NextSeo
+						title={`${user.name}'s ${lid.slice(0, 1).toUpperCase()}${lid.slice(1)}`}
+						noindex={true}
+						openGraph={{
+							url: `https://www.darklyst.com/dashboard/${lid}`,
+							title: `${user.name}'s ${lid.slice(0, 1).toUpperCase()}${lid.slice(1)}`
+						}}
+					/>
 					<div className="dashboard-top-bar">
 						<Link href={`/dashboard/[lid]`} as={`/dashboard/profile`}>
 							<a className={`dashboard-top-bar-title ${barState === "profile" ? "active" : ""}`}>

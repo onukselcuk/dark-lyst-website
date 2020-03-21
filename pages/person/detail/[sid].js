@@ -7,6 +7,7 @@ import HeroMovieContainer from "../../../components/containers/HeroMovieContaine
 import CarouselContainer from "../../../components/containers/CarouselContainer";
 import theme from "../../../src/theme";
 import breakpoints from "../../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const PersonDetail = ({ sid, deviceType }) => {
 	const [ personDetails, setPersonDetails ] = useState();
@@ -107,6 +108,15 @@ const PersonDetail = ({ sid, deviceType }) => {
 		<main>
 			{personDetails && (
 				<Fragment>
+					<NextSeo
+						title={personDetails.name}
+						description={personDetails.biography.slice(0, 130)}
+						openGraph={{
+							url: `https://www.darklyst.com/person/detail/${personDetails.id}`,
+							title: `${personDetails.name}`,
+							description: `${personDetails.biography.slice(0, 130)}`
+						}}
+					/>
 					<PersonIntro
 						personDetails={personDetails}
 						personImages={personTaggedImages}

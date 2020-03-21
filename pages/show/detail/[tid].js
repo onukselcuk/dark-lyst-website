@@ -8,6 +8,7 @@ import HeroMovieContainer from "../../../components/containers/HeroMovieContaine
 import CarouselContainer from "../../../components/containers/CarouselContainer";
 import theme from "../../../src/theme";
 import breakpoints from "../../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const ShowDetail = ({ tid, deviceType }) => {
 	const [ showDetails, setShowDetails ] = useState();
@@ -117,6 +118,15 @@ const ShowDetail = ({ tid, deviceType }) => {
 		<main>
 			{showDetails && (
 				<Fragment>
+					<NextSeo
+						title={showDetails.name}
+						description={showDetails.overview.slice(0, 130)}
+						openGraph={{
+							url: `https://www.darklyst.com/show/detail/${showDetails.id}`,
+							title: `${showDetails.name}`,
+							description: `${showDetails.overview.slice(0, 130)}`
+						}}
+					/>
 					<ShowIntro showDetails={showDetails} getGenres={getGenres} />
 					{showCredits && (
 						<MovieShowCredits

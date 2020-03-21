@@ -4,6 +4,7 @@ import theme from "../../src/theme";
 import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 import breakpoints from "../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const MoviesTemplate = ({ slug }) => {
 	const [ movies, setMovies ] = useState();
@@ -68,6 +69,15 @@ const MoviesTemplate = ({ slug }) => {
 
 	return (
 		<main>
+			<NextSeo
+				title={title}
+				description={`Discover ${title}`}
+				openGraph={{
+					url: `https://www.darklyst.com/movies/${slug}`,
+					title: `${title}`,
+					description: `Discover ${title}`
+				}}
+			/>
 			<section className="carousel-section">
 				<div className="carousel-top-bar" ref={containerRef}>
 					<p className="carousel-top-bar-title">{title}</p>

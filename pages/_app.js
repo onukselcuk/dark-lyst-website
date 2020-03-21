@@ -1,6 +1,6 @@
 //import App from "next/app";
 import { Provider } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { loadUser } from "../store/actions/authActions";
 import store from "../store/store";
 import Layout from "../components/layout/Layout";
@@ -12,6 +12,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import setAuthToken from "../utils/setAuthToken";
+import { DefaultSeo } from "next-seo";
 
 function MyApp ({ Component, pageProps }) {
 	if (typeof localStorage !== "undefined") {
@@ -23,11 +24,23 @@ function MyApp ({ Component, pageProps }) {
 	}, []);
 
 	return (
-		<Provider store={store}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</Provider>
+		<Fragment>
+			<DefaultSeo
+				openGraph={{
+					type: "website",
+					locale: "en_US",
+					site_name: "Dark Lyst"
+				}}
+				twitter={{
+					cardType: "summary_large_image"
+				}}
+			/>
+			<Provider store={store}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</Provider>
+		</Fragment>
 	);
 }
 

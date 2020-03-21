@@ -4,6 +4,7 @@ import theme from "../../src/theme";
 import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 import breakpoints from "../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const ShowsTemplate = ({ slug }) => {
 	const [ shows, setShows ] = useState();
@@ -51,7 +52,7 @@ const ShowsTemplate = ({ slug }) => {
 				subject = "Latest Shows On Netflix";
 				break;
 			case "latest-on-apple-tv-plus":
-				subject = "Latest Show On Apple TV+";
+				subject = "Latest Shows On Apple TV+";
 				break;
 			default:
 				subject = "Shows";
@@ -71,6 +72,15 @@ const ShowsTemplate = ({ slug }) => {
 
 	return (
 		<main>
+			<NextSeo
+				title={title}
+				description={`Discover ${title}`}
+				openGraph={{
+					url: `https://www.darklyst.com/shows/${slug}`,
+					title: `${title}`,
+					description: `Discover ${title}`
+				}}
+			/>
 			<section className="carousel-section">
 				<div className="carousel-top-bar" ref={containerRef}>
 					<p className="carousel-top-bar-title">{title}</p>

@@ -5,6 +5,7 @@ import MovieDiscoverForm from "../../components/movie/MovieDiscoverForm";
 import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 import breakpoints from "../../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const DiscoverMovie = () => {
 	const [ state, setState ] = useState({
@@ -119,6 +120,15 @@ const DiscoverMovie = () => {
 
 	return (
 		<main>
+			<NextSeo
+				title="Discover Movies"
+				description="Discover Movies with darklyst using advanced search"
+				openGraph={{
+					url: "https://www.darklyst.com/discover/movies",
+					title: "Discover Movies",
+					description: "Discover Movies with darklyst using advanced search"
+				}}
+			/>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
 					<p className="carousel-top-bar-title">Discover Movies</p>

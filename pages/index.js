@@ -9,6 +9,7 @@ import PeopleCard from "../components/cards/PeopleCard";
 import Link from "next/link";
 import loaderStyles from "../styles/loader.module.css";
 import breakpoints from "../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const Home = (props) => {
 	const [ shows, setShows ] = useState();
@@ -58,6 +59,15 @@ const Home = (props) => {
 
 	return (
 		<main className="root">
+			<NextSeo
+				title="Dark Lyst | Track Latest Shows and Movies"
+				description="Track and discover latest show and movies with darklyst"
+				openGraph={{
+					url: "https://www.darklyst.com",
+					title: "Dark Lyst | Track Latest Shows and Movies",
+					description: "Track and discover latest show and movies with darklyst"
+				}}
+			/>
 			<section className="tv-shows-section">
 				{heroMovies ? (
 					<CarouselContainer deviceType={deviceType} isSmall={false} isHero={true}>

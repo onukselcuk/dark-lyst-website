@@ -6,6 +6,7 @@ import Router from "next/router";
 import ResetPasswordForm from "../components/forms/ResetPasswordForm";
 import axios from "axios";
 import breakpoints from "../src/breakpoints";
+import { NextSeo } from "next-seo";
 
 const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) => {
 	useEffect(() => {
@@ -16,6 +17,14 @@ const ResetPassword = ({ isPasswordResetLoading, resetToken, email, errors }) =>
 
 	return (
 		<main>
+			<NextSeo
+				title="Reset Password"
+				noindex={true}
+				openGraph={{
+					url: "https://www.darklyst.com/reset-password",
+					title: "Reset Password"
+				}}
+			/>
 			<section className="carousel-section">
 				<div className="carousel-top-bar">
 					<p className="carousel-top-bar-title">Reset Password</p>

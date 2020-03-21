@@ -31,8 +31,8 @@ const CreditContainer = ({ cur }) => {
 					}
 
 					.credit-container {
-						width: 100%;
-						height: 100%;
+						width: 90%;
+						height: 90%;
 						display: flex;
 						flex-direction: column;
 						align-items: center;
@@ -42,10 +42,12 @@ const CreditContainer = ({ cur }) => {
 
 					.credit-img-container {
 						height: 80%;
+						margin-bottom: 2rem;
 					}
 
 					.credit-img {
 						width: 100%;
+						height: 100%;
 						border-radius: 60px;
 						transition: all 400ms ease;
 					}
@@ -55,7 +57,6 @@ const CreditContainer = ({ cur }) => {
 					}
 
 					.credit-name {
-						margin-top: 1.5rem;
 						font-size: 1.7rem;
 					}
 

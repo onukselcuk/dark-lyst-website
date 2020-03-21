@@ -82,8 +82,10 @@ const HeroMovieContainer = ({ thumbnailUrl, cur, chosenVideo, isHero, isGallery,
 					top: 50%;
 					left: 50%;
 					transform: translate(-50%, -50%) scale(1);
-					width: 100px;
-					height: 100px;
+					width: 20%;
+					height: 20%;
+					max-width: 120px;
+					max-height: 120px;
 					transition: all 400ms ease;
 				}
 
