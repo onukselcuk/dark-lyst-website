@@ -25,6 +25,8 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
 		isLiked = personList.some((cur) => cur.tmdbId === current.tmdbId);
 	}
 
+	let backdropPath = current.backdrop_path || current.backdropPath;
+
 	const handleHeart = (e) => {
 		e.preventDefault();
 		togglePersonHeart(current, current.backdropPath, !isLiked);
@@ -67,8 +69,7 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
                     background-color: ${theme.palette.eight.main};
                     background-size: cover;
                     transition: all 300ms ease;
-                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${current.backdrop_path ||
-						current.backdropPath}");
+                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${backdropPath}");
 				}
 
                 .person-large-card-container:hover{
@@ -112,8 +113,10 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
                     position: absolute;
                     top:3%;
                     right: 7%;                   
-                    width:40px;
-                    height:40px;
+                    width:5vw;
+                    height:5vw;
+					max-height:40px;
+					max-width:40px;
                 }
 
 

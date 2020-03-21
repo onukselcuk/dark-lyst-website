@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import styles from "../../styles/profileContainerStyles.module.css";
+import breakpoints from "../../src/breakpoints";
 
 const ProfileContainer = ({ user }) => {
 	const [ isEditing, setIsEditing ] = useState(false);
@@ -49,9 +50,6 @@ const ProfileContainer = ({ user }) => {
 					position: relative;
 				}
 
-				.profile-header-title {
-				}
-
 				.profile-header-sub-detail {
 					font-size: 1.4rem;
 					color: ${theme.palette.ninth.main};
@@ -77,6 +75,7 @@ const ProfileContainer = ({ user }) => {
 
 				.profile-detail-name {
 					color: ${theme.palette.ninth.main};
+					margin-right: 4rem;
 				}
 
 				.profile-image-container {
@@ -87,6 +86,12 @@ const ProfileContainer = ({ user }) => {
 				.profile-image {
 					width: 100%;
 					border-radius: 50%;
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.profile-container {
+						width: 70%;
+					}
 				}
 			`}</style>
 		</div>

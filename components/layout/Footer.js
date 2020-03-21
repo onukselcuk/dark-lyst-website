@@ -88,12 +88,12 @@ const Footer = () => {
 
 				.logo-container {
 					width: 50%;
-					min-width: 140px;
+					min-width: 80px;
 				}
 
 				.tmdb-logo-container {
 					width: 35%;
-					min-width: 120px;
+					min-width: 60px;
 					margin: 0 auto;
 				}
 
@@ -167,10 +167,17 @@ const Footer = () => {
 					.logo-container,
 					.tmdb-logo-container,
 					.top-footer-link-container {
-						width: 50%;
-						max-width: 140px;
 						margin: .7rem auto;
 						text-align: center;
+					}
+
+					.top-footer-link-container {
+						width: 50%;
+					}
+
+					.logo-container,
+					.tmdb-logo-container {
+						width: 30%;
 					}
 
 					.copyright-container,

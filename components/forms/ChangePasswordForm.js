@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/changePasswordStyles.module.css";
 import loaderStyles from "../../styles/loader.module.css";
+import breakpoints from "../../src/breakpoints";
 
 const schema = yup.object({
 	oldPassword: yup.string().required("Old Password is required"),
@@ -198,6 +199,12 @@ const ChangePasswordForm = ({ changePassword, setIsChangingPassword, isPasswordC
 
 				.close-button-container:hover {
 					cursor: pointer;
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.profile-container {
+						width: 70%;
+					}
 				}
 			`}</style>
 		</div>

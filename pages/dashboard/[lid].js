@@ -12,6 +12,7 @@ import ChangePasswordForm from "../../components/forms/ChangePasswordForm";
 import MovieWatchlistContainer from "../../components/containers/MovieWatchlistContainer";
 import ShowWatchlistContainer from "../../components/containers/ShowWatchlistContainer";
 import StarListContainer from "../../components/containers/StarListContainer";
+import breakpoints from "../../src/breakpoints";
 
 const dashboardTemplate = ({ user, lid }) => {
 	const [ barState, setBarState ] = useState("profile");
@@ -47,17 +48,17 @@ const dashboardTemplate = ({ user, lid }) => {
 						</Link>
 						<Link href={`/dashboard/[lid]`} as={`/dashboard/movies`}>
 							<a className={`dashboard-top-bar-title ${barState === "movies" ? "active" : ""}`}>
-								Movies Watchlist
+								Movies&nbsp;Watchlist
 							</a>
 						</Link>
 						<Link href={`/dashboard/[lid]`} as={`/dashboard/shows`}>
 							<a className={`dashboard-top-bar-title ${barState === "shows" ? "active" : ""}`}>
-								Shows Watchlist
+								Shows&nbsp;Watchlist
 							</a>
 						</Link>
 						<Link href={`/dashboard/[lid]`} as={`/dashboard/stars`}>
 							<a className={`dashboard-top-bar-title ${barState === "stars" ? "active" : ""}`}>
-								Star List
+								Star&nbsp;List
 							</a>
 						</Link>
 					</div>
@@ -109,6 +110,50 @@ const dashboardTemplate = ({ user, lid }) => {
 						.dashboard-top-bar-title:hover,
 						.dashboard-top-bar-title.active {
 							background-color: ${theme.palette.primary.main};
+						}
+
+						@media (max-width: ${breakpoints.sizes.xl}) {
+							.dashboard-section {
+								width: 55%;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.lg}) {
+							.dashboard-section {
+								width: 70%;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.md}) {
+							.dashboard-section {
+								width: 80%;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.mdsm}) {
+							.dashboard-section {
+								width: 90%;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.sm}) {
+							.dashboard-top-bar-title {
+								font-size: 1.8rem;
+								margin: .5rem;
+								padding: .5rem;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.xs}) {
+							.dashboard-section {
+								width: 95%;
+							}
+						}
+
+						@media (max-width: ${breakpoints.sizes.xxs}) {
+							.dashboard-top-bar-title {
+								font-size: 1.6rem;
+							}
 						}
 					`}</style>
 				</section>

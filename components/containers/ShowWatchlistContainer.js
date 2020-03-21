@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import MovieShowLargeCard from "../cards/MovieShowLargeCard";
+import breakpoints from "../../src/breakpoints";
 
 const ShowWatchlistContainer = ({ showList }) => {
 	const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
@@ -79,6 +80,13 @@ const ShowWatchlistContainer = ({ showList }) => {
 				.paginator-container {
 					width: 70%;
 					margin: 2rem auto;
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.card-container {
+						width: 100%;
+						margin: .6rem 0;
+					}
 				}
 			`}</style>
 		</div>

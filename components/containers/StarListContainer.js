@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Paginator from "../Paginator";
 import { useState, useEffect, useRef } from "react";
 import PeopleLargeCard from "../cards/PeopleLargeCard";
+import breakpoints from "../../src/breakpoints";
 
 const StarListContainer = ({ personList }) => {
 	const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
@@ -80,6 +81,13 @@ const StarListContainer = ({ personList }) => {
 				.paginator-container {
 					width: 70%;
 					margin: 2rem auto;
+				}
+
+				@media (max-width: ${breakpoints.sizes.sm}) {
+					.card-container {
+						width: 100%;
+						margin: .6rem 0;
+					}
 				}
 			`}</style>
 		</div>

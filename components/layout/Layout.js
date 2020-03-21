@@ -44,6 +44,24 @@ const Layout = ({ children, alerts }) => {
 					}
 				}
 
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					html {
+						font-size: 45%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xs}) {
+					html {
+						font-size: 40%;
+					}
+				}
+
+				@media (max-width: ${breakpoints.sizes.xxs}) {
+					html {
+						font-size: 35%;
+					}
+				}
+
 				html *,
 				html *::before,
 				html *::after {

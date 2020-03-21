@@ -1,9 +1,9 @@
 import theme from "../../src/theme";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import styles from "../../styles/accountStyles.module.css";
 import { logout } from "../../store/actions/authActions";
 import { connect } from "react-redux";
+import breakpoints from "../../src/breakpoints";
 
 const AccountContainer = ({ logout, setIsChangingPassword }) => {
 	const openPassword = () => {
@@ -69,6 +69,12 @@ const AccountContainer = ({ logout, setIsChangingPassword }) => {
 
 				.button-container {
 					margin: 2rem 0;
+				}
+
+				@media (max-width: ${breakpoints.sizes.mdsm}) {
+					.profile-container {
+						width: 70%;
+					}
 				}
 			`}</style>
 		</div>

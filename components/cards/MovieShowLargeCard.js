@@ -5,6 +5,7 @@ import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
 import { toggleMovieHeart } from "../../store/actions/movieActions";
 import { toggleShowHeart } from "../../store/actions/showActions";
+import breakpoints from "../../src/breakpoints";
 
 const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
 	let title = current.title || current.name || "";
@@ -39,6 +40,8 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 			isLiked = movieList.some((cur) => cur.tmdbId === (current.id || current.tmdbId));
 		}
 	}
+
+	let backdropPath = current.backdrop_path || current.backdropPath;
 
 	const handleHeart = (e) => {
 		e.preventDefault();
@@ -89,12 +92,12 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
                     height: 100%;
 					overflow: hidden;
 					align-items:center;
-                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${current.backdrop_path ||
-						current.backdropPath}");
+                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${backdropPath}");
                     background-repeat: no-repeat;
                     background-color: ${theme.palette.eight.main};
                     background-size: cover;
                     transition: all 300ms ease;
+					position: relative;
 				}
 
                 .movie-large-card-container:hover{
@@ -119,7 +122,6 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 				.movie-info-container {
 					width: 70%;
 					padding: 2rem;
-                    position: relative;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -156,6 +158,26 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
                     margin:1rem;        
                 }
 
+				@media (max-width:${breakpoints.sizes.mdsm}){
+					.rating-container{                    
+                    width: 10%;
+                    height: 10%;
+                    }
+				}
+				
+				@media (max-width:${breakpoints.sizes.sm}){
+					.rating-container{                    
+                    width: 15%;
+                    height: 15%;
+                    }
+				}
+				
+				@media (max-width:${breakpoints.sizes.xxs}){
+					.rating-container{                    
+                    width: 10%;
+                    height: 10%;
+                    }
+				}
 
 			`}</style>
 			</a>
