@@ -19,6 +19,9 @@ class MyDocument extends Document {
 						content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
 						key="viewport"
 					/>
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+					<link rel="preconnect" href="https://image.tmdb.org" crossOrigin="true" />
+					<link rel="preconnect" href="https://i.ytimg.com" crossOrigin="true" />
 					{/* PWA primary color */}
 					<meta name="theme-color" content={theme.palette.primary.main} />
 					<link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet" />

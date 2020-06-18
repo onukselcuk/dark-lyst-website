@@ -36,6 +36,14 @@ const VideoModal = ({ show, setShow, chosenVideo, title, isGallery }) => {
 							width="100%"
 							height="100%"
 							controls={true}
+							config={{
+								youtube: {
+									playerVars: {
+										controls: 1,
+										showinfo: 1
+									}
+								}
+							}}
 						/>
 					)}
 				</Modal.Body>
