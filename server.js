@@ -19,7 +19,7 @@ connectDB();
 
 app.prepare().then(() => {
     const server = express();
-    server.use(express.json({ extended: false }));
+    server.use(express.json());
     server.use("/api/shows", showsRoutes);
     server.use("/api/movies", moviesRoutes);
     server.use("/api/movie", movieRoutes);

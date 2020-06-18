@@ -7,80 +7,106 @@ import { toggleMovieHeart } from "../../store/actions/movieActions";
 import { toggleShowHeart } from "../../store/actions/showActions";
 import breakpoints from "../../src/breakpoints";
 
-const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart, toggleShowHeart }) => {
-	let title = current.title || current.name || "";
+const MovieLargeCard = ({
+    current,
+    isShow,
+    movieList,
+    showList,
+    toggleMovieHeart,
+    toggleShowHeart
+}) => {
+    let title = current.title || current.name || "";
 
-	let year = current.release_date || current.first_air_date || current.releaseDate || current.firstAirDate || "";
-	year = year.slice(0, 4);
+    let year =
+        current.release_date ||
+        current.first_air_date ||
+        current.releaseDate ||
+        current.firstAirDate ||
+        "";
+    year = year.slice(0, 4);
 
-	let hrefUrl = "";
-	let asUrl = "";
+    let hrefUrl = "";
+    let asUrl = "";
 
-	if (isShow) {
-		hrefUrl = `/show/detail/[tid]`;
-		asUrl = `/show/detail/${current.id || current.tmdbId}`;
-	} else {
-		hrefUrl = `/movie/detail/[pid]`;
-		asUrl = `/movie/detail/${current.id || current.tmdbId}`;
-	}
+    if (isShow) {
+        hrefUrl = `/show/detail/[tid]`;
+        asUrl = `/show/detail/${current.id || current.tmdbId}`;
+    } else {
+        hrefUrl = `/movie/detail/[pid]`;
+        asUrl = `/movie/detail/${current.id || current.tmdbId}`;
+    }
 
-	let overview = current.overview || false;
+    let overview = current.overview || false;
 
-	if (overview && overview.length > 180) {
-		overview = `${overview.slice(0, 180)}...`;
-	}
+    if (overview && overview.length > 180) {
+        overview = `${overview.slice(0, 180)}...`;
+    }
 
-	let numOfVotes = current.vote_count || current.voteCount || false;
+    let numOfVotes = current.vote_count || current.voteCount || false;
 
-	let isLiked;
-	if (current) {
-		if (isShow) {
-			isLiked = showList.some((cur) => cur.tmdbId === (current.id || current.tmdbId));
-		} else {
-			isLiked = movieList.some((cur) => cur.tmdbId === (current.id || current.tmdbId));
-		}
-	}
+    let isLiked;
+    if (current) {
+        if (isShow) {
+            isLiked = showList.some(
+                (cur) => cur.tmdbId === (current.id || current.tmdbId)
+            );
+        } else {
+            isLiked = movieList.some(
+                (cur) => cur.tmdbId === (current.id || current.tmdbId)
+            );
+        }
+    }
 
-	let backdropPath = current.backdrop_path || current.backdropPath;
+    let backdropPath = current.backdrop_path || current.backdropPath;
 
-	const handleHeart = (e) => {
-		e.preventDefault();
-		if (isShow) {
-			toggleShowHeart(current, !isLiked);
-		} else {
-			toggleMovieHeart(current, !isLiked);
-		}
-	};
+    const handleHeart = (e) => {
+        e.preventDefault();
+        if (isShow) {
+            toggleShowHeart(current, !isLiked);
+        } else {
+            toggleMovieHeart(current, !isLiked);
+        }
+    };
 
-	return (
-		<Link href={hrefUrl} as={asUrl}>
-			<a className="movie-link">
-				<div className="movie-large-card-container">
-					<div className="poster-image-container">
-						<img
-							className="poster-image"
-							src={`http://image.tmdb.org/t/p/w300${current.poster_path || current.posterPath}`}
-							alt=""
-						/>
-					</div>
-					<div className="movie-info-container">
-						<h2 className="movie-title">{title}</h2>
-						<p className="movie-year-votes">
-							{year}
-							{numOfVotes && ` - ${numOfVotes} Votes`}
-						</p>
-						<p className="movie-overview">{overview}</p>
-						<div className="action-container">
-							<div className="rating-container">
-								<CircularRating rating={current.vote_average || current.voteAverage} />
-							</div>
-							<div onClick={handleHeart} className="heart-container">
-								<HeartIcon isLiked={isLiked} detail={true} />
-							</div>
-						</div>
-					</div>
-				</div>
-				<style jsx>{`
+    return (
+        <Link href={hrefUrl} as={asUrl}>
+            <a className="movie-link">
+                <div className="movie-large-card-container">
+                    <div className="poster-image-container">
+                        <img
+                            className="poster-image"
+                            src={`https://image.tmdb.org/t/p/w300${
+                                current.poster_path || current.posterPath
+                            }`}
+                            alt=""
+                        />
+                    </div>
+                    <div className="movie-info-container">
+                        <h2 className="movie-title">{title}</h2>
+                        <p className="movie-year-votes">
+                            {year}
+                            {numOfVotes && ` - ${numOfVotes} Votes`}
+                        </p>
+                        <p className="movie-overview">{overview}</p>
+                        <div className="action-container">
+                            <div className="rating-container">
+                                <CircularRating
+                                    rating={
+                                        current.vote_average ||
+                                        current.voteAverage
+                                    }
+                                />
+                            </div>
+                            <div
+                                onClick={handleHeart}
+                                className="heart-container"
+                            >
+                                <HeartIcon isLiked={isLiked} detail={true} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style jsx>{`
                 .movie-link{
                     text-decoration: none;
                     color:white;
@@ -92,7 +118,7 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
                     height: 100%;
 					overflow: hidden;
 					align-items:center;
-                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("http://image.tmdb.org/t/p/w500${backdropPath}");
+                    background-image: linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.9)) ,url("https://image.tmdb.org/t/p/w500${backdropPath}");
                     background-repeat: no-repeat;
                     background-color: ${theme.palette.eight.main};
                     background-size: cover;
@@ -180,16 +206,18 @@ const MovieLargeCard = ({ current, isShow, movieList, showList, toggleMovieHeart
 				}
 
 			`}</style>
-			</a>
-		</Link>
-	);
+            </a>
+        </Link>
+    );
 };
 
 const mapStateToProps = (state) => {
-	return {
-		movieList: state.movies.movieList,
-		showList: state.shows.showList
-	};
+    return {
+        movieList: state.movies.movieList,
+        showList: state.shows.showList
+    };
 };
 
-export default connect(mapStateToProps, { toggleMovieHeart, toggleShowHeart })(MovieLargeCard);
+export default connect(mapStateToProps, { toggleMovieHeart, toggleShowHeart })(
+    MovieLargeCard
+);
