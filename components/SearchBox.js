@@ -56,6 +56,7 @@ const SearchBox = (props) => {
     const getLinkUrls = (current) => {
         let hrefUrl = "/";
         let asUrl = "/";
+
         switch (current.media_type) {
             case "tv":
                 asUrl = `/show/detail/${current.id}`;
@@ -82,6 +83,7 @@ const SearchBox = (props) => {
 
     const getMediaType = (current) => {
         let mediaType = "";
+
         switch (current.media_type) {
             case "tv":
                 mediaType = "TV Show";
@@ -98,11 +100,17 @@ const SearchBox = (props) => {
     const inputRef = useRef(null);
 
     const onStateChange = (changes, stateAndHelpers) => {
-        if (changes.type === "__autocomplete_click_item__" || 9) {
+        if (
+            changes.type === "__autocomplete_click_item__" ||
+            changes.type === 9
+        ) {
             stateAndHelpers.clearSelection();
             inputRef.current.blur();
         }
-        if (changes.type === "__autocomplete_keydown_enter__" || 6) {
+        if (
+            changes.type === "__autocomplete_keydown_enter__" ||
+            changes.type === 6
+        ) {
             const urls = getLinkUrls(changes.selectedItem);
             router.push(urls.hrefUrl, urls.asUrl);
             stateAndHelpers.clearSelection();
