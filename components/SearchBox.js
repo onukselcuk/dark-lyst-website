@@ -98,14 +98,12 @@ const SearchBox = (props) => {
     const inputRef = useRef(null);
 
     const onStateChange = (changes, stateAndHelpers) => {
-        console.log(changes);
-        if (changes.type === "__autocomplete_click_item__") {
+        if (changes.type === "__autocomplete_click_item__" || 9) {
             stateAndHelpers.clearSelection();
             inputRef.current.blur();
         }
-        if (changes.type === "__autocomplete_keydown_enter__") {
+        if (changes.type === "__autocomplete_keydown_enter__" || 6) {
             const urls = getLinkUrls(changes.selectedItem);
-            console.log("Enter clicked");
             router.push(urls.hrefUrl, urls.asUrl);
             stateAndHelpers.clearSelection();
             inputRef.current.blur();
