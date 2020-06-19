@@ -1,24 +1,24 @@
 import {
-	REGISTER_START,
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-	USER_LOADED,
-	LOGIN_START,
-	LOGIN_SUCCESS,
-	LOGIN_FAIL,
-	LOGOUT,
-	CLEAR_MOVIES,
-	CLEAR_SHOWS,
-	CLEAR_PEOPLE,
-	PASSWORD_CHANGE_START,
-	PASSWORD_CHANGE_SUCCESS,
-	PASSWORD_CHANGE_FAIL,
-	PASSWORD_RESET_REQUEST_START,
-	PASSWORD_RESET_REQUEST_SUCCESS,
-	PASSWORD_RESET_REQUEST_FAIL,
-	PASSWORD_RESET_START,
-	PASSWORD_RESET_FAIL,
-	PASSWORD_RESET_SUCCESS
+    REGISTER_START,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    USER_LOADED,
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGOUT,
+    CLEAR_MOVIES,
+    CLEAR_SHOWS,
+    CLEAR_PEOPLE,
+    PASSWORD_CHANGE_START,
+    PASSWORD_CHANGE_SUCCESS,
+    PASSWORD_CHANGE_FAIL,
+    PASSWORD_RESET_REQUEST_START,
+    PASSWORD_RESET_REQUEST_SUCCESS,
+    PASSWORD_RESET_REQUEST_FAIL,
+    PASSWORD_RESET_START,
+    PASSWORD_RESET_FAIL,
+    PASSWORD_RESET_SUCCESS
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
@@ -27,209 +27,236 @@ import { setAlert } from "./alertActions";
 import { setMovies } from "./movieActions";
 import { setShows } from "./showActions";
 import { setPeople } from "./personActions";
+import { batch } from "react-redux";
 
 export const logout = () => (dispatch) => {
-	dispatch({ type: LOGOUT });
-	dispatch({ type: CLEAR_MOVIES });
-	dispatch({ type: CLEAR_SHOWS });
-	dispatch({ type: CLEAR_PEOPLE });
-	Router.push("/login");
+    batch(() => {
+        dispatch({ type: LOGOUT });
+        dispatch({ type: CLEAR_MOVIES });
+        dispatch({ type: CLEAR_SHOWS });
+        dispatch({ type: CLEAR_PEOPLE });
+    });
+    Router.push("/login");
 };
 
 export const loadUser = () => async (dispatch) => {
-	if (localStorage.token) {
-		setAuthToken(localStorage.token);
-	} else {
-		return;
-	}
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    } else {
+        return;
+    }
 
-	try {
-		const res = await axios.get("/api/auth");
+    try {
+        const res = await axios.get("/api/auth");
 
-		dispatch({
-			type: USER_LOADED,
-			payload: res.data
-		});
+        batch(() => {
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            });
 
-		dispatch(setMovies(res.data.movieList));
+            dispatch(setMovies(res.data.movieList));
 
-		dispatch(setShows(res.data.showList));
+            dispatch(setShows(res.data.showList));
 
-		dispatch(setPeople(res.data.personList));
-	} catch (error) {
-		dispatch(logout());
-	}
+            dispatch(setPeople(res.data.personList));
+        });
+    } catch (error) {
+        dispatch(logout());
+    }
 };
 
 //Register User
 export const registerUser = (userData) => async (dispatch) => {
-	dispatch({
-		type: REGISTER_START
-	});
-	try {
-		const response = await axios.post("/api/auth/register", userData, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-		if (response.data.success) {
-			dispatch({
-				type: REGISTER_SUCCESS,
-				payload: response.data
-			});
-			Router.push("/");
-			dispatch(setAlert(response.data.msg, "success", 3000));
-			dispatch(loadUser());
-		} else {
-			dispatch(logout());
-		}
-	} catch (error) {
-		const errors = error.response.data.errors;
+    dispatch({
+        type: REGISTER_START
+    });
+    try {
+        const response = await axios.post("/api/auth/register", userData, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (response.data.success) {
+            batch(() => {
+                dispatch({
+                    type: REGISTER_SUCCESS,
+                    payload: response.data
+                });
+                dispatch(setAlert(response.data.msg, "success", 3000));
+                dispatch(loadUser());
+            });
+            Router.push("/");
+        } else {
+            dispatch(logout());
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
 
-		if (errors) {
-			errors.forEach((cur) => {
-				dispatch(setAlert(cur.msg, "danger", 3000));
-			});
-			dispatch({
-				type: REGISTER_FAIL
-			});
-		}
-	}
+        if (errors) {
+            errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 3000));
+            });
+            dispatch({
+                type: REGISTER_FAIL
+            });
+        }
+    }
 };
 
 export const loginUser = (userData) => async (dispatch) => {
-	dispatch({
-		type: LOGIN_START
-	});
+    dispatch({
+        type: LOGIN_START
+    });
 
-	try {
-		const response = await axios.post("/api/auth/login", userData, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+    try {
+        const response = await axios.post("/api/auth/login", userData, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-		if (response.data.success) {
-			dispatch({
-				type: LOGIN_SUCCESS,
-				payload: response.data
-			});
-			Router.push("/");
-			dispatch(setAlert(response.data.msg, "success", 3000));
-			dispatch(loadUser());
-		} else {
-			dispatch(logout());
-		}
-	} catch (error) {
-		const errors = error.response.data.errors;
+        if (response.data.success) {
+            batch(() => {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: response.data
+                });
+                dispatch(setAlert(response.data.msg, "success", 3000));
+                dispatch(loadUser());
+            });
+            Router.push("/");
+        } else {
+            dispatch(logout());
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
 
-		if (errors) {
-			errors.forEach((cur) => {
-				dispatch(setAlert(cur.msg, "danger", 3000));
-			});
-		}
-		dispatch({
-			type: LOGIN_FAIL
-		});
-	}
+        if (errors) {
+            errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 3000));
+            });
+        }
+        dispatch({
+            type: LOGIN_FAIL
+        });
+    }
 };
 
 export const changePassword = (userData) => async (dispatch) => {
-	dispatch({
-		type: PASSWORD_CHANGE_START
-	});
+    dispatch({
+        type: PASSWORD_CHANGE_START
+    });
 
-	try {
-		const response = await axios.post("/api/auth/change-password", userData, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+    try {
+        const response = await axios.post(
+            "/api/auth/change-password",
+            userData,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
 
-		if (response.data.success) {
-			dispatch({
-				type: PASSWORD_CHANGE_SUCCESS
-			});
-			dispatch(setAlert(response.data.msg, "success", 8000));
-		}
-	} catch (error) {
-		const errors = error.response.data.errors;
+        if (response.data.success) {
+            batch(() => {
+                dispatch({
+                    type: PASSWORD_CHANGE_SUCCESS
+                });
+                dispatch(setAlert(response.data.msg, "success", 8000));
+            });
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
 
-		if (errors) {
-			errors.forEach((cur) => {
-				dispatch(setAlert(cur.msg, "danger", 5000));
-			});
-		}
-		dispatch({
-			type: PASSWORD_CHANGE_FAIL
-		});
-	}
+        if (errors) {
+            errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 5000));
+            });
+        }
+        dispatch({
+            type: PASSWORD_CHANGE_FAIL
+        });
+    }
 };
 
 export const passwordResetRequest = (userData) => async (dispatch) => {
-	dispatch({
-		type: PASSWORD_RESET_REQUEST_START
-	});
+    dispatch({
+        type: PASSWORD_RESET_REQUEST_START
+    });
 
-	try {
-		const response = await axios.post("/api/auth/password-reset-request", userData, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+    try {
+        const response = await axios.post(
+            "/api/auth/password-reset-request",
+            userData,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
 
-		if (response.data.success) {
-			dispatch({
-				type: PASSWORD_RESET_REQUEST_SUCCESS
-			});
+        if (response.data.success) {
+            batch(() => {
+                dispatch({
+                    type: PASSWORD_RESET_REQUEST_SUCCESS
+                });
 
-			dispatch(setAlert(response.data.msg, "success", 5000));
-		}
-	} catch (error) {
-		const errors = error.response.data.errors;
+                dispatch(setAlert(response.data.msg, "success", 5000));
+            });
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
 
-		if (errors) {
-			errors.forEach((cur) => {
-				dispatch(setAlert(cur.msg, "danger", 5000));
-			});
-		}
+        if (errors) {
+            errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 5000));
+            });
+        }
 
-		dispatch({
-			type: PASSWORD_RESET_REQUEST_FAIL
-		});
-	}
+        dispatch({
+            type: PASSWORD_RESET_REQUEST_FAIL
+        });
+    }
 };
 
 export const resetPassword = (userData) => async (dispatch) => {
-	dispatch({
-		type: PASSWORD_RESET_START
-	});
+    dispatch({
+        type: PASSWORD_RESET_START
+    });
 
-	try {
-		const response = await axios.post("/api/auth/reset-password", userData, {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+    try {
+        const response = await axios.post(
+            "/api/auth/reset-password",
+            userData,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
 
-		if (response.data.success) {
-			dispatch({
-				type: PASSWORD_RESET_SUCCESS
-			});
+        if (response.data.success) {
+            batch(() => {
+                dispatch({
+                    type: PASSWORD_RESET_SUCCESS
+                });
 
-			dispatch(setAlert(response.data.msg, "success", 5000));
-		}
-	} catch (error) {
-		const errors = error.response.data.errors;
+                dispatch(setAlert(response.data.msg, "success", 5000));
+            });
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
 
-		if (errors) {
-			errors.forEach((cur) => {
-				dispatch(setAlert(cur.msg, "danger", 5000));
-			});
-		}
+        if (errors) {
+            errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 5000));
+            });
+        }
 
-		dispatch({
-			type: PASSWORD_RESET_FAIL
-		});
-	}
+        dispatch({
+            type: PASSWORD_RESET_FAIL
+        });
+    }
 };
