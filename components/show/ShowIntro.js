@@ -237,9 +237,15 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
 
                 .production-company-logo {
                     height: 40px;
+                    transition: all ease-in-out 200ms;
                     filter: grayscale(30%) invert(40%);
                     max-width: 100%;
                 }
+
+                .production-company-logo:hover {
+                    filter: none;
+                }
+
                 @media (max-width: ${breakpoints.sizes.xl}) {
                     .show-detail-section {
                         width: 75%;
