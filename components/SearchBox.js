@@ -98,6 +98,7 @@ const SearchBox = (props) => {
     const inputRef = useRef(null);
 
     const onStateChange = (changes, stateAndHelpers) => {
+        console.log(changes);
         if (changes.type === "__autocomplete_click_item__") {
             stateAndHelpers.clearSelection();
             inputRef.current.blur();
