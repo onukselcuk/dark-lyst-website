@@ -5,6 +5,4 @@ redisClient.on("connect", () => {
     console.log("Redis Connected");
 });
 
-redisClient.set("test", "heyyyy");
-
 module.exports = redisClient;

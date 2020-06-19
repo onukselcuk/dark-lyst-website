@@ -4,6 +4,7 @@ const next = require("next");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const helmet = require("helmet");
 const moviesRoutes = require("./routes/api/moviesRoutes");
 const showsRoutes = require("./routes/api/showsRoutes");
 const movieRoutes = require("./routes/api/movieRoutes");
@@ -19,6 +20,42 @@ connectDB();
 
 app.prepare().then(() => {
     const server = express();
+    server.use(helmet());
+    server.use(
+        helmet.contentSecurityPolicy({
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: [
+                    "'self'",
+                    "https://www.youtube.com",
+                    "https://s.ytimg.com",
+                    "https://www.google.com",
+                    "https://www.gstatic.com"
+                ],
+                childSrc: [
+                    "'self'",
+                    "https://www.youtube.com",
+                    "https://www.google.com"
+                ],
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://fonts.googleapis.com"
+                ],
+                imgSrc: [
+                    "'self'",
+                    "https://image.tmdb.org",
+                    "https://i.ytimg.com",
+                    "https://s.gravatar.com"
+                ],
+                fontSrc: [
+                    "'self'",
+                    "https://fonts.googleapis.com",
+                    "https://fonts.gstatic.com"
+                ]
+            }
+        })
+    );
     server.use(express.json());
     server.use("/api/shows", showsRoutes);
     server.use("/api/movies", moviesRoutes);
