@@ -88,21 +88,17 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [{ msg: "Recaptcha token is not valid" }]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "Recaptcha token is not valid" }]
+                });
             }
 
             let user = await User.findOne({ email });
 
             if (user) {
-                return res
-                    .status(409)
-                    .json({
-                        errors: [{ msg: "User already exists, you can login" }]
-                    });
+                return res.status(409).json({
+                    errors: [{ msg: "User already exists, you can login" }]
+                });
             }
 
             const avatar = gravatar.url(email, { r: "pg", d: "mm" }, true);
@@ -173,11 +169,9 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [{ msg: "Recaptcha token is not valid" }]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "Recaptcha token is not valid" }]
+                });
             }
 
             let user = await User.findOne({ email });
@@ -251,11 +245,9 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [{ msg: "Recaptcha token is not valid" }]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "Recaptcha token is not valid" }]
+                });
             }
 
             let user = await User.findById(req.user.id);
@@ -313,11 +305,9 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [{ msg: "Recaptcha token is not valid" }]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "Recaptcha token is not valid" }]
+                });
             }
 
             let user = await User.findOne({ email });
@@ -378,23 +368,15 @@ router.post(
 
         try {
             if (!user) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (!user.passwordResetToken || !user.passwordResetExpiry) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (
@@ -405,13 +387,9 @@ router.post(
                 user.passwordResetExpiry = null;
                 await user.save();
 
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (
@@ -461,31 +439,21 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [{ msg: "Recaptcha token is not valid" }]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "Recaptcha token is not valid" }]
+                });
             }
 
             if (!user) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (!user.passwordResetToken || !user.passwordResetExpiry) {
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (
@@ -496,13 +464,9 @@ router.post(
                 user.passwordResetExpiry = null;
                 await user.save();
 
-                return res
-                    .status(400)
-                    .json({
-                        errors: [
-                            { msg: "This link has expired or it's invalid." }
-                        ]
-                    });
+                return res.status(400).json({
+                    errors: [{ msg: "This link has expired or it's invalid." }]
+                });
             }
 
             if (
