@@ -154,7 +154,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                 </Dropdown.Menu>
                             </Dropdown>
                         ) : isAuthenticated && !user ? (
-                            <div className="loader-container">
+                            <div>
                                 <div className={loaderStyles.loader}>
                                     Loading...
                                 </div>
@@ -255,10 +255,6 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
                 .dropdown-username {
                     width: 70px;
-                }
-
-                .loader-container {
-                    width: 180px;
                 }
 
                 :global(.navbar .navbar-toggler) {
