@@ -223,7 +223,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
                 .navbar-anchor-link {
                     text-decoration: none;
-                    color: white;
+                    color: rgba(255, 255, 255, 0.7);
                     border-radius: 5px;
                     padding: 10px 14px;
                     cursor: pointer;
@@ -232,6 +232,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
                 .navbar-anchor-link:hover {
                     background-color: ${theme.palette.primary.main};
+                    color: #fff;
                 }
 
                 .dropdown-button-inner-container {
@@ -253,8 +254,18 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                     flex-shrink: 0;
                 }
 
+                :global(.dropdown-toggle.btn.btn-secondary.btn-lg::after) {
+                    border-top-color: rgba(255, 255, 255, 0.7);
+                }
+
                 .dropdown-username {
                     width: 70px;
+                    color: rgba(255, 255, 255, 0.7);
+                }
+
+                :global(.dropdown-toggle.btn.btn-secondary.btn-lg:hover)
+                    .dropdown-username {
+                    color: #fff;
                 }
 
                 :global(.navbar .navbar-toggler) {
