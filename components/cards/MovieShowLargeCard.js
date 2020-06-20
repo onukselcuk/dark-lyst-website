@@ -1,6 +1,6 @@
 import theme from "../../src/theme";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CircularRating from "../icons/CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
@@ -78,6 +78,12 @@ const MovieLargeCard = ({
         }
     };
 
+    useEffect(() => {
+        return () => {
+            setIsVisibleState(false);
+        };
+    }, [current]);
+
     return (
         <Link href={hrefUrl} as={asUrl}>
             <a className="movie-link">
@@ -90,7 +96,7 @@ const MovieLargeCard = ({
                         className="movie-large-card-container"
                         style={{
                             opacity: isVisibleState ? 1 : 0,
-                            transition: "opacity 700ms linear"
+                            transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="poster-image-container">

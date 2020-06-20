@@ -3,7 +3,7 @@ import Link from "next/link";
 import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
 import { togglePersonHeart } from "../../store/actions/personActions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
 const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
@@ -42,6 +42,12 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
         }
     };
 
+    useEffect(() => {
+        return () => {
+            setIsVisibleState(false);
+        };
+    }, [current]);
+
     return (
         <Link href={hrefUrl} as={asUrl}>
             <a className="person-link">
@@ -54,7 +60,7 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
                         className="person-large-card-container"
                         style={{
                             opacity: isVisibleState ? 1 : 0,
-                            transition: "opacity 700ms linear"
+                            transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="poster-image-container">
