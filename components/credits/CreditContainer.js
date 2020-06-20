@@ -23,7 +23,7 @@ const CreditContainer = ({ cur }) => {
                         className="credit-container"
                         style={{
                             opacity: isVisibleState ? 1 : 0,
-                            transition: "opacity 700ms linear"
+                            transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="credit-img-container">
