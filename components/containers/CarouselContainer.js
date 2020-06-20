@@ -95,6 +95,7 @@ const CarouselContainer = (props) => {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
             ref={CarouselRef}
+            minimumTouchDrag={1}
         >
             {children}
         </Carousel>
