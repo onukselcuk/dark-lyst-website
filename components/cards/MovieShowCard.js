@@ -15,7 +15,8 @@ const MovieShowCard = ({
     movieList,
     showList,
     toggleMovieHeart,
-    toggleShowHeart
+    toggleShowHeart,
+    visibilityContainment
 }) => {
     const url = `https://image.tmdb.org/t/p/${isHero ? "w342" : "w300"}${
         cur.poster_path
@@ -74,14 +75,15 @@ const MovieShowCard = ({
             <a className="container-link">
                 <VisibilitySensor
                     onChange={onVisibilityChange}
-                    partialVisibility={true}
+                    partialVisibility={!isHero}
                     active={!isVisibleState}
+                    containment={visibilityContainment}
                 >
                     <div
                         className="tv-show-container"
                         style={{
-                            opacity: isVisibleState ? 1 : 0,
-                            transition: "opacity 700ms linear"
+                            opacity: isVisibleState || isHero ? 1 : 0,
+                            transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="top-backdrop" />
