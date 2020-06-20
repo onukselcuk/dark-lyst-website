@@ -1,10 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import HeartIcon from "../icons/HeartIcon";
 import Link from "next/link";
 import CircularRating from "../icons/CircularRating";
 import { connect } from "react-redux";
 import { toggleMovieHeart } from "../../store/actions/movieActions";
 import { toggleShowHeart } from "../../store/actions/showActions";
+import VisibilitySensor from "react-visibility-sensor";
 
 const MovieShowCard = ({
     cur,
@@ -60,62 +61,86 @@ const MovieShowCard = ({
         date = date ? date.slice(0, 4) : "";
     }
 
+    const [isVisibleState, setIsVisibleState] = useState(false);
+
+    const onVisibilityChange = (isVisible) => {
+        if (isVisibleState !== true) {
+            setIsVisibleState(isVisible);
+        }
+    };
+
     return (
         <Link key={url} href={link} as={asLink}>
             <a className="container-link">
-                <div className="tv-show-container">
-                    <div className="top-backdrop" />
-                    <img
-                        className="show-poster-image"
-                        src={url}
-                        alt={`${cur.name || cur.title} Poster Image`}
-                    />
-                    <div className="bottom-backdrop" />
-                    <div className="bottom-info-container">
-                        <div className="rating-container">
-                            <CircularRating rating={cur.vote_average} />
-                        </div>
-                        <div className="bottom-detail-container">
-                            <span className="show-name">{title}</span>
-                            {isProfile && (
-                                <Fragment>
-                                    <p>
-                                        <span>{date}</span>{" "}
-                                        <span>
-                                            {isShow ? "TV Show" : "Movie"}
-                                        </span>
-                                    </p>
-                                    {isShow ? (
-                                        <Fragment>
+                <VisibilitySensor
+                    onChange={onVisibilityChange}
+                    partialVisibility={true}
+                    active={!isVisibleState}
+                >
+                    <div
+                        className="tv-show-container"
+                        style={{
+                            opacity: isVisibleState ? 1 : 0,
+                            transition: "opacity 700ms linear"
+                        }}
+                    >
+                        <div className="top-backdrop" />
+
+                        <img
+                            className="show-poster-image"
+                            src={url}
+                            alt={`${cur.name || cur.title} Poster Image`}
+                        />
+
+                        <div className="bottom-backdrop" />
+                        <div className="bottom-info-container">
+                            <div className="rating-container">
+                                <CircularRating rating={cur.vote_average} />
+                            </div>
+                            <div className="bottom-detail-container">
+                                <span className="show-name">{title}</span>
+                                {isProfile && (
+                                    <Fragment>
+                                        <p>
+                                            <span>{date}</span>{" "}
+                                            <span>
+                                                {isShow ? "TV Show" : "Movie"}
+                                            </span>
+                                        </p>
+                                        {isShow ? (
+                                            <Fragment>
+                                                <p>
+                                                    <span>
+                                                        {cur.job ||
+                                                            cur.character}
+                                                    </span>
+                                                </p>
+                                                <p>
+                                                    <span>
+                                                        {cur.episode_count}{" "}
+                                                        Episode
+                                                        {cur.episode_count >
+                                                            1 && "s"}
+                                                    </span>
+                                                </p>
+                                            </Fragment>
+                                        ) : (
                                             <p>
                                                 <span>
                                                     {cur.job || cur.character}
                                                 </span>
                                             </p>
-                                            <p>
-                                                <span>
-                                                    {cur.episode_count} Episode
-                                                    {cur.episode_count > 1 &&
-                                                        "s"}
-                                                </span>
-                                            </p>
-                                        </Fragment>
-                                    ) : (
-                                        <p>
-                                            <span>
-                                                {cur.job || cur.character}
-                                            </span>
-                                        </p>
-                                    )}
-                                </Fragment>
-                            )}
+                                        )}
+                                    </Fragment>
+                                )}
+                            </div>
+                        </div>
+
+                        <div onClick={handleHeart} className="heart-container">
+                            <HeartIcon isLiked={isLiked} />
                         </div>
                     </div>
-
-                    <div onClick={handleHeart} className="heart-container">
-                        <HeartIcon isLiked={isLiked} />
-                    </div>
-                </div>
+                </VisibilitySensor>
                 <style jsx>{`
                     .container-link {
                         text-decoration: none;
@@ -231,6 +256,10 @@ const MovieShowCard = ({
                         z-index: 10;
                         opacity: 1;
                         transition: all 400ms;
+                    }
+
+                    .show-poster-image {
+                        width: 100%;
                     }
                 `}</style>
             </a>

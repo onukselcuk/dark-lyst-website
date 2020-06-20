@@ -1,103 +1,103 @@
 import { connect } from "react-redux";
 import MovieShowLargeCard from "../cards/MovieShowLargeCard";
 import Paginator from "../Paginator";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import breakpoints from "../../src/breakpoints";
 
 const MovieWatchlistContainer = ({ movieList }) => {
-	const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
-	const [ totalResultNumber, setTotalResultNumber ] = useState(movieList.length);
+    const [totalResultNumber, setTotalResultNumber] = useState(
+        movieList.length
+    );
 
-	const handlePageChange = (pageNumber) => {
-		setCurrentPageNumber(pageNumber);
-	};
+    const handlePageChange = (pageNumber) => {
+        setCurrentPageNumber(pageNumber);
+    };
 
-	const numOfPageItems = 20;
+    const numOfPageItems = 20;
 
-	const containerRef = useRef(null);
+    const handleScroll = () => {
+        window.scrollTo(0, window);
+    };
 
-	const handleScroll = () => {
-		if (containerRef) {
-			window.scrollTo(0, containerRef.current.offsetTop);
-		}
-	};
+    const handleTotalResultNumber = () => {
+        setTotalResultNumber(movieList.length);
+        if (currentPageNumber > 1 && movieList.length % numOfPageItems === 0) {
+            setCurrentPageNumber(currentPageNumber - 1);
+        }
+    };
 
-	const handleTotalResultNumber = () => {
-		setTotalResultNumber(movieList.length);
-		if (currentPageNumber > 1 && movieList.length % numOfPageItems === 0) {
-			setCurrentPageNumber(currentPageNumber - 1);
-		}
-	};
+    useEffect(() => {
+        handleScroll();
+    }, [currentPageNumber]);
 
-	useEffect(
-		() => {
-			handleScroll();
-		},
-		[ currentPageNumber ]
-	);
+    useEffect(() => {
+        handleTotalResultNumber();
+    }, [movieList]);
 
-	useEffect(
-		() => {
-			handleTotalResultNumber();
-		},
-		[ movieList ]
-	);
+    return (
+        <div className="cards-container">
+            {movieList && movieList.length > 0
+                ? movieList
+                      .slice(
+                          (currentPageNumber - 1) * numOfPageItems,
+                          currentPageNumber * numOfPageItems
+                      )
+                      .map((cur) => {
+                          return (
+                              <div className="card-container">
+                                  <MovieShowLargeCard
+                                      current={cur}
+                                      isShow={false}
+                                  />
+                              </div>
+                          );
+                      })
+                : null}
+            {currentPageNumber &&
+            totalResultNumber &&
+            totalResultNumber > numOfPageItems ? (
+                <div className="paginator-container">
+                    <Paginator
+                        current={currentPageNumber}
+                        total={totalResultNumber}
+                        handlePageChange={handlePageChange}
+                    />
+                </div>
+            ) : null}
+            <style jsx>{`
+                .cards-container {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
 
-	return (
-		<div className="cards-container" ref={containerRef}>
-			{movieList && movieList.length > 0 ? (
-				movieList
-					.slice((currentPageNumber - 1) * numOfPageItems, currentPageNumber * numOfPageItems)
-					.map((cur) => {
-						return (
-							<div className="card-container">
-								<MovieShowLargeCard current={cur} isShow={false} />
-							</div>
-						);
-					})
-			) : null}
-			{currentPageNumber && totalResultNumber && totalResultNumber > numOfPageItems ? (
-				<div className="paginator-container">
-					<Paginator
-						current={currentPageNumber}
-						total={totalResultNumber}
-						handlePageChange={handlePageChange}
-					/>
-				</div>
-			) : null}
-			<style jsx>{`
-				.cards-container {
-					width: 100%;
-					display: flex;
-					flex-wrap: wrap;
-					justify-content: space-between;
-				}
+                .card-container {
+                    width: 49%;
+                    margin: 1rem 0;
+                }
+                .paginator-container {
+                    width: 70%;
+                    margin: 2rem auto;
+                }
 
-				.card-container {
-					width: 49%;
-					margin: 1rem 0;
-				}
-				.paginator-container {
-					width: 70%;
-					margin: 2rem auto;
-				}
-
-				@media (max-width: ${breakpoints.sizes.sm}) {
-					.card-container {
-						width: 100%;
-						margin: .6rem 0;
-					}
-				}
-			`}</style>
-		</div>
-	);
+                @media (max-width: ${breakpoints.sizes.sm}) {
+                    .card-container {
+                        width: 100%;
+                        margin: 0.6rem 0;
+                    }
+                }
+            `}</style>
+        </div>
+    );
 };
 
 const mapStateToProps = (state) => {
-	return {
-		movieList: state.movies.movieList
-	};
+    return {
+        movieList: state.movies.movieList
+    };
 };
 
 export default connect(mapStateToProps)(MovieWatchlistContainer);

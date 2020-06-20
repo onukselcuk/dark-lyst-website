@@ -1,11 +1,13 @@
 import theme from "../../src/theme";
 import Link from "next/link";
+import { useState } from "react";
 import CircularRating from "../icons/CircularRating";
 import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
 import { toggleMovieHeart } from "../../store/actions/movieActions";
 import { toggleShowHeart } from "../../store/actions/showActions";
 import breakpoints from "../../src/breakpoints";
+import VisibilitySensor from "react-visibility-sensor";
 
 const MovieLargeCard = ({
     current,
@@ -68,44 +70,67 @@ const MovieLargeCard = ({
         }
     };
 
+    const [isVisibleState, setIsVisibleState] = useState(false);
+
+    const onVisibilityChange = (isVisible) => {
+        if (isVisibleState !== true) {
+            setIsVisibleState(isVisible);
+        }
+    };
+
     return (
         <Link href={hrefUrl} as={asUrl}>
             <a className="movie-link">
-                <div className="movie-large-card-container">
-                    <div className="poster-image-container">
-                        <img
-                            className="poster-image"
-                            src={`https://image.tmdb.org/t/p/w300${
-                                current.poster_path || current.posterPath
-                            }`}
-                            alt=""
-                        />
-                    </div>
-                    <div className="movie-info-container">
-                        <h2 className="movie-title">{title}</h2>
-                        <p className="movie-year-votes">
-                            {year}
-                            {numOfVotes && ` - ${numOfVotes} Votes`}
-                        </p>
-                        <p className="movie-overview">{overview}</p>
-                        <div className="action-container">
-                            <div className="rating-container">
-                                <CircularRating
-                                    rating={
-                                        current.vote_average ||
-                                        current.voteAverage
-                                    }
-                                />
-                            </div>
-                            <div
-                                onClick={handleHeart}
-                                className="heart-container"
-                            >
-                                <HeartIcon isLiked={isLiked} detail={true} />
+                <VisibilitySensor
+                    onChange={onVisibilityChange}
+                    partialVisibility={true}
+                    active={!isVisibleState}
+                >
+                    <div
+                        className="movie-large-card-container"
+                        style={{
+                            opacity: isVisibleState ? 1 : 0,
+                            transition: "opacity 700ms linear"
+                        }}
+                    >
+                        <div className="poster-image-container">
+                            <img
+                                className="poster-image"
+                                src={`https://image.tmdb.org/t/p/w300${
+                                    current.poster_path || current.posterPath
+                                }`}
+                                alt=""
+                            />
+                        </div>
+                        <div className="movie-info-container">
+                            <h2 className="movie-title">{title}</h2>
+                            <p className="movie-year-votes">
+                                {year}
+                                {numOfVotes && ` - ${numOfVotes} Votes`}
+                            </p>
+                            <p className="movie-overview">{overview}</p>
+                            <div className="action-container">
+                                <div className="rating-container">
+                                    <CircularRating
+                                        rating={
+                                            current.vote_average ||
+                                            current.voteAverage
+                                        }
+                                    />
+                                </div>
+                                <div
+                                    onClick={handleHeart}
+                                    className="heart-container"
+                                >
+                                    <HeartIcon
+                                        isLiked={isLiked}
+                                        detail={true}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </VisibilitySensor>
                 <style jsx>{`
                 .movie-link{
                     text-decoration: none;
