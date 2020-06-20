@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When MovieShowCard renders expect to render a movie 1`] = `
+<Link
+  as="/movie/detail/475430"
+  href="/movie/detail/[pid]"
+  key="https://image.tmdb.org/t/p/w342/mhDdx7o7hhrxrikq8aqPLLnS9w8.jpg"
+>
+  <a
+    className="jsx-1306811756 container-link"
+  >
+    <div
+      className="jsx-1306811756 tv-show-container"
+    >
+      <div
+        className="jsx-1306811756 top-backdrop"
+      />
+      <img
+        alt="Artemis Fowl Poster Image"
+        className="jsx-1306811756 show-poster-image"
+        src="https://image.tmdb.org/t/p/w342/mhDdx7o7hhrxrikq8aqPLLnS9w8.jpg"
+      />
+      <div
+        className="jsx-1306811756 bottom-backdrop"
+      />
+      <div
+        className="jsx-1306811756 bottom-info-container"
+      >
+        <div
+          className="jsx-1306811756 rating-container"
+        >
+          <CircularRating
+            rating={6}
+          />
+        </div>
+        <div
+          className="jsx-1306811756 bottom-detail-container"
+        >
+          <span
+            className="jsx-1306811756 show-name"
+          >
+            Artemis Fowl
+          </span>
+        </div>
+      </div>
+      <div
+        className="jsx-1306811756 heart-container"
+        onClick={[Function]}
+      >
+        <HeartIcon
+          isLiked={false}
+        />
+      </div>
+    </div>
+    <JSXStyle
+      dynamic={
+        Array [
+          "width:60px; height:60px;",
+          "font-size:2rem;",
+        ]
+      }
+      id="3225958809"
+    >
+      .container-link.__jsx-style-dynamic-selector{-webkit-text-decoration:none;text-decoration:none;color:#fff;}.container-link.__jsx-style-dynamic-selector:active,.container-link.__jsx-style-dynamic-selector:focus,.container-link.__jsx-style-dynamic-selector:visited{-webkit-text-decoration:none;text-decoration:none;color:#fff;}.tv-show-container.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;position:relative;width:95%;height:100%;border-radius:10px;overflow:hidden;margin:0 auto;}.show-poster-image.__jsx-style-dynamic-selector{width:100%;height:80%;}.top-backdrop.__jsx-style-dynamic-selector{position:absolute;top:0;left:0;width:100%;height:35%;background-image:linear-gradient( to bottom, rgba(0,0,0,0.7), transparent );opacity:0;-webkit-transition:all 400ms;transition:all 400ms;}.tv-show-container.__jsx-style-dynamic-selector:hover .top-backdrop.__jsx-style-dynamic-selector{opacity:1;}.bottom-backdrop.__jsx-style-dynamic-selector{position:absolute;bottom:0;left:0;width:100%;height:35%;background-image:linear-gradient( to top, rgba(0,0,0,0.7), transparent );opacity:0;-webkit-transition:all 400ms;transition:all 400ms;}.tv-show-container.__jsx-style-dynamic-selector:hover .bottom-backdrop.__jsx-style-dynamic-selector{opacity:1;}.bottom-info-container.__jsx-style-dynamic-selector{width:100%;height:20%;background-color:rgba(0,0,0,0.2);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:0.5rem 0.5rem;z-index:10;}.rating-container.__jsx-style-dynamic-selector{width:25%;height:80%;z-index:10;opacity:1;margin:0 1.5rem 0 1rem;-webkit-transition:all 400ms;transition:all 400ms;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:60px; height:60px;;}.bottom-detail-container.__jsx-style-dynamic-selector{width:75%;}.bottom-detail-container.__jsx-style-dynamic-selector p.__jsx-style-dynamic-selector{margin-bottom:0;}.show-name.__jsx-style-dynamic-selector{width:70%;color:#fff;font-weight:bold;-webkit-transition:all 400ms;transition:all 400ms;font-size:1.7rem;z-index:10;font-size:2rem;;}.heart-container.__jsx-style-dynamic-selector{width:35px;height:35px;position:absolute;top:2%;right:7%;z-index:10;opacity:1;-webkit-transition:all 400ms;transition:all 400ms;}
+    </JSXStyle>
+  </a>
+</Link>
+`;
+
+exports[`When MovieShowCard renders expect to render a show 1`] = `
+<Link
+  as="/show/detail/71146"
+  href="/show/detail/[tid]"
+  key="https://image.tmdb.org/t/p/w300/28cIK70tN2t4gPTV8CBQZED1H2G.jpg"
+>
+  <a
+    className="jsx-1742891495 container-link"
+  >
+    <div
+      className="jsx-1742891495 tv-show-container"
+    >
+      <div
+        className="jsx-1742891495 top-backdrop"
+      />
+      <img
+        alt="Condor Poster Image"
+        className="jsx-1742891495 show-poster-image"
+        src="https://image.tmdb.org/t/p/w300/28cIK70tN2t4gPTV8CBQZED1H2G.jpg"
+      />
+      <div
+        className="jsx-1742891495 bottom-backdrop"
+      />
+      <div
+        className="jsx-1742891495 bottom-info-container"
+      >
+        <div
+          className="jsx-1742891495 rating-container"
+        >
+          <CircularRating
+            rating={6.5}
+          />
+        </div>
+        <div
+          className="jsx-1742891495 bottom-detail-container"
+        >
+          <span
+            className="jsx-1742891495 show-name"
+          >
+            Condor
+          </span>
+        </div>
+      </div>
+      <div
+        className="jsx-1742891495 heart-container"
+        onClick={[Function]}
+      >
+        <HeartIcon
+          isLiked={false}
+        />
+      </div>
+    </div>
+    <JSXStyle
+      dynamic={
+        Array [
+          undefined,
+          undefined,
+        ]
+      }
+      id="3225958809"
+    >
+      .container-link.__jsx-style-dynamic-selector{-webkit-text-decoration:none;text-decoration:none;color:#fff;}.container-link.__jsx-style-dynamic-selector:active,.container-link.__jsx-style-dynamic-selector:focus,.container-link.__jsx-style-dynamic-selector:visited{-webkit-text-decoration:none;text-decoration:none;color:#fff;}.tv-show-container.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;position:relative;width:95%;height:100%;border-radius:10px;overflow:hidden;margin:0 auto;}.show-poster-image.__jsx-style-dynamic-selector{width:100%;height:80%;}.top-backdrop.__jsx-style-dynamic-selector{position:absolute;top:0;left:0;width:100%;height:35%;background-image:linear-gradient( to bottom, rgba(0,0,0,0.7), transparent );opacity:0;-webkit-transition:all 400ms;transition:all 400ms;}.tv-show-container.__jsx-style-dynamic-selector:hover .top-backdrop.__jsx-style-dynamic-selector{opacity:1;}.bottom-backdrop.__jsx-style-dynamic-selector{position:absolute;bottom:0;left:0;width:100%;height:35%;background-image:linear-gradient( to top, rgba(0,0,0,0.7), transparent );opacity:0;-webkit-transition:all 400ms;transition:all 400ms;}.tv-show-container.__jsx-style-dynamic-selector:hover .bottom-backdrop.__jsx-style-dynamic-selector{opacity:1;}.bottom-info-container.__jsx-style-dynamic-selector{width:100%;height:20%;background-color:rgba(0,0,0,0.2);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:0.5rem 0.5rem;z-index:10;}.rating-container.__jsx-style-dynamic-selector{width:25%;height:80%;z-index:10;opacity:1;margin:0 1.5rem 0 1rem;-webkit-transition:all 400ms;transition:all 400ms;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;undefined;}.bottom-detail-container.__jsx-style-dynamic-selector{width:75%;}.bottom-detail-container.__jsx-style-dynamic-selector p.__jsx-style-dynamic-selector{margin-bottom:0;}.show-name.__jsx-style-dynamic-selector{width:70%;color:#fff;font-weight:bold;-webkit-transition:all 400ms;transition:all 400ms;font-size:1.7rem;z-index:10;undefined;}.heart-container.__jsx-style-dynamic-selector{width:35px;height:35px;position:absolute;top:2%;right:7%;z-index:10;opacity:1;-webkit-transition:all 400ms;transition:all 400ms;}
+    </JSXStyle>
+  </a>
+</Link>
+`;
