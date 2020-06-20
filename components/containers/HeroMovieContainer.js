@@ -12,7 +12,8 @@ const HeroMovieContainer = ({
     isHero,
     isGallery,
     isShow,
-    isProfile
+    isProfile,
+    containment
 }) => {
     const [show, setShow] = useState(false);
 
@@ -32,13 +33,14 @@ const HeroMovieContainer = ({
         <VisibilitySensor
             onChange={onVisibilityChange}
             active={!isVisibleState}
-            partialVisibility={!isHero}
+            partialVisibility={true}
+            containment={containment}
         >
             <div
                 className="hero-movie-container"
                 style={{
                     opacity: isVisibleState ? 1 : 0,
-                    transition: "opacity 700ms linear"
+                    transition: "opacity 300ms ease-in"
                 }}
             >
                 {isHero && (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MobileDetect from "mobile-detect";
 import MovieShowCard from "../components/cards/MovieShowCard";
@@ -47,6 +47,13 @@ const Home = (props) => {
         });
     };
 
+    let indexHeroSectionRef = useRef(null);
+    // let netflixSectionRef = useRef(null);
+    // let appleSectionRef = useRef(null);
+    // let showsSectionRef = useRef(null);
+    // let moviesSectionRef = useRef(null);
+    // let peopleSectionRef = useRef(null);
+
     useEffect(() => {
         getLatest();
     }, []);
@@ -69,7 +76,7 @@ const Home = (props) => {
                         "Track and discover latest show and movies with darklyst"
                 }}
             />
-            <section className="tv-shows-section">
+            <section className="tv-shows-section" ref={indexHeroSectionRef}>
                 {heroMovies ? (
                     <CarouselContainer
                         deviceType={deviceType}
@@ -95,6 +102,9 @@ const Home = (props) => {
                                         cur={cur}
                                         chosenVideo={chosenVideoObj}
                                         isHero={true}
+                                        containment={
+                                            indexHeroSectionRef.current
+                                        }
                                     />
                                 );
                             } else {
