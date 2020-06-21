@@ -87,12 +87,7 @@ app.prepare().then(() => {
 
     server.get("/service-worker.js", (req, res) => {
         res.sendFile(
-            path.resolve(
-                __dirname,
-                `${process.env.NODE_ENV === "production" ? "_" : "."}next`,
-                "static",
-                "service-worker.js"
-            )
+            path.resolve(__dirname, ".next", "static", "service-worker.js")
         );
     });
 
