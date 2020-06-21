@@ -42,6 +42,16 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
         }
     };
 
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
     useEffect(() => {
         return () => {
             setIsVisibleState(false);
@@ -59,16 +69,20 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
                     <div
                         className="person-large-card-container"
                         style={{
-                            opacity: isVisibleState ? 1 : 0,
+                            opacity: isVisibleState && imageLoadedState ? 1 : 0,
                             transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="poster-image-container">
-                            <img
-                                className="poster-image"
-                                src={`https://image.tmdb.org/t/p/w300${current.profilePath}`}
-                                alt=""
-                            />
+                            {isVisibleState && (
+                                <img
+                                    className="poster-image"
+                                    src={`https://image.tmdb.org/t/p/w300${current.profilePath}`}
+                                    alt=""
+                                    onLoad={setImageLoaded}
+                                    onLoadStart={setImageLoadStart}
+                                />
+                            )}
                         </div>
                         <div className="person-info-container">
                             <h2 className="person-name">{name}</h2>

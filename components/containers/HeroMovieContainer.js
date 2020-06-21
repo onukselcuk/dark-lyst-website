@@ -29,6 +29,16 @@ const HeroMovieContainer = ({
         }
     };
 
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
     return (
         <VisibilitySensor
             onChange={onVisibilityChange}
@@ -39,7 +49,7 @@ const HeroMovieContainer = ({
             <div
                 className="hero-movie-container"
                 style={{
-                    opacity: isVisibleState ? 1 : 0,
+                    opacity: isVisibleState && imageLoadedState ? 1 : 0,
                     transition: "opacity 300ms ease-in"
                 }}
             >
@@ -54,12 +64,17 @@ const HeroMovieContainer = ({
                 )}
                 <div className="video-thumbnail-container" onClick={handleShow}>
                     <div className="top-backdrop" />
-
-                    <img
-                        className="video-thumbnail"
-                        src={thumbnailUrl}
-                        alt={`${cur.title || cur.name} Youtube Video Thumbnail`}
-                    />
+                    {isVisibleState && (
+                        <img
+                            className="video-thumbnail"
+                            src={thumbnailUrl}
+                            alt={`${
+                                cur.title || cur.name
+                            } Youtube Video Thumbnail`}
+                            onLoad={setImageLoaded}
+                            onLoadStart={setImageLoadStart}
+                        />
+                    )}
 
                     {!isGallery && (
                         <div className="play-icon-container">

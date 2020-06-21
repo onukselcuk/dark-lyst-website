@@ -78,6 +78,16 @@ const MovieLargeCard = ({
         }
     };
 
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
     useEffect(() => {
         return () => {
             setIsVisibleState(false);
@@ -95,18 +105,23 @@ const MovieLargeCard = ({
                     <div
                         className="movie-large-card-container"
                         style={{
-                            opacity: isVisibleState ? 1 : 0,
+                            opacity: isVisibleState && imageLoadedState ? 1 : 0,
                             transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="poster-image-container">
-                            <img
-                                className="poster-image"
-                                src={`https://image.tmdb.org/t/p/w300${
-                                    current.poster_path || current.posterPath
-                                }`}
-                                alt=""
-                            />
+                            {isVisibleState && (
+                                <img
+                                    className="poster-image"
+                                    src={`https://image.tmdb.org/t/p/w300${
+                                        current.poster_path ||
+                                        current.posterPath
+                                    }`}
+                                    alt=""
+                                    onLoad={setImageLoaded}
+                                    onLoadStart={setImageLoadStart}
+                                />
+                            )}
                         </div>
                         <div className="movie-info-container">
                             <h2 className="movie-title">{title}</h2>

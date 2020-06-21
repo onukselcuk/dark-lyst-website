@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import HeartIcon from "../icons/HeartIcon";
 import Link from "next/link";
 import CircularRating from "../icons/CircularRating";
@@ -70,6 +70,22 @@ const MovieShowCard = ({
         }
     };
 
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
+    useEffect(() => {
+        return () => {
+            setIsVisibleState(false);
+        };
+    }, [cur]);
+
     return (
         <Link key={url} href={link} as={asLink}>
             <a className="container-link">
@@ -82,17 +98,24 @@ const MovieShowCard = ({
                     <div
                         className="tv-show-container"
                         style={{
-                            opacity: isVisibleState || isHero ? 1 : 0,
+                            opacity:
+                                (isVisibleState || isHero) && imageLoadedState
+                                    ? 1
+                                    : 0,
                             transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="top-backdrop" />
 
-                        <img
-                            className="show-poster-image"
-                            src={url}
-                            alt={`${cur.name || cur.title} Poster Image`}
-                        />
+                        {isVisibleState && (
+                            <img
+                                className="show-poster-image"
+                                src={url}
+                                alt={`${cur.name || cur.title} Poster Image`}
+                                onLoad={setImageLoaded}
+                                onLoadStart={setImageLoadStart}
+                            />
+                        )}
 
                         <div className="bottom-backdrop" />
                         <div className="bottom-info-container">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
 const PeopleCard = ({ cur }) => {
@@ -10,6 +10,22 @@ const PeopleCard = ({ cur }) => {
             setIsVisibleState(isVisible);
         }
     };
+
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
+    useEffect(() => {
+        return () => {
+            setIsVisibleState(false);
+        };
+    }, [cur]);
 
     return (
         <Link href={`/person/detail/[sid]`} as={`/person/detail/${cur.id}`}>
@@ -22,15 +38,19 @@ const PeopleCard = ({ cur }) => {
                     <div
                         className="person-container"
                         style={{
-                            opacity: isVisibleState ? 1 : 0,
+                            opacity: isVisibleState && imageLoadedState ? 1 : 0,
                             transition: "opacity 500ms linear"
                         }}
                     >
-                        <img
-                            className="person-img"
-                            src={`https://image.tmdb.org/t/p/w300${cur.profile_path}`}
-                            alt={`${cur.name} Profile Picture`}
-                        />
+                        {isVisibleState && (
+                            <img
+                                className="person-img"
+                                src={`https://image.tmdb.org/t/p/w300${cur.profile_path}`}
+                                alt={`${cur.name} Profile Picture`}
+                                onLoad={setImageLoaded}
+                                onLoadStart={setImageLoadStart}
+                            />
+                        )}
                         <span className="person-name">{cur.name}</span>
                     </div>
                 </VisibilitySensor>
