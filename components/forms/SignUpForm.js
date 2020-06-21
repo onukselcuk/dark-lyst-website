@@ -11,177 +11,197 @@ import { registerUser } from "../../store/actions/authActions";
 import formStyles from "../../styles/formStyles.module.css";
 
 const schema = yup.object({
-	name: yup.string().max(20, "Name cannot be longer than 20 characters").required("Name is required"),
-	email: yup.string().email("Email is invalid").required("Email is required"),
-	password: yup
-		.string()
-		.min(8, "Password must be at least 8 characters")
-		.max(32, "Password cannot be longer than 32 characters")
-		.required("Password is required"),
-	confirm: yup
-		.string()
-		.oneOf([ yup.ref("password"), null ], "Passwords don't match")
-		.required("Password confirmation is required"),
-	recaptcha: yup.string().required("Recaptcha is required")
+    name: yup
+        .string()
+        .max(20, "Name cannot be longer than 20 characters")
+        .required("Name is required"),
+    email: yup.string().email("Email is invalid").required("Email is required"),
+    password: yup
+        .string()
+        .min(8, "Password must be at least 8 characters")
+        .max(32, "Password cannot be longer than 32 characters")
+        .required("Password is required"),
+    confirm: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords don't match")
+        .required("Password confirmation is required"),
+    recaptcha: yup.string().required("Recaptcha is required")
 });
 
 const SignUpForm = ({ registerUser, isAuthenticated }) => {
-	const recaptchaRef = useRef(null);
+    const recaptchaRef = useRef(null);
 
-	const executeCaptcha = function () {
-		recaptchaRef.current.execute();
-	};
+    const executeCaptcha = function () {
+        recaptchaRef.current.execute();
+    };
 
-	const resetCaptcha = function () {
-		recaptchaRef.current.reset();
-	};
+    const resetCaptcha = function () {
+        recaptchaRef.current.reset();
+    };
 
-	const handleFormSubmit = (response) => {
-		registerUser(response);
-	};
+    const handleFormSubmit = (response) => {
+        registerUser(response);
+    };
 
-	return (
-		<Formik
-			validationSchema={schema}
-			onSubmit={handleFormSubmit}
-			initialValues={{
-				name: "",
-				email: "",
-				password: "",
-				confirm: "",
-				recaptcha: ""
-			}}
-		>
-			{({
-				handleSubmit,
-				handleChange,
-				handleBlur,
-				values,
-				touched,
-				isValid,
-				errors,
-				setFieldValue,
-				validateForm
-			}) => (
-				<Form className={formStyles.SignUpForm} noValidate>
-					<Form.Group as={Col} controlId="validationFormikName">
-						<Form.Label>Name</Form.Label>
-						<InputGroup>
-							<Form.Control
-								type="text"
-								name="name"
-								value={values.name}
-								onChange={handleChange}
-								isInvalid={touched.name && errors.name}
-								isValid={touched.name && !errors.name}
-								onBlur={handleBlur}
-								size="lg"
-								className={formStyles.FormControl}
-							/>
-							<Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-						</InputGroup>
-					</Form.Group>
-					<Form.Group as={Col} controlId="validationFormikEmail">
-						<Form.Label>Email Address</Form.Label>
-						<InputGroup>
-							<Form.Control
-								type="email"
-								name="email"
-								value={values.email}
-								onChange={handleChange}
-								isInvalid={touched.email && errors.email}
-								isValid={touched.email && !errors.email}
-								onBlur={handleBlur}
-								size="lg"
-								className={formStyles.FormControl}
-							/>
-							<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-						</InputGroup>
-					</Form.Group>
-					<Form.Group as={Col} controlId="validationFormikPassword">
-						<Form.Label>Password</Form.Label>
-						<InputGroup>
-							<Form.Control
-								type="password"
-								name="password"
-								value={values.password}
-								onChange={handleChange}
-								isInvalid={touched.password && errors.password}
-								isValid={touched.password && !errors.password}
-								onBlur={handleBlur}
-								size="lg"
-								className={formStyles.FormControl}
-							/>
-							<Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-						</InputGroup>
-					</Form.Group>
-					<Form.Group as={Col} controlId="validationFormikConfirm">
-						<Form.Label>Confirm Password</Form.Label>
-						<InputGroup>
-							<Form.Control
-								type="password"
-								name="confirm"
-								value={values.confirm}
-								onChange={handleChange}
-								isInvalid={touched.confirm && errors.confirm}
-								isValid={touched.confirm && !errors.confirm}
-								onBlur={handleBlur}
-								size="lg"
-								className={formStyles.FormControl}
-							/>
-							<Form.Control.Feedback type="invalid">{errors.confirm}</Form.Control.Feedback>
-						</InputGroup>
-					</Form.Group>
-					<Form.Group as={Col} controlId="validationFormikRecaptcha">
-						<ReCAPTCHA
-							sitekey="6Lccp94UAAAAAMs4Me7MqWxY5-XWpNiwfHmloXXW"
-							size="invisible"
-							theme="dark"
-							ref={recaptchaRef}
-							onChange={(response) => {
-								if (response === null) {
-									setFieldValue("recaptcha", "");
-									return;
-								}
+    return (
+        <Formik
+            validationSchema={schema}
+            onSubmit={handleFormSubmit}
+            initialValues={{
+                name: "",
+                email: "",
+                password: "",
+                confirm: "",
+                recaptcha: ""
+            }}
+        >
+            {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                touched,
+                isValid,
+                errors,
+                setFieldValue,
+                validateForm
+            }) => (
+                <Form
+                    className={formStyles.SignUpForm}
+                    noValidate
+                    onSubmit={async (e) => {
+                        e.preventDefault();
+                        const formErrors = await validateForm();
+                        const keys = Object.keys(formErrors);
 
-								setFieldValue("recaptcha", response);
+                        if (keys && keys.length > 1) {
+                            handleSubmit();
+                        } else {
+                            executeCaptcha();
+                        }
+                    }}
+                >
+                    <Form.Group as={Col} controlId="validationFormikName">
+                        <Form.Label>Name</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                value={values.name}
+                                onChange={handleChange}
+                                isInvalid={touched.name && errors.name}
+                                isValid={touched.name && !errors.name}
+                                onBlur={handleBlur}
+                                size="lg"
+                                className={formStyles.FormControl}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.name}
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="validationFormikEmail">
+                        <Form.Label>Email Address</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type="email"
+                                name="email"
+                                value={values.email}
+                                onChange={handleChange}
+                                isInvalid={touched.email && errors.email}
+                                isValid={touched.email && !errors.email}
+                                onBlur={handleBlur}
+                                size="lg"
+                                className={formStyles.FormControl}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.email}
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="validationFormikPassword">
+                        <Form.Label>Password</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                value={values.password}
+                                onChange={handleChange}
+                                isInvalid={touched.password && errors.password}
+                                isValid={touched.password && !errors.password}
+                                onBlur={handleBlur}
+                                size="lg"
+                                className={formStyles.FormControl}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.password}
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="validationFormikConfirm">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type="password"
+                                name="confirm"
+                                value={values.confirm}
+                                onChange={handleChange}
+                                isInvalid={touched.confirm && errors.confirm}
+                                isValid={touched.confirm && !errors.confirm}
+                                onBlur={handleBlur}
+                                size="lg"
+                                className={formStyles.FormControl}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.confirm}
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="validationFormikRecaptcha">
+                        <ReCAPTCHA
+                            sitekey="6Lccp94UAAAAAMs4Me7MqWxY5-XWpNiwfHmloXXW"
+                            size="invisible"
+                            theme="dark"
+                            ref={recaptchaRef}
+                            onChange={(response) => {
+                                if (response === null) {
+                                    setFieldValue("recaptcha", "");
+                                    return;
+                                }
 
-								if (response) {
-									handleSubmit();
-								} else {
-									resetCaptcha();
-								}
-							}}
-						/>
-					</Form.Group>
-					<Form.Group className={formStyles.ButtonContainer} as={Col} controlId="validationFormikConfirm">
-						<Button
-							size="lg"
-							onClick={async () => {
-								const formErrors = await validateForm();
-								const keys = Object.keys(formErrors);
+                                setFieldValue("recaptcha", response);
 
-								if (keys && keys.length > 1) {
-									handleSubmit();
-								} else {
-									executeCaptcha();
-								}
-							}}
-							className={formStyles.Button}
-						>
-							Sign Up
-						</Button>
-					</Form.Group>
-				</Form>
-			)}
-		</Formik>
-	);
+                                if (response) {
+                                    handleSubmit();
+                                } else {
+                                    resetCaptcha();
+                                }
+                            }}
+                        />
+                    </Form.Group>
+                    <Form.Group
+                        className={formStyles.ButtonContainer}
+                        as={Col}
+                        controlId="validationFormikConfirm"
+                    >
+                        <Button
+                            size="lg"
+                            type="submit"
+                            className={formStyles.Button}
+                        >
+                            Sign Up
+                        </Button>
+                    </Form.Group>
+                </Form>
+            )}
+        </Formik>
+    );
 };
 
 const mapStateToProps = (state) => {
-	return {
-		isAuthenticated: state.auth.isAuthenticated
-	};
+    return {
+        isAuthenticated: state.auth.isAuthenticated
+    };
 };
 
 export default connect(mapStateToProps, { registerUser })(SignUpForm);
