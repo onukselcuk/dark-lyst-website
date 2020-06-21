@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const morgan = require("morgan");
 const next = require("next");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -15,11 +16,20 @@ const discoverRoutes = require("./routes/api/discoverRoutes");
 const authRoutes = require("./routes/api/authRoutes");
 const heartRoutes = require("./routes/api/heartRoutes");
 const connectDB = require("./config/db");
+const path = require("path");
+const rfs = require("rotating-file-stream");
+const accessLogStream = rfs.createStream("access.log", {
+    interval: "10d",
+    path: path.join(__dirname, "logs")
+});
 
 connectDB();
 
 app.prepare().then(() => {
     const server = express();
+    server.use(
+        morgan(`${dev ? "dev" : "combined"}`, { stream: accessLogStream })
+    );
     server.use(helmet());
     server.use(
         helmet.contentSecurityPolicy({
