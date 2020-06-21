@@ -83,8 +83,17 @@ app.prepare().then(() => {
         );
     }
 
+    /**Service Worker file redirect */
+
     server.get("/service-worker.js", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "../.next", "service-worker.js"));
+        res.sendFile(
+            path.resolve(
+                __dirname,
+                `${process.env.NODE_ENV === "production" ? "_" : "."}next`,
+                "static",
+                "service-worker.js"
+            )
+        );
     });
 
     server.get("*", (req, res) => {
