@@ -74,17 +74,13 @@ const MovieShowCard = ({
 
     const setImageLoaded = () => {
         setImageLoadedState(true);
+        setIsVisibleState(true);
     };
 
     const setImageLoadStart = () => {
+        setIsVisibleState(false);
         setImageLoadedState(false);
     };
-
-    useEffect(() => {
-        return () => {
-            setIsVisibleState(false);
-        };
-    }, [cur]);
 
     return (
         <Link key={url} href={link} as={asLink}>
@@ -98,10 +94,7 @@ const MovieShowCard = ({
                     <div
                         className="tv-show-container"
                         style={{
-                            opacity:
-                                (isVisibleState || isHero) && imageLoadedState
-                                    ? 1
-                                    : 0,
+                            opacity: isVisibleState && imageLoadedState ? 1 : 0,
                             transition: "opacity 400ms ease-in"
                         }}
                     >

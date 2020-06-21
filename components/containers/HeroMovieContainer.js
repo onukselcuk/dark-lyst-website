@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MovieShowCard from "../cards/MovieShowCard";
 import PlayIcon from "../icons/PlayIcon";
 import VideoImageModal from "../modals/VideoImageModal";
@@ -24,7 +24,7 @@ const HeroMovieContainer = ({
     const [isVisibleState, setIsVisibleState] = useState(false);
 
     const onVisibilityChange = (isVisible) => {
-        if (isVisibleState !== true) {
+        if (isVisibleState === false) {
             setIsVisibleState(isVisible);
         }
     };
@@ -38,6 +38,12 @@ const HeroMovieContainer = ({
     const setImageLoadStart = () => {
         setImageLoadedState(false);
     };
+
+    useEffect(() => {
+        if (!isHero) {
+            setIsVisibleState(false);
+        }
+    }, [cur]);
 
     return (
         <VisibilitySensor
@@ -53,6 +59,7 @@ const HeroMovieContainer = ({
                     transition: "opacity 300ms ease-in"
                 }}
             >
+                <br />
                 {isHero && (
                     <div className="hero-left-container">
                         <MovieShowCard
@@ -62,9 +69,13 @@ const HeroMovieContainer = ({
                         />
                     </div>
                 )}
-                <div className="video-thumbnail-container" onClick={handleShow}>
-                    <div className="top-backdrop" />
-                    {isVisibleState && (
+
+                {isVisibleState && (
+                    <div
+                        className="video-thumbnail-container"
+                        onClick={handleShow}
+                    >
+                        <div className="top-backdrop" />
                         <img
                             className="video-thumbnail"
                             src={thumbnailUrl}
@@ -74,21 +85,22 @@ const HeroMovieContainer = ({
                             onLoad={setImageLoaded}
                             onLoadStart={setImageLoadStart}
                         />
-                    )}
 
-                    {!isGallery && (
-                        <div className="play-icon-container">
-                            <PlayIcon />
-                        </div>
-                    )}
-                    {(isProfile || !isGallery) && (
-                        <span className="video-title">
-                            {chosenVideo.name || cur.title || cur.name}
-                        </span>
-                    )}
+                        {!isGallery && (
+                            <div className="play-icon-container">
+                                <PlayIcon />
+                            </div>
+                        )}
+                        {(isProfile || !isGallery) && (
+                            <span className="video-title">
+                                {chosenVideo.name || cur.title || cur.name}
+                            </span>
+                        )}
 
-                    <div className="down-backdrop" />
-                </div>
+                        <div className="down-backdrop" />
+                    </div>
+                )}
+
                 <VideoImageModal
                     show={show}
                     setShow={setShow}

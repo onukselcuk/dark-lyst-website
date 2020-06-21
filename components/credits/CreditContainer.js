@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
 const CreditContainer = ({ cur }) => {
@@ -10,6 +10,21 @@ const CreditContainer = ({ cur }) => {
             setIsVisibleState(isVisible);
         }
     };
+
+    const [imageLoadedState, setImageLoadedState] = useState(false);
+
+    const setImageLoaded = () => {
+        setImageLoadedState(true);
+    };
+
+    const setImageLoadStart = () => {
+        setImageLoadedState(false);
+    };
+
+    useEffect(() => {
+        setIsVisibleState(false);
+    }, [cur]);
+
     return (
         <Link href={`/person/detail/[sid]`} as={`/person/detail/${cur.id}`}>
             <a className="credit-link">
@@ -22,22 +37,26 @@ const CreditContainer = ({ cur }) => {
                         key={cur.id}
                         className="credit-container"
                         style={{
-                            opacity: isVisibleState ? 1 : 0,
+                            opacity: isVisibleState && imageLoadedState ? 1 : 0,
                             transition: "opacity 400ms ease-in"
                         }}
                     >
                         <div className="credit-img-container">
-                            <img
-                                className="credit-img"
-                                src={
-                                    cur.profile_path
-                                        ? `https://image.tmdb.org/t/p/w200${cur.profile_path}`
-                                        : cur.gender === 1
-                                        ? "/empty-profile/empty-profile-picture-woman-arranged.jpg"
-                                        : "/empty-profile/empty-profile-picture-man-arranged.jpg"
-                                }
-                                alt={`${cur.name} Profile Image`}
-                            />
+                            {isVisibleState && (
+                                <img
+                                    className="credit-img"
+                                    src={
+                                        cur.profile_path
+                                            ? `https://image.tmdb.org/t/p/w200${cur.profile_path}`
+                                            : cur.gender === 1
+                                            ? "/empty-profile/empty-profile-picture-woman-arranged.jpg"
+                                            : "/empty-profile/empty-profile-picture-man-arranged.jpg"
+                                    }
+                                    alt={`${cur.name} Profile Image`}
+                                    onLoad={setImageLoaded}
+                                    onLoadStart={setImageLoadStart}
+                                />
+                            )}
                         </div>
                         <span className="credit-name">{cur.name}</span>
                         {cur.character && (
