@@ -26,6 +26,21 @@ app.prepare().then(() => {
         helmet.contentSecurityPolicy({
             directives: {
                 defaultSrc: ["'self'"],
+                connectSrc: [
+                    "'self'",
+                    "https://www.youtube.com",
+                    "https://s.ytimg.com",
+                    "https://www.google.com",
+                    "https://www.gstatic.com",
+                    "https://www.youtube.com",
+                    "https://www.google.com",
+                    "https://fonts.googleapis.com",
+                    "https://image.tmdb.org",
+                    "https://i.ytimg.com",
+                    "https://s.gravatar.com",
+                    "https://fonts.googleapis.com",
+                    "https://fonts.gstatic.com"
+                ],
                 scriptSrc: [
                     "'self'",
                     "https://www.youtube.com",
