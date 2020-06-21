@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const next = require("next");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -81,6 +82,10 @@ app.prepare().then(() => {
             }
         );
     }
+
+    server.get("/service-worker.js", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../.next", "service-worker.js"));
+    });
 
     server.get("*", (req, res) => {
         return handle(req, res);
