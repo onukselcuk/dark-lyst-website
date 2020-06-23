@@ -37,11 +37,13 @@ const initialState = {
     user: null,
     isPasswordChangeLoading: false,
     isPasswordResetReqLoading: false,
-    isPasswordResetLoading: false
+    isPasswordResetLoading: false,
+    loginType: null,
+    isOauthAccount: null
 };
 
 export default (state = initialState, action) => {
-    const { type, payload } = action;
+    const { type, payload, loginType } = action;
 
     switch (type) {
         case USER_LOADED:
@@ -105,8 +107,11 @@ export default (state = initialState, action) => {
                 ...state,
                 token: payload.token,
                 isAuthenticated: true,
-                isLoginLoading: false
+                isLoginLoading: false,
+                loginType: loginType === "google" ? "google" : "local",
+                isOauthAccount: loginType === "google"
             };
+
         case LOGIN_FAIL:
             return {
                 ...state,

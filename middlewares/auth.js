@@ -1,25 +1,49 @@
 const jwt = require("jsonwebtoken");
+const { verifyGoogleIDToken } = require("../utils/googleAuthHelpers");
 
 const auth = async (req, res, next) => {
-	const token = req.header("x-auth-token");
+    const token = req.header("x-auth-token");
 
-	if (!token) {
-		return res.status(401).json({ msg: "No token, authorization denied", success: false });
-	}
+    if (!token) {
+        return res
+            .status(401)
+            .json({ msg: "No token, authorization denied", success: false });
+    }
 
-	try {
-		await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-			if (error) {
-				res.status(401).json({ msg: "Token is not valid", success: false });
-			} else {
-				req.user = decoded.user;
-				next();
-			}
-		});
-	} catch (error) {
-		console.log("error in auth middleware");
-		res.status(500).json({ msg: "Server Error", success: false });
-	}
+    try {
+        const decodedToken = jwt.decode(token, { complete: true });
+
+        const payload = decodedToken.payload;
+
+        if (payload && payload.sub) {
+            await verifyGoogleIDToken(token);
+            req.user = payload;
+            return next();
+        }
+
+        await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+            if (error) {
+                throw "local_token_invalid";
+            } else {
+                req.user = decoded;
+                next();
+            }
+        });
+    } catch (error) {
+        if (error === "google_token_invalid") {
+            return res.status(401).json({
+                msg: "Google token is not valid",
+                success: false
+            });
+        } else if (error === "local_token_invalid") {
+            return res.status(401).json({
+                msg: "Local Token is not valid",
+                success: false
+            });
+        }
+
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
 };
 
 module.exports = auth;

@@ -1,0 +1,6 @@
+.OauthButtonContainer :global(.google-oauth-button) {
+    margin-top: 3rem;
+    font-size: 1.8rem !important;
+    padding: 1rem 3rem;
+    overflow: hidden !important;
+}

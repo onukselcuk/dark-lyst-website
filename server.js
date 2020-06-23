@@ -48,19 +48,22 @@ app.prepare().then(() => {
                     "https://i.ytimg.com",
                     "https://s.gravatar.com",
                     "https://fonts.googleapis.com",
-                    "https://fonts.gstatic.com"
+                    "https://fonts.gstatic.com",
+                    "https://apis.google.com"
                 ],
                 scriptSrc: [
                     "'self'",
                     "https://www.youtube.com",
                     "https://s.ytimg.com",
                     "https://www.google.com",
-                    "https://www.gstatic.com"
+                    "https://www.gstatic.com",
+                    "https://apis.google.com"
                 ],
                 childSrc: [
                     "'self'",
                     "https://www.youtube.com",
-                    "https://www.google.com"
+                    "https://www.google.com",
+                    "https://accounts.google.com"
                 ],
                 styleSrc: [
                     "'self'",
@@ -71,7 +74,8 @@ app.prepare().then(() => {
                     "'self'",
                     "https://image.tmdb.org",
                     "https://i.ytimg.com",
-                    "https://s.gravatar.com"
+                    "https://s.gravatar.com",
+                    "https://lh5.googleusercontent.com"
                 ],
                 fontSrc: [
                     "'self'",

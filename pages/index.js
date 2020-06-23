@@ -84,7 +84,7 @@ const Home = (props) => {
                         isHero={true}
                     >
                         {heroMovies.map((cur) => {
-                            if (cur.videos.length > 0) {
+                            if (cur?.videos?.length > 0) {
                                 // const filteredVideoArray = filterVideos(
                                 //     cur.videos
                                 // );

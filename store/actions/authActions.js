@@ -115,6 +115,8 @@ export const loginUser = (userData) => async (dispatch) => {
                 "Content-Type": "application/json"
             }
         });
+        console.log("response from backend google check");
+        console.log(response.data);
 
         if (response.data.success) {
             batch(() => {
@@ -134,6 +136,59 @@ export const loginUser = (userData) => async (dispatch) => {
 
         if (errors) {
             errors.forEach((cur) => {
+                dispatch(setAlert(cur.msg, "danger", 3000));
+            });
+        }
+        dispatch({
+            type: LOGIN_FAIL
+        });
+    }
+};
+
+export const loginUserWithGoogle = (response) => async (dispatch) => {
+    const loginType = "google";
+
+    dispatch({
+        type: LOGIN_START,
+        loginType
+    });
+
+    try {
+        const googleCheckToken = await axios.post(
+            "/api/auth/login-with-google",
+            { googleResponse: response },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
+        if (googleCheckToken.data.success) {
+            batch(() => {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: googleCheckToken.data,
+                    loginType
+                });
+                dispatch(setAlert(googleCheckToken.data.msg, "success", 3000));
+                dispatch(loadUser());
+            });
+            Router.push("/");
+        } else {
+            dispatch(logout(loginType));
+        }
+    } catch (error) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+            errors.forEach((cur) => {
+                if (cur.statusCode === 409) {
+                    const auth2 = window.gapi.auth2.getAuthInstance();
+                    if (auth2 != null) {
+                        auth2.disconnect();
+                    }
+                }
                 dispatch(setAlert(cur.msg, "danger", 3000));
             });
         }

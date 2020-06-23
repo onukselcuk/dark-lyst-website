@@ -11,10 +11,12 @@ const passResetMailer = require("../../utils/passResetMailer");
 const noAccountPassResetMailer = require("../../utils/noAccountPassResetMailer");
 const randomStringGenerator = require("../../utils/randomStringGenerator");
 const dev = process.env.NODE_ENV !== "production";
+const { verifyGoogleIDToken } = require("../../utils/googleAuthHelpers");
 
+/**load user info */
 router.get("/", auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select(
+        const user = await User.findOne({ email: req.user.email }).select(
             "-password -passwordResetToken -passwordResetExpiry"
         );
 
@@ -31,6 +33,7 @@ router.get("/", auth, async (req, res) => {
     }
 });
 
+/**verify token */
 router.get("/verify", async (req, res) => {
     const token = req.headers.authorization;
 
@@ -41,17 +44,35 @@ router.get("/verify", async (req, res) => {
     }
 
     try {
+        const decodedToken = jwt.decode(token, { complete: true });
+
+        const payload = decodedToken.payload;
+
+        if (payload && payload.sub) {
+            await verifyGoogleIDToken(token);
+            return res.status(200).json({ msg: "Valid Token", success: true });
+        }
+
         await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
             if (error) {
-                res.status(401).json({
-                    msg: "Token is not valid",
-                    success: false
-                });
+                throw "local_token_invalid";
             } else {
                 res.status(200).json({ msg: "Valid Token", success: true });
             }
         });
     } catch (error) {
+        if (error === "google_token_invalid") {
+            return res.status(401).json({
+                msg: "Google token is not valid",
+                success: false
+            });
+        } else if (error === "local_token_invalid") {
+            return res.status(401).json({
+                msg: "Local Token is not valid",
+                success: false
+            });
+        }
+
         res.status(500).json({ msg: "Server Error", success: false });
     }
 });
@@ -107,7 +128,8 @@ router.post(
                 name,
                 email,
                 password,
-                avatar
+                avatar,
+                loginType: "local"
             });
 
             const salt = await bcrypt.genSalt(10);
@@ -117,9 +139,8 @@ router.post(
             await user.save();
 
             const payload = {
-                user: {
-                    id: user.id
-                }
+                id: user.id,
+                email
             };
 
             // todo check expiration
@@ -191,9 +212,8 @@ router.post(
             }
 
             const payload = {
-                user: {
-                    id: user.id
-                }
+                id: user.id,
+                email
             };
 
             jwt.sign(
@@ -215,6 +235,69 @@ router.post(
         }
     }
 );
+
+router.post("/login-with-google", async (req, res) => {
+    const { googleResponse } = req.body;
+
+    try {
+        const payload = await verifyGoogleIDToken(googleResponse.tokenId);
+
+        const { name, email } = payload;
+
+        const profilePictureUrl = payload.picture;
+
+        const token = googleResponse.tokenId;
+
+        let user = await User.findOne({ email: payload.email });
+
+        if (user && user.loginType === "local") {
+            return res.status(409).json({
+                errors: [
+                    {
+                        msg:
+                            "User already exists, you can login with your local account",
+                        statusCode: 409
+                    }
+                ]
+            });
+        }
+
+        if (!user) {
+            user = new User({
+                name,
+                email,
+                avatar: profilePictureUrl,
+                googleAuthObj: googleResponse,
+                loginType: "google"
+            });
+
+            await user.save();
+
+            return res.json({
+                token,
+                success: true,
+                msg: `Signup with Google is successful. ${name} Welcome to Darklyst`
+            });
+        }
+
+        user.googleAuthObj = googleResponse;
+
+        await user.save();
+
+        res.json({
+            token,
+            success: true,
+            msg: "Login with Google is successful"
+        });
+    } catch (error) {
+        return res
+            .status(401)
+            .json({
+                msg: "Authorization with Google Account denied",
+                success: false
+            });
+    }
+});
 
 router.post(
     "/change-password",
@@ -250,7 +333,7 @@ router.post(
                 });
             }
 
-            let user = await User.findById(req.user.id);
+            let user = await User.findOne({ email: req.user.email });
 
             if (!user) {
                 return res
