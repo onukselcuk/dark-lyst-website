@@ -123,6 +123,7 @@ const SearchBox = (props) => {
             <Downshift
                 onStateChange={onStateChange}
                 itemToString={(item) => (item ? item.title : "")}
+                id="all-search-box"
             >
                 {({
                     selectedItem,
