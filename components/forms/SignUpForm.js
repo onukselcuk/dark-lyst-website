@@ -189,7 +189,7 @@ const SignUpForm = ({ registerUser, isAuthenticated }) => {
                             type="submit"
                             className={formStyles.Button}
                         >
-                            Sign Up
+                            Sign Up with Email
                         </Button>
                     </Form.Group>
                 </Form>

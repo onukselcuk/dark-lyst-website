@@ -32,17 +32,20 @@ const Login = ({ isLoginLoading }) => {
                     </div>
                 ) : (
                     <Fragment>
-                        <div className="form-container">
-                            <LoginForm />
-                        </div>
-                        <hr className="oauth-buttons-separator-line" />
                         <div className="oauth-buttons-container">
                             <GoogleSignIn />
                         </div>
-                        <hr className="oauth-buttons-separator-line" />
+                        <div className="oauth-buttons-separator-lines-container">
+                            <hr className="oauth-buttons-separator-line" />
+                            <span className="or-text">or</span>
+                            <hr className="oauth-buttons-separator-line oauth-buttons-separator-line-right" />
+                        </div>
+                        <div className="form-container">
+                            <LoginForm />
+                        </div>
                         <div className="redirect-container">
                             <p className="sub-button-note">
-                                If you don't have an account,&nbsp;
+                                Don't have an account? &nbsp;
                                 <Link href="/sign-up">
                                     <a>Sign up</a>
                                 </Link>
@@ -82,7 +85,7 @@ const Login = ({ isLoginLoading }) => {
                 }
 
                 .form-container {
-                    width: 90%;
+                    width: 100%;
                     margin: 2rem auto;
                 }
 
@@ -94,24 +97,44 @@ const Login = ({ isLoginLoading }) => {
                 .sub-button-note {
                     font-size: 1.8rem;
                 }
+
+                .oauth-buttons-separator-lines-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 3rem;
+                }
                 .oauth-buttons-separator-line {
                     margin: 0 auto;
-                    margin-top: 3rem;
-                    width: 75%;
+                    width: 50%;
                     border: 0;
+                    margin-top: 5px;
                     height: 1px;
                     background-image: linear-gradient(
                         to right,
                         ${theme.palette.primary.main},
-                        rgba(255, 255, 255, 0.5),
-                        ${theme.palette.primary.main}
+                        rgba(255, 255, 255, 0.5)
                     );
+                }
+
+                .oauth-buttons-separator-line-right {
+                    background-image: linear-gradient(
+                        to left,
+                        ${theme.palette.primary.main},
+                        rgba(255, 255, 255, 0.5)
+                    );
+                }
+
+                .or-text {
+                    margin: 0 10px;
                 }
 
                 .oauth-buttons-container {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    width: 80%;
+                    margin: 0 auto;
                 }
 
                 @media (max-width: ${breakpoints.sizes.xl}) {

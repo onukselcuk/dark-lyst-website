@@ -108,6 +108,7 @@ export default (state = initialState, action) => {
                 token: payload.token,
                 isAuthenticated: true,
                 isLoginLoading: false,
+                isRegisterLoading: false,
                 loginType: loginType === "google" ? "google" : "local",
                 isOauthAccount: loginType === "google"
             };

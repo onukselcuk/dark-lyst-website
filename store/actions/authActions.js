@@ -145,13 +145,20 @@ export const loginUser = (userData) => async (dispatch) => {
     }
 };
 
-export const loginUserWithGoogle = (response) => async (dispatch) => {
+export const loginUserWithGoogle = (response, isSignUp) => async (dispatch) => {
     const loginType = "google";
 
-    dispatch({
-        type: LOGIN_START,
-        loginType
-    });
+    if (isSignUp) {
+        dispatch({
+            type: REGISTER_START,
+            loginType
+        });
+    } else {
+        dispatch({
+            type: LOGIN_START,
+            loginType
+        });
+    }
 
     try {
         const googleCheckToken = await axios.post(

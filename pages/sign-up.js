@@ -9,6 +9,7 @@ import cookies from "next-cookies";
 import cookie from "react-cookies";
 import breakpoints from "../src/breakpoints";
 import { NextSeo } from "next-seo";
+import GoogleSignIn from "../components/google/GoogleSignIn";
 
 const SignUp = ({ isRegisterLoading }) => {
     return (
@@ -31,12 +32,20 @@ const SignUp = ({ isRegisterLoading }) => {
                     </div>
                 ) : (
                     <Fragment>
+                        <div className="oauth-buttons-container">
+                            <GoogleSignIn isSignUp={true} />
+                        </div>
+                        <div className="oauth-buttons-separator-lines-container">
+                            <hr className="oauth-buttons-separator-line" />
+                            <span className="or-text">or</span>
+                            <hr className="oauth-buttons-separator-line oauth-buttons-separator-line-right" />
+                        </div>
                         <div className="form-container">
                             <SignUpForm />
                         </div>
                         <div className="redirect-container">
                             <p className="sub-button-note">
-                                If you already have an account,&nbsp;
+                                Already have an account? &nbsp;
                                 <Link href="/login">
                                     <a>Login</a>
                                 </Link>
@@ -71,16 +80,54 @@ const SignUp = ({ isRegisterLoading }) => {
                 }
 
                 .form-container {
-                    width: 80%;
+                    width: 100%;
                     margin: 2rem auto;
                 }
 
                 .redirect-container {
                     text-align: center;
+                    margin-top: 2rem;
                 }
 
                 .sub-button-note {
                     font-size: 1.8rem;
+                }
+
+                .oauth-buttons-separator-lines-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 3rem;
+                }
+                .oauth-buttons-separator-line {
+                    margin: 0 auto;
+                    width: 50%;
+                    border: 0;
+                    margin-top: 5px;
+                    height: 1px;
+                    background-image: linear-gradient(
+                        to right,
+                        ${theme.palette.primary.main},
+                        rgba(255, 255, 255, 0.5)
+                    );
+                }
+
+                .oauth-buttons-separator-line-right {
+                    background-image: linear-gradient(
+                        to left,
+                        ${theme.palette.primary.main},
+                        rgba(255, 255, 255, 0.5)
+                    );
+                }
+
+                .or-text {
+                    margin: 0 10px;
+                }
+
+                .oauth-buttons-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
 
                 @media (max-width: ${breakpoints.sizes.xl}) {
