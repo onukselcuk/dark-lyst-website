@@ -121,11 +121,17 @@ export default (state = initialState, action) => {
             localStorage.removeItem("token");
             cookie.remove("token");
             return {
-                ...state,
                 token: null,
-                isAuthenticated: false,
+                isAuthenticated: null,
                 loading: false,
-                user: null
+                isRegisterLoading: false,
+                isLoginLoading: false,
+                user: null,
+                isPasswordChangeLoading: false,
+                isPasswordResetReqLoading: false,
+                isPasswordResetLoading: false,
+                loginType: null,
+                isOauthAccount: null
             };
         case PASSWORD_CHANGE_START:
             return {
