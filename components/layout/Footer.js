@@ -28,7 +28,7 @@ const Footer = () => {
                                 className="footer-link"
                                 href="mailto:contact@darklyst.com"
                             >
-                                contact@darklyst.com
+                                Contact
                             </a>
                         </div>
                     </div>
