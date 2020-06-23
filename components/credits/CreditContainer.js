@@ -21,10 +21,6 @@ const CreditContainer = ({ cur }) => {
         setImageLoadedState(false);
     };
 
-    useEffect(() => {
-        setIsVisibleState(false);
-    }, [cur]);
-
     return (
         <Link href={`/person/detail/[sid]`} as={`/person/detail/${cur.id}`}>
             <a className="credit-link">
