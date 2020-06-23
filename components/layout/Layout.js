@@ -9,11 +9,16 @@ import alertStyles from "../../styles/alertStyles.module.css";
 
 const Layout = ({ children, alerts }) => {
     // const alerts = [
-    // 	{ id: 1, msg: "test", alertType: "danger" },
-    // 	{ id: 2, msg: "test", alertType: "primary" },
-    // 	{ id: 3, msg: "test", alertType: "secondary" },
-    // 	{ id: 4, msg: "test", alertType: "warning" },
-    // 	{ id: 5, msg: "Lorem asdfasdfasdf asdfasdfasdfasfasdf asdfasdfasdfasdfasdf asdfasdf", alertType: "success" }
+    //     { id: 1, msg: "test", alertType: "danger" },
+    //     { id: 2, msg: "test", alertType: "primary" },
+    //     { id: 3, msg: "test", alertType: "secondary" },
+    //     { id: 4, msg: "test", alertType: "warning" },
+    //     {
+    //         id: 5,
+    //         msg:
+    //             "Lorem asdfasdfasdf asdfasdfasdfasfasdf asdfasdfasdfasdfasdf asdfasdf",
+    //         alertType: "success"
+    //     }
     // ];
 
     return (
