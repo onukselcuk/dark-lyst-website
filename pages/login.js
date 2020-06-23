@@ -171,7 +171,7 @@ Login.getInitialProps = (ctx) => {
             Router.replace("/");
         }
     }
-    return {};
+    return { token };
 };
 
 export default connect(mapStateToProps)(Login);

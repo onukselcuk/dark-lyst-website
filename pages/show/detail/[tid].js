@@ -9,6 +9,7 @@ import CarouselContainer from "../../../components/containers/CarouselContainer"
 import theme from "../../../src/theme";
 import breakpoints from "../../../src/breakpoints";
 import { NextSeo } from "next-seo";
+import { v4 as uuidv4 } from "uuid";
 
 const ShowDetail = ({ tid, deviceType }) => {
     const [showDetails, setShowDetails] = useState();
@@ -171,7 +172,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                                         cur={showDetails}
                                                         isHero={false}
                                                         isGallery={false}
-                                                        key={cur.key}
+                                                        key={uuidv4()}
                                                     />
                                                 );
                                             })}
@@ -204,7 +205,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                                         cur={showDetails}
                                                         isHero={false}
                                                         isGallery={true}
-                                                        key={cur.file_path}
+                                                        key={uuidv4()}
                                                     />
                                                 );
                                             }
@@ -227,7 +228,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                 >
                                     {recommendations.map((cur) => (
                                         <MovieShowCard
-                                            key={cur.id}
+                                            key={uuidv4()}
                                             cur={cur}
                                             isShow={true}
                                         />
@@ -241,7 +242,10 @@ const ShowDetail = ({ tid, deviceType }) => {
                         genreState.length > 0 &&
                         genreState.map((current) => {
                             return (
-                                <section className="carousel-section">
+                                <section
+                                    className="carousel-section"
+                                    key={uuidv4()}
+                                >
                                     <div className="carousel-top-bar">
                                         <p className="carousel-top-bar-title">
                                             {current.name} Shows
@@ -254,7 +258,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                         >
                                             {current.results.map((cur) => (
                                                 <MovieShowCard
-                                                    key={cur.title}
+                                                    key={uuidv4()}
                                                     cur={cur}
                                                     isShow={true}
                                                 />

@@ -4,6 +4,7 @@ import theme from "../../src/theme";
 import SeasonsContainer from "../containers/SeasonsContainer";
 import CarouselContainer from "../containers/CarouselContainer";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const MovieShowCredits = ({
     getDirector,
@@ -55,12 +56,16 @@ const MovieShowCredits = ({
                         {getDirector(movieCredits.crew)
                             .slice(0, 2)
                             .map((cur) => {
-                                return <CreditContainer cur={cur} />;
+                                return (
+                                    <CreditContainer cur={cur} key={uuidv4()} />
+                                );
                             })}
 
                         {movieCredits.cast.slice(0, 10).map((cur) => {
                             if (cur) {
-                                return <CreditContainer cur={cur} />;
+                                return (
+                                    <CreditContainer cur={cur} key={uuidv4()} />
+                                );
                             } else {
                                 return null;
                             }

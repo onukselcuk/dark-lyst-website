@@ -10,6 +10,7 @@ import Link from "next/link";
 import loaderStyles from "../styles/loader.module.css";
 import breakpoints from "../src/breakpoints";
 import { NextSeo } from "next-seo";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = (props) => {
     const [shows, setShows] = useState();
@@ -97,7 +98,7 @@ const Home = (props) => {
 
                                 return (
                                     <HeroMovieContainer
-                                        key={`hero-movie-container ${cur.title}`}
+                                        key={uuidv4()}
                                         thumbnailUrl={thumbnailUrl}
                                         cur={cur}
                                         chosenVideo={chosenVideoObj}
@@ -131,7 +132,11 @@ const Home = (props) => {
                 {netflix ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {netflix.map((cur) => (
-                            <MovieShowCard cur={cur} isShow={true} />
+                            <MovieShowCard
+                                cur={cur}
+                                isShow={true}
+                                key={uuidv4()}
+                            />
                         ))}
                     </CarouselContainer>
                 ) : (
@@ -156,7 +161,11 @@ const Home = (props) => {
                 {apple ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {apple.map((cur) => (
-                            <MovieShowCard cur={cur} isShow={true} />
+                            <MovieShowCard
+                                cur={cur}
+                                isShow={true}
+                                key={uuidv4()}
+                            />
                         ))}
                     </CarouselContainer>
                 ) : (
@@ -176,7 +185,11 @@ const Home = (props) => {
                 {shows ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {shows.map((cur) => (
-                            <MovieShowCard cur={cur} isShow={true} />
+                            <MovieShowCard
+                                cur={cur}
+                                isShow={true}
+                                key={uuidv4()}
+                            />
                         ))}
                     </CarouselContainer>
                 ) : (
@@ -198,7 +211,11 @@ const Home = (props) => {
                 {movies ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {movies.map((cur) => (
-                            <MovieShowCard cur={cur} isShow={false} />
+                            <MovieShowCard
+                                cur={cur}
+                                isShow={false}
+                                key={uuidv4()}
+                            />
                         ))}
                     </CarouselContainer>
                 ) : (
@@ -214,7 +231,7 @@ const Home = (props) => {
                 {people ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {people.map((cur) => (
-                            <PeopleCard cur={cur} />
+                            <PeopleCard cur={cur} key={uuidv4()} />
                         ))}
                     </CarouselContainer>
                 ) : (

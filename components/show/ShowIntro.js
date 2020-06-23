@@ -4,6 +4,7 @@ import HeartIcon from "../icons/HeartIcon";
 import { toggleShowHeart } from "../../store/actions/showActions";
 import { connect } from "react-redux";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
     const filterProduction = (prodArr) => {
@@ -91,7 +92,7 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
                         <div className="genres-list">
                             {genresList.map((cur, index) => {
                                 return (
-                                    <span key={cur.id} className="genre-link">
+                                    <span key={uuidv4()} className="genre-link">
                                         {cur.name}
                                         {index + 1 < genresList.length && ","}
                                     </span>
@@ -108,7 +109,10 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
                             <span className="show-small-info">
                                 {origin_countries.map((cur, index) => {
                                     return (
-                                        <span className="production-country-abbr">
+                                        <span
+                                            className="production-country-abbr"
+                                            key={uuidv4()}
+                                        >
                                             {cur}
                                             {index + 1 <
                                                 origin_countries.length && ", "}
@@ -123,7 +127,10 @@ const ShowIntro = ({ showDetails, getGenres, showList, toggleShowHeart }) => {
                         <div className="production-companies-container">
                             {filteredProduction.map((cur) => {
                                 return (
-                                    <div className="production-company-container">
+                                    <div
+                                        className="production-company-container"
+                                        key={uuidv4()}
+                                    >
                                         <img
                                             className="production-company-logo"
                                             src={`https://image.tmdb.org/t/p/w200${cur.logo_path}`}

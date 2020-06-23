@@ -4,6 +4,7 @@ import HeartIcon from "../icons/HeartIcon";
 import { connect } from "react-redux";
 import { toggleMovieHeart } from "../../store/actions/movieActions";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const MovieIntro = ({
     movieDetails,
@@ -80,7 +81,7 @@ const MovieIntro = ({
                         <div className="genres-list">
                             {genresList.map((cur, index) => {
                                 return (
-                                    <span className="genre-link" key={cur.id}>
+                                    <span className="genre-link" key={uuidv4()}>
                                         {cur.name}
                                         {index + 1 < genresList.length && ","}
                                     </span>
@@ -94,7 +95,10 @@ const MovieIntro = ({
                             <p className="production-countries">
                                 {prod_countries.map((cur, index) => {
                                     return (
-                                        <span className="production-country-abbr">
+                                        <span
+                                            className="production-country-abbr"
+                                            key={uuidv4()}
+                                        >
                                             {cur.iso_3166_1}
                                             {index + 1 <
                                                 prod_countries.length && ", "}
@@ -109,7 +113,10 @@ const MovieIntro = ({
                         <div className="production-companies-container">
                             {filteredProduction.map((cur) => {
                                 return (
-                                    <div className="production-company-container">
+                                    <div
+                                        className="production-company-container"
+                                        key={uuidv4()}
+                                    >
                                         <img
                                             className="production-company-logo"
                                             src={`https://image.tmdb.org/t/p/w200${cur.logo_path}`}

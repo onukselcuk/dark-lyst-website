@@ -5,6 +5,7 @@ import MovieShowLargeCard from "../../components/cards/MovieShowLargeCard";
 import Paginator from "../../components/Paginator";
 import breakpoints from "../../src/breakpoints";
 import { NextSeo } from "next-seo";
+import { v4 as uuidv4 } from "uuid";
 
 const ShowsTemplate = ({ slug }) => {
     const [shows, setShows] = useState();
@@ -90,7 +91,7 @@ const ShowsTemplate = ({ slug }) => {
                     <div className="cards-container">
                         {shows.results.map((cur) => {
                             return (
-                                <div className="card-container">
+                                <div className="card-container" key={uuidv4()}>
                                     <MovieShowLargeCard
                                         current={cur}
                                         isShow={true}
