@@ -163,16 +163,16 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                             <div className="navbar-list-login">
                                 <ul className="navbar-list">
                                     <li className="navbar-link-item">
-                                        <Link href="/sign-up">
+                                        <Link href="/login">
                                             <a className="navbar-anchor-link">
-                                                Sign&nbsp;Up
+                                                Login
                                             </a>
                                         </Link>
                                     </li>
                                     <li className="navbar-link-item">
-                                        <Link href="/login">
-                                            <a className="navbar-anchor-link">
-                                                Login
+                                        <Link href="/sign-up">
+                                            <a className="navbar-anchor-link navbar-anchor-link-signup">
+                                                Sign&nbsp;Up
                                             </a>
                                         </Link>
                                     </li>
@@ -228,11 +228,17 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                     padding: 10px 14px;
                     cursor: pointer;
                     font-size: 1.7rem;
+                    transition: all ease-in-out 200ms;
+                    margin: 0 5px;
                 }
 
                 .navbar-anchor-link:hover {
-                    background-color: ${theme.palette.primary.main};
-                    color: #fff;
+                    background-color: rgba(255, 255, 255, 0.6);
+                    color: ${theme.palette.primary.main};
+                }
+
+                .navbar-anchor-link-signup {
+                    margin-right: 0;
                 }
 
                 .dropdown-button-inner-container {

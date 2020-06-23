@@ -21,16 +21,18 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <style jsx>{`
             .navbar-anchor-link {
                 text-decoration: none;
-                font-size: 1.7rem;
-                padding: 10px 14px;
-                border-radius: 3px;
-                cursor: pointer;
                 color: rgba(255, 255, 255, 0.7);
+                border-radius: 5px;
+                padding: 10px 14px;
+                cursor: pointer;
+                font-size: 1.7rem;
+                transition: all ease-in-out 200ms;
+                margin: 0 5px;
             }
 
             .navbar-anchor-link:hover {
-                background-color: ${theme.palette.primary.main};
-                color: #fff;
+                background-color: rgba(255, 255, 255, 0.5);
+                color: ${theme.palette.primary.main};
             }
         `}</style>
     </a>
