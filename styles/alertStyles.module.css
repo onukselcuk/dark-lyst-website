@@ -3,10 +3,12 @@
     position: fixed;
     top: 10%;
     right: 1%;
+    z-index: 3000;
 }
 
 .AlertContainer .Alert {
     font-size: 1.7rem;
     text-align: center;
     padding: 1rem 1.5rem;
+    opacity: 0.9;
 }
