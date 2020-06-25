@@ -65,6 +65,12 @@ const Home = (props) => {
         });
     };
 
+    const filterHeroMovies = (heroMoviesArray) => {
+        return heroMoviesArray.filter((cur) => {
+            return cur.hasOwnProperty("id");
+        });
+    };
+
     return (
         <main className="root">
             <NextSeo
@@ -84,7 +90,7 @@ const Home = (props) => {
                         isSmall={false}
                         isHero={true}
                     >
-                        {heroMovies.map((cur) => {
+                        {filterHeroMovies(heroMovies).map((cur) => {
                             if (cur?.videos?.length > 0) {
                                 // const filteredVideoArray = filterVideos(
                                 //     cur.videos
