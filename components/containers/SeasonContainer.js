@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
-import loadable from "@loadable/component";
+import dynamic from "next/dynamic";
 import loaderStyles from "../../styles/loader.module.css";
-const LazyModal = loadable(() => import("../modals/SeasonModal"));
+const LazyModal = dynamic(() => import("../modals/SeasonModal"));
 import VisibilitySensor from "react-visibility-sensor";
 
 const SeasonContainer = ({ cur, showId, showDetails }) => {
