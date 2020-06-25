@@ -1,6 +1,7 @@
 import { withRouter } from "next/router";
 import Link from "next/link";
 import React, { Children } from "react";
+import PropTypes from "prop-types";
 
 const ActiveLink = ({ router, children, ...props }) => {
     const child = Children.only(children);
@@ -22,8 +23,13 @@ const ActiveLink = ({ router, children, ...props }) => {
     }
 
     delete props.activeClassName;
+    delete props.activeLinkSlug;
 
     return <Link {...props}>{React.cloneElement(child, { className })}</Link>;
+};
+
+ActiveLink.propTypes = {
+    activeLinkSlug: PropTypes.string
 };
 
 export default withRouter(ActiveLink);

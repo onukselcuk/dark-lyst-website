@@ -96,7 +96,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                                 dropDownStyles.dropdownItem
                                             }
                                             active={false}
-                                            eventKey={uuidv4()}
+                                            key={uuidv4()}
                                         >
                                             Profile
                                         </Dropdown.Item>
@@ -113,7 +113,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                                 dropDownStyles.dropdownItem
                                             }
                                             active={false}
-                                            eventKey={uuidv4()}
+                                            key={uuidv4()}
                                         >
                                             Account
                                         </Dropdown.Item>
@@ -130,7 +130,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                                 dropDownStyles.dropdownItem
                                             }
                                             active={false}
-                                            eventKey={uuidv4()}
+                                            key={uuidv4()}
                                         >
                                             Movies Watchlist
                                         </Dropdown.Item>
@@ -147,7 +147,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                                 dropDownStyles.dropdownItem
                                             }
                                             active={false}
-                                            eventKey={uuidv4()}
+                                            key={uuidv4()}
                                         >
                                             Shows Watchlist
                                         </Dropdown.Item>
@@ -164,7 +164,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                                 dropDownStyles.dropdownItem
                                             }
                                             active={false}
-                                            eventKey={uuidv4()}
+                                            key={uuidv4()}
                                         >
                                             Stars List
                                         </Dropdown.Item>
@@ -173,7 +173,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                         as="button"
                                         onClick={logout}
                                         className={dropDownStyles.dropdownItem}
-                                        eventKey={uuidv4()}
+                                        key={uuidv4()}
                                     >
                                         Sign out
                                     </Dropdown.Item>
