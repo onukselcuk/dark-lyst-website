@@ -3,6 +3,7 @@ import MovieShowLargeCard from "../cards/MovieShowLargeCard";
 import Paginator from "../Paginator";
 import { useState, useEffect } from "react";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const MovieWatchlistContainer = ({ movieList }) => {
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -46,7 +47,7 @@ const MovieWatchlistContainer = ({ movieList }) => {
                       )
                       .map((cur) => {
                           return (
-                              <div className="card-container">
+                              <div className="card-container" key={uuidv4()}>
                                   <MovieShowLargeCard
                                       current={cur}
                                       isShow={false}

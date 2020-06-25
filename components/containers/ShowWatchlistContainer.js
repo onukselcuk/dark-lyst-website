@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import MovieShowLargeCard from "../cards/MovieShowLargeCard";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const ShowWatchlistContainer = ({ showList }) => {
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -42,7 +43,7 @@ const ShowWatchlistContainer = ({ showList }) => {
                       )
                       .map((cur) => {
                           return (
-                              <div className="card-container">
+                              <div className="card-container" key={uuidv4()}>
                                   <MovieShowLargeCard
                                       current={cur}
                                       isShow={true}

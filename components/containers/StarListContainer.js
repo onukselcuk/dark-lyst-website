@@ -3,6 +3,7 @@ import Paginator from "../Paginator";
 import { useState, useEffect } from "react";
 import PeopleLargeCard from "../cards/PeopleLargeCard";
 import breakpoints from "../../src/breakpoints";
+import { v4 as uuidv4 } from "uuid";
 
 const StarListContainer = ({ personList }) => {
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -46,7 +47,7 @@ const StarListContainer = ({ personList }) => {
                       )
                       .map((cur) => {
                           return (
-                              <div className="card-container">
+                              <div className="card-container" key={uuidv4()}>
                                   <PeopleLargeCard current={cur} />
                               </div>
                           );
