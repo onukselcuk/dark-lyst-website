@@ -13,7 +13,9 @@ const HeroMovieContainer = ({
     isGallery,
     isShow,
     isProfile,
-    containment
+    containment,
+    handleHeroMoviesVisibility,
+    isVisibilityController
 }) => {
     const [show, setShow] = useState(false);
 
@@ -33,6 +35,9 @@ const HeroMovieContainer = ({
 
     const setImageLoaded = () => {
         setImageLoadedState(true);
+        if (isVisibilityController) {
+            handleHeroMoviesVisibility(true);
+        }
     };
 
     const setImageLoadStart = () => {
@@ -52,13 +57,7 @@ const HeroMovieContainer = ({
             partialVisibility={true}
             containment={containment}
         >
-            <div
-                className="hero-movie-container"
-                style={{
-                    opacity: isVisibleState && imageLoadedState ? 1 : 0,
-                    transition: "opacity 300ms ease-in"
-                }}
-            >
+            <div className="hero-movie-container">
                 <br />
                 {isHero && (
                     <div className="hero-left-container">
@@ -70,36 +69,36 @@ const HeroMovieContainer = ({
                     </div>
                 )}
 
-                {isVisibleState && (
-                    <div
-                        className="video-thumbnail-container"
-                        onClick={handleShow}
-                    >
-                        <div className="top-backdrop" />
-                        <img
-                            className="video-thumbnail"
-                            src={thumbnailUrl}
-                            alt={`${
-                                cur.title || cur.name
-                            } Youtube Video Thumbnail`}
-                            onLoad={setImageLoaded}
-                            onLoadStart={setImageLoadStart}
-                        />
+                <div
+                    className="video-thumbnail-container"
+                    onClick={handleShow}
+                    style={{
+                        opacity: isVisibleState && imageLoadedState ? 1 : 0,
+                        transition: "opacity 300ms ease-in"
+                    }}
+                >
+                    <div className="top-backdrop" />
+                    <img
+                        className="video-thumbnail"
+                        src={thumbnailUrl}
+                        alt={`${cur.title || cur.name} Youtube Video Thumbnail`}
+                        onLoad={setImageLoaded}
+                        onLoadStart={setImageLoadStart}
+                    />
 
-                        {!isGallery && (
-                            <div className="play-icon-container">
-                                <PlayIcon />
-                            </div>
-                        )}
-                        {(isProfile || !isGallery) && (
-                            <span className="video-title">
-                                {chosenVideo.name || cur.title || cur.name}
-                            </span>
-                        )}
+                    {!isGallery && (
+                        <div className="play-icon-container">
+                            <PlayIcon />
+                        </div>
+                    )}
+                    {(isProfile || !isGallery) && (
+                        <span className="video-title">
+                            {chosenVideo.name || cur.title || cur.name}
+                        </span>
+                    )}
 
-                        <div className="down-backdrop" />
-                    </div>
-                )}
+                    <div className="down-backdrop" />
+                </div>
 
                 <VideoImageModal
                     show={show}

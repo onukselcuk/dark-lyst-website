@@ -19,6 +19,7 @@ const Home = (props) => {
     const [people, setPeople] = useState();
     const [netflix, setNetflix] = useState();
     const [apple, setApple] = useState();
+    const [isHeroMoviesVisible, setHeroMoviesVisibility] = useState(false);
     const { deviceType } = props;
 
     const getLatest = () => {
@@ -49,21 +50,10 @@ const Home = (props) => {
     };
 
     let indexHeroSectionRef = useRef(null);
-    // let netflixSectionRef = useRef(null);
-    // let appleSectionRef = useRef(null);
-    // let showsSectionRef = useRef(null);
-    // let moviesSectionRef = useRef(null);
-    // let peopleSectionRef = useRef(null);
 
     useEffect(() => {
         getLatest();
     }, []);
-
-    const filterVideos = (videoArr) => {
-        return videoArr.filter((cur) => {
-            return cur.maxres === true;
-        });
-    };
 
     const filterHeroMovies = (heroMoviesArray) => {
         return heroMoviesArray.filter((cur) => {
@@ -83,23 +73,26 @@ const Home = (props) => {
                         "Track and discover latest show and movies with darklyst"
                 }}
             />
-            <section className="tv-shows-section" ref={indexHeroSectionRef}>
-                {heroMovies ? (
+            {heroMovies && (
+                <section
+                    className="tv-shows-section"
+                    ref={indexHeroSectionRef}
+                    style={{
+                        opacity: isHeroMoviesVisible ? 1 : 0,
+                        visibility: `${
+                            isHeroMoviesVisible ? "visible" : "hidden"
+                        }`
+                    }}
+                >
                     <CarouselContainer
                         deviceType={deviceType}
                         isSmall={false}
                         isHero={true}
                     >
-                        {filterHeroMovies(heroMovies).map((cur) => {
-                            if (cur?.videos?.length > 0) {
-                                // const filteredVideoArray = filterVideos(
-                                //     cur.videos
-                                // );
-                                const filteredVideoArray = cur.videos;
+                        {filterHeroMovies(heroMovies).map((cur, index) => {
+                            if (cur.videos.length > 0) {
                                 const chosenVideoObj =
-                                    filteredVideoArray[
-                                        filteredVideoArray.length - 1
-                                    ];
+                                    cur.videos[cur.videos.length - 1];
                                 const thumbnailUrl = `https://i.ytimg.com/vi/${chosenVideoObj.key}/maxresdefault.jpg`;
 
                                 return (
@@ -112,6 +105,12 @@ const Home = (props) => {
                                         containment={
                                             indexHeroSectionRef.current
                                         }
+                                        handleHeroMoviesVisibility={
+                                            setHeroMoviesVisibility
+                                        }
+                                        isVisibilityController={
+                                            index === 0 ? true : false
+                                        }
                                     />
                                 );
                             } else {
@@ -119,23 +118,22 @@ const Home = (props) => {
                             }
                         })}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
-                        <div className={loaderStyles.loader}>Loading...</div>
+                </section>
+            )}
+            {netflix && (
+                <section className="tv-shows-section">
+                    <div className="section-header-container">
+                        <Link
+                            href="/shows/[slug]"
+                            as="/shows/latest-on-netflix"
+                        >
+                            <a className="header-link">
+                                <h2 className="section-header">
+                                    Latest Shows On Netflix
+                                </h2>
+                            </a>
+                        </Link>
                     </div>
-                )}
-            </section>
-            <section className="tv-shows-section">
-                <div className="section-header-container">
-                    <Link href="/shows/[slug]" as="/shows/latest-on-netflix">
-                        <a className="header-link">
-                            <h2 className="section-header">
-                                Latest Shows On Netflix
-                            </h2>
-                        </a>
-                    </Link>
-                </div>
-                {netflix ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {netflix.map((cur) => (
                             <MovieShowCard
@@ -145,26 +143,22 @@ const Home = (props) => {
                             />
                         ))}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
-                        <div className={loaderStyles.loader}>Loading...</div>
+                </section>
+            )}
+            {apple && (
+                <section className="tv-shows-section">
+                    <div className="section-header-container">
+                        <Link
+                            href="/shows/[slug]"
+                            as="/shows/latest-on-apple-tv-plus"
+                        >
+                            <a className="header-link">
+                                <h2 className="section-header">
+                                    Latest Shows On Apple TV+
+                                </h2>
+                            </a>
+                        </Link>
                     </div>
-                )}
-            </section>
-            <section className="tv-shows-section">
-                <div className="section-header-container">
-                    <Link
-                        href="/shows/[slug]"
-                        as="/shows/latest-on-apple-tv-plus"
-                    >
-                        <a className="header-link">
-                            <h2 className="section-header">
-                                Latest Shows On Apple TV+
-                            </h2>
-                        </a>
-                    </Link>
-                </div>
-                {apple ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {apple.map((cur) => (
                             <MovieShowCard
@@ -174,21 +168,23 @@ const Home = (props) => {
                             />
                         ))}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
+
+                    {/* <div className="loader-container">
                         <div className={loaderStyles.loader}>Loading...</div>
+                    </div> */}
+                </section>
+            )}
+            {shows && (
+                <section className="tv-shows-section">
+                    <div className="section-header-container">
+                        <Link href="/shows/[slug]" as="/shows/on-the-air">
+                            <a className="header-link">
+                                <h2 className="section-header">
+                                    TV Shows On Air
+                                </h2>
+                            </a>
+                        </Link>
                     </div>
-                )}
-            </section>
-            <section className="tv-shows-section">
-                <div className="section-header-container">
-                    <Link href="/shows/[slug]" as="/shows/on-the-air">
-                        <a className="header-link">
-                            <h2 className="section-header">TV Shows On Air</h2>
-                        </a>
-                    </Link>
-                </div>
-                {shows ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {shows.map((cur) => (
                             <MovieShowCard
@@ -198,23 +194,19 @@ const Home = (props) => {
                             />
                         ))}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
-                        <div className={loaderStyles.loader}>Loading...</div>
+                </section>
+            )}
+            {movies && (
+                <section className="tv-shows-section">
+                    <div className="section-header-container">
+                        <Link href="/movies/[slug]" as="/movies/now-playing">
+                            <a className="header-link">
+                                <h2 className="section-header">
+                                    Now Playing In Theaters
+                                </h2>
+                            </a>
+                        </Link>
                     </div>
-                )}
-            </section>
-            <section className="tv-shows-section">
-                <div className="section-header-container">
-                    <Link href="/movies/[slug]" as="/movies/now-playing">
-                        <a className="header-link">
-                            <h2 className="section-header">
-                                Now Playing In Theaters
-                            </h2>
-                        </a>
-                    </Link>
-                </div>
-                {movies ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {movies.map((cur) => (
                             <MovieShowCard
@@ -224,28 +216,20 @@ const Home = (props) => {
                             />
                         ))}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
-                        <div className={loaderStyles.loader}>Loading...</div>
+                </section>
+            )}
+            {people && (
+                <section className="tv-shows-section">
+                    <div className="section-header-container">
+                        <h2 className="section-header">Trending People</h2>
                     </div>
-                )}
-            </section>
-            <section className="tv-shows-section">
-                <div className="section-header-container">
-                    <h2 className="section-header">Trending People</h2>
-                </div>
-                {people ? (
                     <CarouselContainer deviceType={deviceType} isSmall={true}>
                         {people.map((cur) => (
                             <PeopleCard cur={cur} key={uuidv4()} />
                         ))}
                     </CarouselContainer>
-                ) : (
-                    <div className="loader-container">
-                        <div className={loaderStyles.loader}>Loading...</div>
-                    </div>
-                )}
-            </section>
+                </section>
+            )}
             <style jsx>{`
                 .root {
                     width: 100%;

@@ -95,7 +95,7 @@ const MovieShowCard = ({
                         className="tv-show-container"
                         style={{
                             opacity: isVisibleState && imageLoadedState ? 1 : 0,
-                            transition: "opacity 400ms ease-in"
+                            transition: "opacity 300ms ease-in"
                         }}
                     >
                         <div className="top-backdrop" />
