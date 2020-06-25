@@ -45,8 +45,8 @@ const CreditContainer = ({ cur }) => {
                                         cur.profile_path
                                             ? `https://image.tmdb.org/t/p/w200${cur.profile_path}`
                                             : cur.gender === 1
-                                            ? "/empty-profile/empty-profile-picture-woman-arranged.jpg"
-                                            : "/empty-profile/empty-profile-picture-man-arranged.jpg"
+                                            ? require("../../public/empty-profile/empty-profile-picture-woman-arranged.jpg")
+                                            : require("../../public/empty-profile/empty-profile-picture-man-arranged.jpg")
                                     }
                                     alt={`${cur.name} Profile Image`}
                                     onLoad={setImageLoaded}
