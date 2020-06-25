@@ -13,6 +13,8 @@ import loaderStyles from "../../styles/smallLoader.module.css";
 import breakpoints from "../../src/breakpoints";
 import Navbar from "react-bootstrap/Navbar";
 import { Nav } from "react-bootstrap";
+import ActiveLink from "./ActiveLink";
+import { v4 as uuidv4 } from "uuid";
 
 const NavbarComponent = ({ isAuthenticated, logout, user }) => {
     const getUserName = (userData) => {
@@ -44,9 +46,12 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                 <Navbar.Collapse className="navbar-collapse-container">
                     <Nav className="navbar-list navbar-list-nav">
                         <li className="navbar-link-item">
-                            <Link href="/">
+                            <ActiveLink
+                                href="/"
+                                activeClassName="navbar-link-item-active"
+                            >
                                 <a className="navbar-anchor-link">Home</a>
-                            </Link>
+                            </ActiveLink>
                         </li>
                         <TvDropdown />
                         <MovieDropdown />
@@ -79,75 +84,96 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                                 <Dropdown.Menu
                                     className={dropDownStyles.dropdownMenu}
                                 >
-                                    <Link
+                                    <ActiveLink
                                         href="/dashboard/[lid]"
                                         as="/dashboard/profile"
+                                        activeLinkSlug="/dashboard/profile"
                                         passHref={true}
+                                        activeClassName="navbar-link-item-active"
                                     >
                                         <Dropdown.Item
                                             className={
                                                 dropDownStyles.dropdownItem
                                             }
+                                            active={false}
+                                            eventKey={uuidv4()}
                                         >
                                             Profile
                                         </Dropdown.Item>
-                                    </Link>
-                                    <Link
+                                    </ActiveLink>
+                                    <ActiveLink
                                         href="/dashboard/[lid]"
                                         as="/dashboard/account"
+                                        activeLinkSlug="/dashboard/account"
                                         passHref={true}
+                                        activeClassName="navbar-link-item-active"
                                     >
                                         <Dropdown.Item
                                             className={
                                                 dropDownStyles.dropdownItem
                                             }
+                                            active={false}
+                                            eventKey={uuidv4()}
                                         >
                                             Account
                                         </Dropdown.Item>
-                                    </Link>
-                                    <Link
+                                    </ActiveLink>
+                                    <ActiveLink
                                         href="/dashboard/[lid]"
                                         as="/dashboard/movies"
+                                        activeLinkSlug="/dashboard/movies"
                                         passHref={true}
+                                        activeClassName="navbar-link-item-active"
                                     >
                                         <Dropdown.Item
                                             className={
                                                 dropDownStyles.dropdownItem
                                             }
+                                            active={false}
+                                            eventKey={uuidv4()}
                                         >
                                             Movies Watchlist
                                         </Dropdown.Item>
-                                    </Link>
-                                    <Link
+                                    </ActiveLink>
+                                    <ActiveLink
                                         href="/dashboard/[lid]"
                                         as="/dashboard/shows"
+                                        activeLinkSlug="/dashboard/shows"
                                         passHref={true}
+                                        activeClassName="navbar-link-item-active"
                                     >
                                         <Dropdown.Item
                                             className={
                                                 dropDownStyles.dropdownItem
                                             }
+                                            active={false}
+                                            eventKey={uuidv4()}
                                         >
                                             Shows Watchlist
                                         </Dropdown.Item>
-                                    </Link>
-                                    <Link
+                                    </ActiveLink>
+                                    <ActiveLink
                                         href="/dashboard/[lid]"
                                         as="/dashboard/stars"
+                                        activeLinkSlug="/dashboard/stars"
                                         passHref={true}
+                                        activeClassName="navbar-link-item-active"
                                     >
                                         <Dropdown.Item
                                             className={
                                                 dropDownStyles.dropdownItem
                                             }
+                                            active={false}
+                                            eventKey={uuidv4()}
                                         >
                                             Stars List
                                         </Dropdown.Item>
-                                    </Link>
+                                    </ActiveLink>
                                     <Dropdown.Item
                                         as="button"
                                         onClick={logout}
                                         className={dropDownStyles.dropdownItem}
+                                        eventKey={uuidv4()}
                                     >
                                         Sign out
                                     </Dropdown.Item>
@@ -163,18 +189,24 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                             <div className="navbar-list-login">
                                 <ul className="navbar-list">
                                     <li className="navbar-link-item">
-                                        <Link href="/login">
+                                        <ActiveLink
+                                            href="/login"
+                                            activeClassName="navbar-link-item-active"
+                                        >
                                             <a className="navbar-anchor-link">
                                                 Login
                                             </a>
-                                        </Link>
+                                        </ActiveLink>
                                     </li>
                                     <li className="navbar-link-item">
-                                        <Link href="/sign-up">
+                                        <ActiveLink
+                                            href="/sign-up"
+                                            activeClassName="navbar-link-item-active"
+                                        >
                                             <a className="navbar-anchor-link navbar-anchor-link-signup">
                                                 Sign&nbsp;Up
                                             </a>
-                                        </Link>
+                                        </ActiveLink>
                                     </li>
                                 </ul>
                             </div>
@@ -232,7 +264,8 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                     margin: 0 5px;
                 }
 
-                .navbar-anchor-link:hover {
+                .navbar-anchor-link:hover,
+                .navbar-link-item-active {
                     background-color: rgba(255, 255, 255, 0.6);
                     color: ${theme.palette.primary.main};
                 }

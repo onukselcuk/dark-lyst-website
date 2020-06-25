@@ -35,6 +35,12 @@
     background-color: #1b262c;
     font-size: 1.8rem;
     z-index: 2000;
+    opacity: 0.95;
+}
+
+.dropdownButtonContainer .dropdownMenu :global(.navbar-link-item-active) {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #1b262c;
 }
 
 .dropdownButtonContainer .dropdownItem {
