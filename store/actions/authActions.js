@@ -115,8 +115,6 @@ export const loginUser = (userData) => async (dispatch) => {
                 "Content-Type": "application/json"
             }
         });
-        console.log("response from backend google check");
-        console.log(response.data);
 
         if (response.data.success) {
             batch(() => {

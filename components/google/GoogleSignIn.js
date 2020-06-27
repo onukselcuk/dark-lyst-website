@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 const GoogleSignIn = ({ loginUserWithGoogle, isSignUp }) => {
     const responseGoogle = (response) => {
         if (!response.error) {
-            console.log("response return from google on frontend ");
-            console.log(response);
             loginUserWithGoogle(response, isSignUp);
         }
     };
