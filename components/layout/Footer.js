@@ -44,6 +44,7 @@ const Footer = () => {
                             className="footer-link"
                             href="https://www.upwork.com/o/profiles/users/~0132c2a668c2858146/"
                             target="_blank"
+                            rel="noopener"
                         >
                             Developed and Designed by Selcuk Onuk
                         </a>
