@@ -1,4 +1,3 @@
-//import App from "next/app";
 import { Provider } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { loadUser } from "../store/actions/authActions";
@@ -14,34 +13,43 @@ config.autoAddCss = false;
 import setAuthToken from "../utils/setAuthToken";
 import { DefaultSeo } from "next-seo";
 
-function MyApp ({ Component, pageProps }) {
-	if (typeof localStorage !== "undefined") {
-		setAuthToken(localStorage.token);
-	}
+function MyApp({ Component, pageProps }) {
+    if (typeof localStorage !== "undefined") {
+        setAuthToken(localStorage.token);
+    }
 
-	useEffect(() => {
-		store.dispatch(loadUser());
-	}, []);
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
 
-	return (
-		<Fragment>
-			<DefaultSeo
-				openGraph={{
-					type: "website",
-					locale: "en_US",
-					site_name: "Dark Lyst"
-				}}
-				twitter={{
-					cardType: "summary_large_image"
-				}}
-			/>
-			<Provider store={store}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</Provider>
-		</Fragment>
-	);
+    return (
+        <Fragment>
+            <DefaultSeo
+                openGraph={{
+                    type: "website",
+                    locale: "en_US",
+                    site_name: "DarkLyst",
+                    url: "https://darklyst.com",
+                    images: [
+                        {
+                            url: require("../public/images/darklyst-logo.png"),
+                            width: 300,
+                            height: 300,
+                            alt: "Darklyst Logo"
+                        }
+                    ]
+                }}
+                twitter={{
+                    cardType: "summary_large_image"
+                }}
+            />
+            <Provider store={store}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </Provider>
+        </Fragment>
+    );
 }
 
 // Only uncomment this method if you have blocking data requirements for
