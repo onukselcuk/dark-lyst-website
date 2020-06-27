@@ -65,12 +65,12 @@ const Home = (props) => {
         <main className="root">
             <NextSeo
                 title="DarkLyst | Track Latest Shows and Movies"
-                description="Track and discover latest show and movies with darklyst"
+                description="Track and discover latest show and movies with Darklyst"
                 openGraph={{
                     url: "https://www.darklyst.com",
                     title: "DarkLyst | Track Latest Shows and Movies",
                     description:
-                        "Track and discover latest show and movies with darklyst"
+                        "Track and discover latest show and movies with Darklyst"
                 }}
             />
             {heroMovies && (

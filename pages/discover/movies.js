@@ -124,12 +124,12 @@ const DiscoverMovie = () => {
         <main>
             <NextSeo
                 title="Discover Movies"
-                description="Discover Movies with darklyst using advanced search"
+                description="Discover Movies with Darklyst using advanced search"
                 openGraph={{
                     url: "https://www.darklyst.com/discover/movies",
                     title: "Discover Movies",
                     description:
-                        "Discover Movies with darklyst using advanced search"
+                        "Discover Movies with Darklyst using advanced search"
                 }}
             />
             <section className="carousel-section">
