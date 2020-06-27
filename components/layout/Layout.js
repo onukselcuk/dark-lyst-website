@@ -58,26 +58,13 @@ const Layout = ({ children, alerts }) => {
                     }
                 }
 
-                @media (max-width: ${breakpoints.sizes.xs}) {
-                    html {
-                        font-size: 40%;
-                    }
-                }
-
-                @media (max-width: ${breakpoints.sizes.xxs}) {
-                    html {
-                        font-size: 35%;
-                    }
-                }
-
                 html *,
                 html *::before,
                 html *::after {
                     box-sizing: inherit;
                     margin: 0;
                     padding: 0;
-                    font-family: Lato, -apple-system, BlinkMacSystemFont,
-                        Avenir Next, Avenir, Helvetica, sans-serif;
+                    font-family: ${theme.typography.sansSerif};
                 }
 
                 body {

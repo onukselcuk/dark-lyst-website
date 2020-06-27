@@ -258,7 +258,6 @@ const MovieShowCard = ({
                     .show-name {
                         width: 70%;
                         color: #fff;
-                        font-weight: bold;
                         transition: all 400ms;
                         font-size: 1.7rem;
                         z-index: 10;
