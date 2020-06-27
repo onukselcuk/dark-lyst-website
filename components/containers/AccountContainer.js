@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import theme from "../../src/theme";
 import Button from "react-bootstrap/Button";
 import styles from "../../styles/accountStyles.module.css";
@@ -7,7 +8,11 @@ import breakpoints from "../../src/breakpoints";
 import { useState } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
-const AccountContainer = ({ logout, setIsChangingPassword }) => {
+const AccountContainer = ({
+    logout,
+    setIsChangingPassword,
+    isOauthAccount
+}) => {
     const openPassword = () => {
         setIsChangingPassword(true);
     };
@@ -52,33 +57,38 @@ const AccountContainer = ({ logout, setIsChangingPassword }) => {
                         </Button>
                     </div>
                 </div>
+                {!isOauthAccount && (
+                    <Fragment>
+                        <div className="profile-header-container">
+                            <h3 className="profile-header-title">Password</h3>
+                            <div className="button-container">
+                                <Button
+                                    onClick={openPassword}
+                                    className={styles.Button}
+                                    variant="primary"
+                                    size="lg"
+                                >
+                                    Change Password
+                                </Button>
+                            </div>
+                        </div>
 
-                <div className="profile-header-container">
-                    <h3 className="profile-header-title">Password</h3>
-                    <div className="button-container">
-                        <Button
-                            onClick={openPassword}
-                            className={styles.Button}
-                            variant="primary"
-                            size="lg"
-                        >
-                            Change Password
-                        </Button>
-                    </div>
-                </div>
-
-                <div className="profile-header-container">
-                    <h3 className="profile-header-title">Delete Account</h3>
-                    <div className="button-container">
-                        <Button
-                            className={styles.Button}
-                            variant="danger"
-                            size="lg"
-                        >
-                            Delete Account
-                        </Button>
-                    </div>
-                </div>
+                        <div className="profile-header-container">
+                            <h3 className="profile-header-title">
+                                Delete Account
+                            </h3>
+                            <div className="button-container">
+                                <Button
+                                    className={styles.Button}
+                                    variant="danger"
+                                    size="lg"
+                                >
+                                    Delete Account
+                                </Button>
+                            </div>
+                        </div>
+                    </Fragment>
+                )}
 
                 <style jsx>{`
                     .profile-container {
@@ -119,4 +129,10 @@ const AccountContainer = ({ logout, setIsChangingPassword }) => {
     );
 };
 
-export default connect(null, { logout })(AccountContainer);
+const mapStateToProps = (state) => {
+    return {
+        isOauthAccount: state.auth.isOauthAccount
+    };
+};
+
+export default connect(mapStateToProps, { logout })(AccountContainer);
