@@ -1,64 +1,65 @@
 :global(.modal-dialog).VideoModal {
-	width: 90%;
-	max-width: 1500px;
-	margin-right: auto;
-	margin-left: auto;
+    width: 90%;
+    max-width: 1500px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 :global(.modal-dialog).GalleryModal {
-	width: 90%;
-	max-width: 1500px;
-	margin-right: auto;
-	margin-left: auto;
+    width: 90%;
+    max-width: 1500px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 :global(.modal-dialog).SeasonModal {
-	width: 90%;
-	max-width: 1500px;
-	margin-right: auto;
-	margin-left: auto;
+    width: 90%;
+    max-width: 1500px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 :global(.modal-header).ModalHeader {
-	background-color: #1b262c;
-	border: none;
-	align-items: center;
+    background-color: #1b262c;
+    border: none;
+    align-items: center;
 }
 
 :global(.modal-header).ModalHeader .ModalTitle {
-	font-size: 2rem;
-	padding-left: 1rem;
+    font-size: 2rem;
+    padding-left: 1rem;
 }
 
 .ModalHeader :global(.close span) {
-	color: white;
-	font-size: 3rem;
-	line-height: .8;
+    color: white;
+    font-size: 4rem;
+    font-weight: normal;
+    line-height: 0.8;
 }
 
 .ModalHeader :global(.close:focus) {
-	outline: none;
+    outline: none;
 }
 
 .VideoModal .ModalBody {
-	position: relative;
-	background-color: #1b262c;
-	padding-top: 56.25%;
+    position: relative;
+    background-color: #1b262c;
+    padding-top: 56.25%;
 }
 
 .GalleryModal .ModalBody {
-	position: relative;
-	background-color: #1b262c;
-	padding: 0;
+    position: relative;
+    background-color: #1b262c;
+    padding: 0;
 }
 
 .SeasonModal .ModalBody {
-	position: relative;
-	background-color: #1b262c;
+    position: relative;
+    background-color: #1b262c;
 }
 
 .ReactPlayer {
-	position: absolute;
-	top: 0;
-	left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
