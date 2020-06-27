@@ -8,16 +8,21 @@ const dev = process.env.NEXT_STATIC_PRODUCTION !== "production";
 
 const withNextEnv = nextEnv();
 
-module.exports = withPlugins([
-    withNextEnv,
+module.exports = withPlugins(
     [
-        optimizedImages,
-        {
-            imagesPublicPath: dev
-                ? "/_next/static/images/"
-                : "https://assets.darklyst.com/images"
-        }
-    ]
-    //withCSS,
-    //withFonts
-]);
+        withNextEnv,
+        [
+            optimizedImages,
+            {
+                imagesPublicPath: dev
+                    ? "/_next/static/images/"
+                    : "https://assets.darklyst.com/images"
+            }
+        ]
+        //withCSS,
+        //withFonts
+    ],
+    {
+        compress: false
+    }
+);
