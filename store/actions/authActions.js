@@ -28,6 +28,7 @@ import { setMovies } from "./movieActions";
 import { setShows } from "./showActions";
 import { setPeople } from "./personActions";
 import { batch } from "react-redux";
+import jwt from "jsonwebtoken";
 
 export const logout = () => (dispatch) => {
     batch(() => {
@@ -39,11 +40,21 @@ export const logout = () => (dispatch) => {
     Router.push("/login");
 };
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = (loginType) => async (dispatch) => {
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     } else {
         return;
+    }
+
+    if (localStorage.token && !loginType) {
+        const decodedToken = jwt.decode(localStorage.token, { complete: true });
+
+        const payload = decodedToken.payload;
+
+        if (payload && payload.sub) {
+            loginType = "google";
+        }
     }
 
     try {
@@ -52,7 +63,8 @@ export const loadUser = () => async (dispatch) => {
         batch(() => {
             dispatch({
                 type: USER_LOADED,
-                payload: res.data
+                payload: res.data,
+                loginType
             });
 
             dispatch(setMovies(res.data.movieList));
@@ -177,7 +189,7 @@ export const loginUserWithGoogle = (response, isSignUp) => async (dispatch) => {
                     loginType
                 });
                 dispatch(setAlert(googleCheckToken.data.msg, "success", 3000));
-                dispatch(loadUser());
+                dispatch(loadUser(loginType));
             });
             Router.push("/");
         } else {

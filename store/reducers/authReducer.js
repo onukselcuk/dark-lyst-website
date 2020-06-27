@@ -57,7 +57,9 @@ export default (state = initialState, action) => {
                     email: payload.email,
                     avatar: payload.avatar,
                     date: payload.date
-                }
+                },
+                loginType: loginType === "google" ? "google" : "local",
+                isOauthAccount: loginType === "google"
             };
         case REGISTER_SUCCESS:
             localStorage.setItem("token", payload.token);
