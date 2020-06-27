@@ -22,8 +22,12 @@ const MovieShowCard = ({
         cur.poster_path
     }`;
     let title = cur.name || cur.title;
-    if (title.length > 25) {
-        title = `${title.slice(0, 25)}...`;
+    if (isProfile && title.length > 10) {
+        title = `${title.slice(0, 10)}...`;
+    }
+
+    if (!isProfile && title.length > 16) {
+        title = `${title.slice(0, 16)}...`;
     }
     let link;
     if (isShow) {
@@ -240,7 +244,7 @@ const MovieShowCard = ({
                         height: 80%;
                         z-index: 10;
                         opacity: 1;
-                        margin: 0 1.5rem 0 1rem;
+                        margin: 0 1rem 0 0rem;
                         transition: all 400ms;
                         display: flex;
                         align-items: center;
@@ -273,10 +277,6 @@ const MovieShowCard = ({
                         z-index: 10;
                         opacity: 1;
                         transition: all 400ms;
-                    }
-
-                    .show-poster-image {
-                        width: 100%;
                     }
                 `}</style>
             </a>
