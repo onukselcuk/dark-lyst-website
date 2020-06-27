@@ -222,8 +222,7 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
                 }
 
                 .header :global(.navbar) {
-                    padding-top: 3rem;
-                    padding-bottom: 3rem;
+                    padding: 3rem 0;
                     width: 70%;
                     margin: 0 auto;
                     display: flex;
