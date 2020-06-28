@@ -20,8 +20,10 @@ const path = require("path");
 const rfs = require("rotating-file-stream");
 const accessLogStream = rfs.createStream("access.log", {
     interval: "10d",
-    path: path.join(__dirname, "logs")
+    path: path.join(__dirname, "logs", "morgan-logs")
 });
+
+const { logger } = require("./config/logger");
 
 connectDB();
 
@@ -119,6 +121,6 @@ app.prepare().then(() => {
 
     server.listen(PORT, (err) => {
         if (err) throw err;
-        console.log(`Now serving on localhost:${PORT}`);
+        logger.log("info", `Now serving on localhost:${PORT}`);
     });
 });

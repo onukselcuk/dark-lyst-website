@@ -12,6 +12,7 @@ const noAccountPassResetMailer = require("../../utils/noAccountPassResetMailer")
 const randomStringGenerator = require("../../utils/randomStringGenerator");
 const dev = process.env.NODE_ENV !== "production";
 const { verifyGoogleIDToken } = require("../../utils/googleAuthHelpers");
+const { logger } = require("../../config/logger");
 
 /**load user info */
 router.get("/", auth, async (req, res) => {
@@ -28,7 +29,7 @@ router.get("/", auth, async (req, res) => {
 
         res.json(userData);
     } catch (error) {
-        console.log(error.message);
+        logger.error(`/auth route ${error}`);
         res.status(500).send("Server Error");
     }
 });
@@ -38,6 +39,7 @@ router.get("/verify", async (req, res) => {
     const token = req.headers.authorization;
 
     if (!token) {
+        logger.warn("/auth/verify route - No token,authorization denied");
         return res
             .status(401)
             .json({ msg: "No token, authorization denied", success: false });
@@ -62,17 +64,20 @@ router.get("/verify", async (req, res) => {
         });
     } catch (error) {
         if (error === "google_token_invalid") {
+            logger.error("Google token is not valid");
             return res.status(401).json({
                 msg: "Google token is not valid",
                 success: false
             });
         } else if (error === "local_token_invalid") {
+            logger.error("Local token is not valid");
             return res.status(401).json({
                 msg: "Local Token is not valid",
                 success: false
             });
         }
 
+        logger.error(`/verify route - Server Error:${error}`);
         res.status(500).json({ msg: "Server Error", success: false });
     }
 });
@@ -98,6 +103,7 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            logger.warn("/register route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -109,6 +115,7 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
+                logger.warn("/register route Recaptcha token is not valid");
                 return res.status(400).json({
                     errors: [{ msg: "Recaptcha token is not valid" }]
                 });
@@ -117,6 +124,9 @@ router.post(
             let user = await User.findOne({ email });
 
             if (user) {
+                logger.warn(
+                    "/register route User already exists, you can login"
+                );
                 return res.status(409).json({
                     errors: [{ msg: "User already exists, you can login" }]
                 });
@@ -151,6 +161,9 @@ router.post(
                 { expiresIn: 360000 },
                 (err, token) => {
                     if (err) {
+                        logger.error(
+                            `/login route - token signing error:${err}`
+                        );
                         throw err;
                     }
 
@@ -162,6 +175,7 @@ router.post(
                 }
             );
         } catch (error) {
+            logger.error(`/register route - Server Error:${error}`);
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });
@@ -179,6 +193,7 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            logger.warn("/login route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -190,6 +205,7 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
+                logger.warn("/login route - Recaptcha token is not valid");
                 return res.status(400).json({
                     errors: [{ msg: "Recaptcha token is not valid" }]
                 });
@@ -198,6 +214,7 @@ router.post(
             let user = await User.findOne({ email });
 
             if (!user) {
+                logger.warn("/login route, User Doesn't exist");
                 return res
                     .status(400)
                     .json({ errors: [{ msg: "Invalid Credentials" }] });
@@ -206,6 +223,7 @@ router.post(
             const isMatch = await bcrypt.compare(password, user.password);
 
             if (!isMatch) {
+                logger.warn("/login route, password doesn't match");
                 return res
                     .status(400)
                     .json({ errors: [{ msg: "Invalid Credentials" }] });
@@ -222,6 +240,9 @@ router.post(
                 { expiresIn: 360000 },
                 (err, token) => {
                     if (err) {
+                        logger.error(
+                            `/login route - token signing error:${err}`
+                        );
                         throw err;
                     }
 
@@ -229,6 +250,7 @@ router.post(
                 }
             );
         } catch (error) {
+            logger.error(`/register route - Server Error:${error}`);
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });
@@ -251,6 +273,9 @@ router.post("/login-with-google", async (req, res) => {
         let user = await User.findOne({ email: payload.email });
 
         if (user && user.loginType === "local") {
+            logger.warn(
+                "/login-with-google route - User already exists, you can login with your local account"
+            );
             return res.status(409).json({
                 errors: [
                     {
@@ -290,12 +315,13 @@ router.post("/login-with-google", async (req, res) => {
             msg: "Login with Google is successful"
         });
     } catch (error) {
-        return res
-            .status(401)
-            .json({
-                msg: "Authorization with Google Account denied",
-                success: false
-            });
+        logger.error(
+            `/login-with-google route -Authorization with Google Account denied: ${error}`
+        );
+        return res.status(401).json({
+            msg: "Authorization with Google Account denied",
+            success: false
+        });
     }
 });
 
@@ -317,6 +343,7 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            logger.warn("/change-password route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -328,6 +355,7 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
+                logger.warn("/change-password route validation errors");
                 return res.status(400).json({
                     errors: [{ msg: "Recaptcha token is not valid" }]
                 });
@@ -336,6 +364,7 @@ router.post(
             let user = await User.findOne({ email: req.user.email });
 
             if (!user) {
+                logger.warn("/change-password route, User Doesn't exist");
                 return res
                     .status(400)
                     .json({ errors: [{ msg: "Invalid Credentials" }] });
@@ -344,6 +373,7 @@ router.post(
             const isMatch = await bcrypt.compare(oldPassword, user.password);
 
             if (!isMatch) {
+                logger.warn("/change-password route, password doesn't match");
                 return res
                     .status(400)
                     .json({ errors: [{ msg: "Invalid Credentials" }] });
@@ -360,6 +390,7 @@ router.post(
                 msg: "Your password is changed successfully"
             });
         } catch (error) {
+            logger.error(`/change-password route - Server Error:${error}`);
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });
@@ -377,6 +408,7 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            logger.warn("/password-reset-request route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -388,6 +420,9 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
+                logger.warn(
+                    "/password-reset-request route Recaptcha token is not valid"
+                );
                 return res.status(400).json({
                     errors: [{ msg: "Recaptcha token is not valid" }]
                 });
@@ -425,6 +460,9 @@ router.post(
                 });
             }
         } catch (error) {
+            logger.error(
+                `/password-reset-request route - Server Error:${error}`
+            );
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });
@@ -442,6 +480,7 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            logger.warn("/reset-token-verify route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -451,12 +490,16 @@ router.post(
 
         try {
             if (!user) {
+                logger.warn("/reset-token-verify route - User doesn't exist");
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
                 });
             }
 
             if (!user.passwordResetToken || !user.passwordResetExpiry) {
+                logger.warn(
+                    "/reset-token-verify route - password reset token doesn't exist or password reset expiry doesn't exit for the user in the db"
+                );
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
                 });
@@ -470,6 +513,9 @@ router.post(
                 user.passwordResetExpiry = null;
                 await user.save();
 
+                logger.warn(
+                    "/reset-token-verify route - password reset token doesn't match or password reset token expired"
+                );
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
                 });
@@ -484,6 +530,7 @@ router.post(
                 throw new Error();
             }
         } catch (error) {
+            logger.error(`/register route - Server Error:${error}`);
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });
@@ -509,6 +556,7 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            logger.warn("/reset-password route validation errors");
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -522,18 +570,25 @@ router.post(
             const recaptchaResponse = await axios.post(recaptchaUrl);
 
             if (!recaptchaResponse.data.success) {
+                logger.warn(
+                    "/reset-password route - Recaptcha token is not valid"
+                );
                 return res.status(400).json({
                     errors: [{ msg: "Recaptcha token is not valid" }]
                 });
             }
 
             if (!user) {
+                logger.warn("/reset-password route - User doesn't exist");
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
                 });
             }
 
             if (!user.passwordResetToken || !user.passwordResetExpiry) {
+                logger.warn(
+                    "/reset-password route - password reset token doesn't exist or password reset expiry doesn't exit for the user in the db"
+                );
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
                 });
@@ -546,6 +601,10 @@ router.post(
                 user.passwordResetToken = null;
                 user.passwordResetExpiry = null;
                 await user.save();
+
+                logger.warn(
+                    "/reset-reset-password route - password reset token doesn't match or password reset token expired"
+                );
 
                 return res.status(400).json({
                     errors: [{ msg: "This link has expired or it's invalid." }]
@@ -570,6 +629,7 @@ router.post(
                 throw new Error();
             }
         } catch (error) {
+            logger.error(`/register route - Server Error:${error}`);
             res.status(500).json({
                 errors: [{ msg: "Server Error!, Try again later please" }]
             });

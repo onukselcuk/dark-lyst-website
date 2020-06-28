@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const redisClient = require("../../config/redis");
+const { logger } = require("../../config/logger");
 
 //* get trending people
 router.get("/trending", async (req, res) => {
@@ -16,7 +17,7 @@ router.get("/trending", async (req, res) => {
         redisClient.expire("trendingPeople", 43200);
         res.send(response.data);
     } catch (error) {
-        console.log(error);
+        logger.error(`/person/trending route error: ${error}`);
     }
 });
 
@@ -29,7 +30,7 @@ router.get("/detail/:id", async (req, res) => {
 
         res.send(response.data);
     } catch (error) {
-        console.log(error);
+        logger.error(`/person/detail/${req.params.id} route error: ${error}`);
     }
 });
 
@@ -42,7 +43,9 @@ router.get("/tagged-images/:id", async (req, res) => {
 
         res.send(response.data);
     } catch (error) {
-        console.log(error);
+        logger.error(
+            `/person/tagged-images/${req.params.id} route error: ${error}`
+        );
     }
 });
 
@@ -55,7 +58,9 @@ router.get("/combined-credits/:id", async (req, res) => {
 
         res.send(response.data);
     } catch (error) {
-        console.log(error);
+        logger.error(
+            `/person/combined-credits/${req.params.id} route error: ${error}`
+        );
     }
 });
 

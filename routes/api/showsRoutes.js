@@ -5,6 +5,7 @@ const axios = require("axios");
 const sub = require("date-fns/sub");
 const format = require("date-fns/format");
 const redisClient = require("../../config/redis");
+const { logger } = require("../../config/logger");
 
 // * get latest shows
 router.get("/latest", async (req, res) => {
@@ -19,7 +20,7 @@ router.get("/latest", async (req, res) => {
         redisClient.expire("latestShows", 43200);
         res.send(result.data);
     } catch (error) {
-        console.log(error);
+        logger.error(`/shows/latest route error: ${error}`);
     }
     //res.json(seedShows);
 });
@@ -40,6 +41,7 @@ router.get("/netflix", async (req, res) => {
         redisClient.expire("latestNetflixShows", 43200);
         res.send(response.data);
     } catch (error) {
+        logger.error(`/shows/netflix route error: ${error}`);
         res.send("something went wrong");
     }
 });
@@ -60,6 +62,7 @@ router.get("/apple", async (req, res) => {
         redisClient.expire("latestAppleShows", 43200);
         res.send(response.data);
     } catch (error) {
+        logger.error(`/shows/apple route error: ${error}`);
         res.send("something went wrong");
     }
 });
@@ -73,8 +76,8 @@ router.get("/top-rated", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/shows/top-rated route error: ${error}`);
         });
 });
 
@@ -87,8 +90,8 @@ router.get("/popular", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/shows/popular route error: ${error}`);
         });
 });
 
@@ -101,8 +104,8 @@ router.get("/on-the-air", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/shows/on-the-air route error: ${error}`);
         });
 });
 
@@ -120,6 +123,7 @@ router.get("/latest-on-netflix", async (req, res) => {
 
         res.send(response.data);
     } catch (error) {
+        logger.error(`/shows/latest-on-netflix route error: ${error}`);
         res.send("something went wrong");
     }
 });
@@ -138,6 +142,7 @@ router.get("/latest-on-apple-tv-plus", async (req, res) => {
 
         res.send(response.data);
     } catch (error) {
+        logger.error(`/shows/latest-on-apple-tv-plus route error: ${error}`);
         res.send("something went wrong");
     }
 });

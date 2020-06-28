@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const redisClient = require("../../config/redis");
+const { logger } = require("../../config/logger");
 // const seedMovies = require("../../src/seedMovies");
 // const seedTrendHero = require("../../src/seedTrendHero");
 
@@ -18,7 +19,7 @@ router.get("/latest", async (req, res) => {
         redisClient.expire("latestMovies", 43200);
         res.send(result.data);
     } catch (error) {
-        console.log(error);
+        logger.error(`/movies/latest route error: ${error}`);
     }
     //res.json(seedMovies);
 });
@@ -125,7 +126,7 @@ router.get("/trending-hero", async (req, res) => {
             i++;
         }
     } catch (error) {
-        console.log(error);
+        logger.error(`/movies/trending-hero route error: ${error}`);
     }
 
     //res.json(seedTrendHero);
@@ -140,8 +141,8 @@ router.get("/top-rated", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/movies/top-rated route error: ${error}`);
         });
 });
 
@@ -155,8 +156,8 @@ router.get("/now-playing", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/movies/now-playing route error: ${error}`);
         });
 });
 
@@ -169,8 +170,8 @@ router.get("/popular", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/movies/popular route error: ${error}`);
         });
 });
 
@@ -183,8 +184,8 @@ router.get("/upcoming", (req, res) => {
         .then((result) => {
             res.send(result.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(`/movies/upcoming route error: ${error}`);
         });
 });
 

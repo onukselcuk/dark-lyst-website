@@ -13,8 +13,10 @@ router.get("/detail/:id", async (req, res) => {
             data = result.data;
             res.send(data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(
+                `/movie/detail/${req.params.id} route error: ${error}`
+            );
         });
 
     //res.json(seedMovieDetail);
@@ -28,8 +30,10 @@ router.get("/credits/:id", async (req, res) => {
         .then((creditsResult) => {
             res.send(creditsResult.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(
+                `/movie/credits/${req.params.id} route error: ${error}`
+            );
         });
     //res.json(seedMovieDetail);
 });
@@ -42,8 +46,10 @@ router.get("/recommendations/:id", async (req, res) => {
         .then((recommended) => {
             res.send(recommended.data);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((error) => {
+            logger.error(
+                `/movie/recommendations/${req.params.id} route error: ${error}`
+            );
         });
     //res.json(seedMovieDetail);
 });
@@ -57,7 +63,9 @@ router.get("/discover/:genreId", async (req, res) => {
             res.send(moviesDiscovered.data);
         })
         .catch((err) => {
-            console.log(err);
+            logger.error(
+                `/movie/discover/${req.params.genreId} route error: ${error}`
+            );
         });
     //res.json(seedMovieDetail);
 });

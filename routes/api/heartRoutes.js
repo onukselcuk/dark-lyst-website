@@ -5,8 +5,7 @@ const User = require("../../models/User");
 const Movie = require("../../models/Movie");
 const Show = require("../../models/Show");
 const Person = require("../../models/Person");
-
-// todo handle errors
+const { logger } = require("../../config/logger");
 
 // add movie to user's movie list
 router.post("/movie", auth, async (req, res) => {
@@ -56,7 +55,7 @@ router.post("/movie", auth, async (req, res) => {
             msg: "Movie is added to watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/movie post route error: ${error}`);
     }
 });
 
@@ -80,7 +79,7 @@ router.delete("/movie", auth, async (req, res) => {
             msg: "Movie is removed from the watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/movie delete route error: ${error}`);
     }
 });
 
@@ -132,7 +131,7 @@ router.post("/show", auth, async (req, res) => {
             msg: "Show is added to watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/show post route error: ${error}`);
     }
 });
 
@@ -156,7 +155,7 @@ router.delete("/show", auth, async (req, res) => {
             msg: "Show is removed from the watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/show delete route error: ${error}`);
     }
 });
 
@@ -214,7 +213,7 @@ router.post("/person", auth, async (req, res) => {
             msg: "Person is added to watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/person post route error: ${error}`);
     }
 });
 
@@ -238,7 +237,7 @@ router.delete("/person", auth, async (req, res) => {
             msg: "Person is removed from the watchlist"
         });
     } catch (error) {
-        console.log(error);
+        logger.error(`/heart/person delete route error: ${error}`);
     }
 });
 
