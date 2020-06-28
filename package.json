@@ -71,6 +71,7 @@
         "uuid": "^8.2.0",
         "webp-loader": "^0.6.0",
         "winston": "^3.3.3",
+        "winston-daily-rotate-file": "^4.5.0",
         "yup": "^0.29.1"
     },
     "devDependencies": {

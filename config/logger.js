@@ -1,6 +1,14 @@
 const winston = require("winston");
 const transports = winston.transports;
 const format = winston.format;
+require("winston-daily-rotate-file");
+
+const dailyRotateConfig = {
+    datePattern: "YYYY-MM-DD-HH",
+    zippedArchive: true,
+    maxSize: "20m",
+    maxFiles: "14d"
+};
 
 const logger = winston.createLogger({
     level: "info",
@@ -14,14 +22,21 @@ const logger = winston.createLogger({
     ),
     defaultMeta: { service: "dark-lyst-logger" },
     transports: [
-        new transports.File({
-            filename: "logs/winston-logs/error.log",
-            level: "error"
+        new transports.DailyRotateFile({
+            filename: "logs/winston-logs/error-%DATE%.log",
+            level: "error",
+            ...dailyRotateConfig
         }),
-        new transports.File({ filename: "logs/winston-logs/combined.log" })
+        new transports.DailyRotateFile({
+            filename: "logs/winston-logs/combined-%DATE%.log",
+            ...dailyRotateConfig
+        })
     ],
     rejectionHandlers: [
-        new transports.File({ filename: "logs/winston-logs/rejections.log" })
+        new transports.DailyRotateFile({
+            filename: "logs/winston-logs/rejections-%DATE%.log",
+            ...dailyRotateConfig
+        })
     ]
 });
 
