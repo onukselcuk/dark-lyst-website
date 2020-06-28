@@ -5,8 +5,9 @@ import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import styles from "../../styles/profileContainerStyles.module.css";
 import breakpoints from "../../src/breakpoints";
 import VisibilitySensor from "react-visibility-sensor";
+import { connect } from "react-redux";
 
-const ProfileContainer = ({ user }) => {
+const ProfileContainer = ({ user, isOauthAccount }) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = (status) => {
@@ -71,11 +72,22 @@ const ProfileContainer = ({ user }) => {
                             src={`${user.avatar}&s=100`}
                             alt="user avatar"
                         />
+
+                        {!isOauthAccount && (
+                            <a
+                                rel="noopener"
+                                target="_blank"
+                                href="https://en.gravatar.com/"
+                                className="gravatar-link"
+                            >
+                                Manage your Profile Photo with Gravatar
+                            </a>
+                        )}
                     </div>
                 </div>
                 <style jsx>{`
                     .profile-container {
-                        width: 50%;
+                        width: 60%;
                         margin: 2rem auto;
                         border-radius: 10px;
                         padding: 2rem;
@@ -117,13 +129,22 @@ const ProfileContainer = ({ user }) => {
                     }
 
                     .profile-image-container {
-                        width: 15%;
+                        width: 30%;
+                        display: flex;
+                        flex-direction: column;
                         margin-right: 2rem;
+                        align-items: center;
+                        text-align: center;
                     }
 
                     .profile-image {
-                        width: 100%;
+                        width: 50%;
                         border-radius: 50%;
+                    }
+
+                    .gravatar-link {
+                        font-size: 1.3rem;
+                        margin-top: 1rem;
                     }
 
                     @media (max-width: ${breakpoints.sizes.mdsm}) {
@@ -137,4 +158,10 @@ const ProfileContainer = ({ user }) => {
     );
 };
 
-export default ProfileContainer;
+const mapStateToProps = (state) => {
+    return {
+        isOauthAccount: state.auth.isOauthAccount
+    };
+};
+
+export default connect(mapStateToProps)(ProfileContainer);
