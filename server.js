@@ -23,9 +23,32 @@ const accessLogStream = rfs.createStream("access.log", {
     path: path.join(__dirname, "logs", "morgan-logs")
 });
 
+/** Winston Logger */
 const { logger } = require("./config/logger");
 
+/** Connect to MongoDB */
 connectDB();
+
+/** Generate Sitemap */
+
+const sitemap = require("nextjs-sitemap-generator");
+
+if (!dev) {
+    sitemap({
+        baseUrl: "https://darklyst.com",
+        pagesDirectory: __dirname + "/pages",
+        targetDirectory: __dirname + "/.next/static",
+        nextConfigPath: __dirname + "/sitemap.config.js",
+        ignoredExtensions: ["png", "jpg"]
+    });
+}
+
+const sitemapOptions = {
+    root: __dirname + "/.next/static/",
+    headers: {
+        "Content-Type": "text/xml;charset=UTF-8"
+    }
+};
 
 app.prepare().then(() => {
     const server = express();
@@ -112,6 +135,10 @@ app.prepare().then(() => {
             }
         );
     }
+
+    server.get("/sitemap.xml", (req, res) => {
+        res.status(200).sendFile("sitemap.xml", sitemapOptions);
+    });
 
     server.get("*", (req, res) => {
         return handle(req, res);
