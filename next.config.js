@@ -21,8 +21,5 @@ module.exports = withPlugins(
         ]
         //withCSS,
         //withFonts
-    ],
-    {
-        compress: false
-    }
+    ]
 );
