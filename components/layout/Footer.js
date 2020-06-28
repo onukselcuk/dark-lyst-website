@@ -8,21 +8,32 @@ const Footer = () => {
         <footer className="footer">
             <div className="top-footer">
                 <div className="footer-inner-container-top">
-                    <div className="top-container">
-                        <div className="logo-container">
-                            <Link href="/">
-                                <a>
-                                    <Logo />
+                    <div className="logo-container">
+                        <Link href="/">
+                            <a>
+                                <Logo />
+                            </a>
+                        </Link>
+                    </div>
+
+                    <div className="tmdb-logo-container">
+                        <TmdbLogo />
+                    </div>
+
+                    <div className="footer-links-container">
+                        <div className="top-footer-link-container">
+                            <Link href="/privacy-policy">
+                                <a className="footer-link">Privacy Policy</a>
+                            </Link>
+                        </div>
+
+                        <div className="top-footer-link-container">
+                            <Link href="/terms-and-conditions">
+                                <a className="footer-link">
+                                    Terms and Conditions
                                 </a>
                             </Link>
                         </div>
-                    </div>
-                    <div className="top-container">
-                        <div className="tmdb-logo-container">
-                            <TmdbLogo />
-                        </div>
-                    </div>
-                    <div className="top-container">
                         <div className="top-footer-link-container">
                             <a
                                 className="footer-link"
@@ -37,7 +48,7 @@ const Footer = () => {
             <div className="bottom-footer">
                 <div className="footer-inner-container-bottom">
                     <div className="copyright-container">
-                        &copy; 2020 DarkLyst
+                        &copy; 2020 DarkLyst.com
                     </div>
                     <div className="developer-container">
                         <a
@@ -89,25 +100,19 @@ const Footer = () => {
                     padding: 1rem 0;
                 }
 
-                .top-container {
-                    width: 30%;
-                }
-
                 .logo-container {
-                    width: 40%;
+                    width: 15%;
                     min-width: 80px;
                 }
 
                 .tmdb-logo-container {
-                    width: 60%;
+                    width: 20%;
                     min-width: 60px;
                     margin: 0 auto;
                 }
 
-                .top-footer-link-container {
-                    text-align: right;
+                .footer-links-container {
                 }
-
                 .footer-link {
                     text-decoration: none;
                     color: rgba(255, 255, 255, 0.4);
@@ -167,19 +172,11 @@ const Footer = () => {
                         align-items: center;
                     }
 
-                    .top-container {
-                        width: 100%;
-                    }
-
                     .logo-container,
                     .tmdb-logo-container,
                     .top-footer-link-container {
                         margin: 0.7rem auto;
                         text-align: center;
-                    }
-
-                    .top-footer-link-container {
-                        width: 50%;
                     }
 
                     .logo-container,
