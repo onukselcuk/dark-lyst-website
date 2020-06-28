@@ -74,7 +74,7 @@ const SeasonContainer = ({ cur, showId, showDetails }) => {
                     display: flex;
                     flex-direction: column;
                     text-align: center;
-                    margin: 2rem;
+                    margin: 0 1rem;
                     height: 100%;
                     cursor: pointer;
                 }
