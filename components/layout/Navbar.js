@@ -45,14 +45,16 @@ const NavbarComponent = ({ isAuthenticated, logout, user }) => {
 
                 <Navbar.Collapse className="navbar-collapse-container">
                     <Nav className="navbar-list navbar-list-nav">
-                        <li className="navbar-link-item">
-                            <ActiveLink
-                                href="/"
-                                activeClassName="navbar-link-item-active"
-                            >
-                                <a className="navbar-anchor-link">Home</a>
-                            </ActiveLink>
-                        </li>
+                        <ul>
+                            <li className="navbar-link-item">
+                                <ActiveLink
+                                    href="/"
+                                    activeClassName="navbar-link-item-active"
+                                >
+                                    <a className="navbar-anchor-link">Home</a>
+                                </ActiveLink>
+                            </li>
+                        </ul>
                         <TvDropdown />
                         <MovieDropdown />
                         <DiscoverDropdown />

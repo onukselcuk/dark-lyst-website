@@ -2,7 +2,6 @@ const Logo = () => {
     return (
         <svg
             version="1.1"
-            id="Layer_1"
             className="logo"
             x="0px"
             y="0px"

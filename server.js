@@ -30,9 +30,7 @@ const { logger } = require("./config/logger");
 connectDB();
 
 /** Generate Sitemap */
-
 const sitemap = require("nextjs-sitemap-generator");
-
 if (!dev) {
     sitemap({
         baseUrl: "https://darklyst.com",
