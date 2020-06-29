@@ -71,6 +71,16 @@ class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
                         rel="stylesheet"
                     />
+                    {/* Global site tag (gtag.js) - Google Analytics */}
+                    {process.env.NEXT_STATIC_PRODUCTION === "production" && (
+                        <script
+                            async
+                            src="https://www.googletagmanager.com/gtag/js?id=UA-171026859-1"
+                        />
+                    )}
+                    {process.env.NEXT_STATIC_PRODUCTION === "production" && (
+                        <script src="/scripts/googleAnalytics.js" />
+                    )}
                 </Head>
                 <body>
                     <Main />
