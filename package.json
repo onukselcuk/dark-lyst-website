@@ -45,6 +45,7 @@
         "next-compose-plugins": "^2.2.0",
         "next-cookies": "^2.0.3",
         "next-env": "^1.1.1",
+        "next-fonts": "^1.2.0",
         "next-optimized-images": "^2.6.1",
         "next-seo": "^4.6.0",
         "nextjs-sitemap-generator": "^1.0.0",
