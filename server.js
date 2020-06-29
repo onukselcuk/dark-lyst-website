@@ -82,7 +82,9 @@ app.prepare().then(() => {
                     "https://s.ytimg.com",
                     "https://www.google.com",
                     "https://www.gstatic.com",
-                    "https://apis.google.com"
+                    "https://apis.google.com",
+                    "https://www.googletagmanager.com",
+                    "https://www.google-analytics.com"
                 ],
                 childSrc: [
                     "'self'",
@@ -100,7 +102,8 @@ app.prepare().then(() => {
                     "https://image.tmdb.org",
                     "https://i.ytimg.com",
                     "https://s.gravatar.com",
-                    "https://lh5.googleusercontent.com"
+                    "https://lh5.googleusercontent.com",
+                    "https://www.google-analytics.com"
                 ],
                 fontSrc: [
                     "'self'",
