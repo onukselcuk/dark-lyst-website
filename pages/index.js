@@ -7,7 +7,6 @@ import CarouselContainer from "../components/containers/CarouselContainer";
 import theme from "../src/theme";
 import PeopleCard from "../components/cards/PeopleCard";
 import Link from "next/link";
-import loaderStyles from "../styles/loader.module.css";
 import breakpoints from "../src/breakpoints";
 import { NextSeo } from "next-seo";
 import { v4 as uuidv4 } from "uuid";
