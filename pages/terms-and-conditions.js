@@ -443,7 +443,7 @@ const TermsAndConditions = () => {
                     font-size: 2rem;
                     margin-top: 1rem;
                     margin-bottom: 0.5rem;
-                    font-weight: bold;
+                    font-weight: 700;
                 }
 
                 .top-bar-title,
