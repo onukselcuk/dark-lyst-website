@@ -97,14 +97,17 @@ app.prepare().then(() => {
                 ],
                 imgSrc: [
                     "'self'",
+                    "data:",
                     "https://image.tmdb.org",
                     "https://i.ytimg.com",
                     "https://s.gravatar.com",
                     "https://lh5.googleusercontent.com",
-                    "https://www.google-analytics.com"
+                    "https://www.google-analytics.com",
+                    "https://assets.darklyst.com"
                 ],
                 fontSrc: [
                     "'self'",
+                    "data:",
                     "https://fonts.googleapis.com",
                     "https://fonts.gstatic.com"
                 ]
