@@ -2,9 +2,13 @@ module.exports = {
     exportPathMap: function () {
         return {
             "": { page: "/" },
-            "/movie/detail/475430": { page: "/movie/detail/[pid]" },
-            "/show/detail/70523": { page: "/movie/detail/[tid]" },
-            "/person/detail/234352": { page: "/movie/detail/[sid]" },
+            "/movie/detail/artemis-fowl/475430": {
+                page: "/movie/detail/[title]/[pid]"
+            },
+            "/show/detail/dark/70523": { page: "/show/detail/[title]/[tid]" },
+            "/person/detail/keanu-reeves/6384": {
+                page: "/person/detail/[name]/[sid]"
+            },
             "/movies/now-playing": { page: "/movies/[slug]" },
             "/movies/popular": { page: "/movies/[slug]" },
             "/movies/top-rated": { page: "/movies/[slug]" },
