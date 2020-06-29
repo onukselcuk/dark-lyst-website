@@ -27,8 +27,14 @@ const PeopleCard = ({ cur }) => {
         };
     }, [cur]);
 
+    const link = `/person/detail/[name]/[sid]`;
+
+    const asLink = `/person/detail/${encodeURIComponent(
+        cur.name.toLowerCase().replace(/\W+/g, "-")
+    )}/${cur.id}`;
+
     return (
-        <Link href={`/person/detail/[sid]`} as={`/person/detail/${cur.id}`}>
+        <Link href={link} as={asLink}>
             <a className="person-link">
                 <VisibilitySensor
                     onChange={onVisibilityChange}

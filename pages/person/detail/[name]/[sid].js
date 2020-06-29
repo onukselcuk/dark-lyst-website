@@ -1,12 +1,12 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import PersonIntro from "../../../components/person/PersonIntro";
-import MovieShowCard from "../../../components/cards/MovieShowCard";
+import PersonIntro from "../../../../components/person/PersonIntro";
+import MovieShowCard from "../../../../components/cards/MovieShowCard";
 import MobileDetect from "mobile-detect";
-import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
-import CarouselContainer from "../../../components/containers/CarouselContainer";
-import theme from "../../../src/theme";
-import breakpoints from "../../../src/breakpoints";
+import HeroMovieContainer from "../../../../components/containers/HeroMovieContainer";
+import CarouselContainer from "../../../../components/containers/CarouselContainer";
+import theme from "../../../../src/theme";
+import breakpoints from "../../../../src/breakpoints";
 import { NextSeo } from "next-seo";
 import { v4 as uuidv4 } from "uuid";
 

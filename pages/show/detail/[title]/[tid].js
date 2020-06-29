@@ -1,38 +1,38 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import MovieIntro from "../../../components/movie/MovieIntro";
-import MovieShowCredits from "../../../components/credits/MovieShowCredits";
-import MovieShowCard from "../../../components/cards/MovieShowCard";
+import ShowIntro from "../../../../components/show/ShowIntro";
+import MovieShowCredits from "../../../../components/credits/MovieShowCredits";
+import MovieShowCard from "../../../../components/cards/MovieShowCard";
 import MobileDetect from "mobile-detect";
-import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
-import CarouselContainer from "../../../components/containers/CarouselContainer";
-import theme from "../../../src/theme";
-import breakpoints from "../../../src/breakpoints";
+import HeroMovieContainer from "../../../../components/containers/HeroMovieContainer";
+import CarouselContainer from "../../../../components/containers/CarouselContainer";
+import theme from "../../../../src/theme";
+import breakpoints from "../../../../src/breakpoints";
 import { NextSeo } from "next-seo";
 import { v4 as uuidv4 } from "uuid";
 
-const MovieDetail = ({ pid, deviceType }) => {
-    const [movieDetails, setMovieDetails] = useState();
-    const [movieCredits, setMovieCredits] = useState();
+const ShowDetail = ({ tid, deviceType }) => {
+    const [showDetails, setShowDetails] = useState();
+    const [showCredits, setShowCredits] = useState();
     const [recommendations, setRecommendations] = useState();
     const [genreState, setGenreState] = useState();
 
-    const getMovieDetails = () => {
-        const url = `/api/movie/detail/${pid}`;
+    const getShowDetails = () => {
+        const url = `/api/show/detail/${tid}`;
         axios.get(url).then((res) => {
-            setMovieDetails(res.data);
+            setShowDetails(res.data);
         });
     };
 
     const getCredits = () => {
-        const url = `/api/movie/credits/${pid}`;
+        const url = `/api/show/credits/${tid}`;
         axios.get(url).then((res) => {
-            setMovieCredits(res.data);
+            setShowCredits(res.data);
         });
     };
 
     const getRecommendations = () => {
-        const url = `/api/movie/recommendations/${pid}`;
+        const url = `/api/show/recommendations/${tid}`;
         axios.get(url).then((res) => {
             let filteredResults = res.data.results;
             filteredResults = filteredResults.filter(
@@ -44,7 +44,7 @@ const MovieDetail = ({ pid, deviceType }) => {
 
     const genreAxios = async (index) => {
         try {
-            const url = `/api/movie/discover/${movieDetails.genres[index].id}`;
+            const url = `/api/show/discover/${showDetails.genres[index].id}`;
             const res = await axios.get(url);
             return res;
         } catch (error) {
@@ -53,13 +53,13 @@ const MovieDetail = ({ pid, deviceType }) => {
     };
 
     const getGenreDetails = async () => {
-        if (typeof movieDetails !== "undefined") {
-            if (typeof movieDetails.genres !== "undefined") {
+        if (typeof showDetails !== "undefined") {
+            if (typeof showDetails.genres !== "undefined") {
                 let numberOfGenres;
-                if (movieDetails.genres.length > 3) {
+                if (showDetails.genres.length > 3) {
                     numberOfGenres = 3;
                 } else {
-                    numberOfGenres = movieDetails.genres.length;
+                    numberOfGenres = showDetails.genres.length;
                 }
 
                 let data = [];
@@ -71,9 +71,10 @@ const MovieDetail = ({ pid, deviceType }) => {
                         (cur) => cur.vote_average && cur.poster_path
                     );
                     const newObj = {
-                        name: movieDetails.genres[i].name,
+                        name: showDetails.genres[i].name,
                         results: filteredReturn
                     };
+
                     data.push(newObj);
                 }
 
@@ -103,44 +104,46 @@ const MovieDetail = ({ pid, deviceType }) => {
     };
 
     useEffect(() => {
-        getMovieDetails();
+        getShowDetails();
         getCredits();
         getRecommendations();
-    }, [pid]);
+    }, [tid]);
 
     useEffect(() => {
         getGenreDetails();
-    }, [movieDetails]);
+    }, [showDetails]);
 
     return (
         <main>
-            {movieDetails && (
+            {showDetails && (
                 <Fragment>
                     <NextSeo
-                        title={movieDetails.title}
-                        description={movieDetails.overview.slice(0, 130)}
+                        title={showDetails.name}
+                        description={showDetails?.overview.slice(0, 130)}
                         openGraph={{
-                            url: `https://www.darklyst.com/movie/detail/${movieDetails.id}`,
-                            title: `${movieDetails.title}`,
-                            description: `${movieDetails.overview.slice(
+                            url: `https://www.darklyst.com/show/detail/${showDetails.id}`,
+                            title: `${showDetails.name}`,
+                            description: `${showDetails?.overview.slice(
                                 0,
                                 130
                             )}`
                         }}
                     />
-                    <MovieIntro
-                        movieDetails={movieDetails}
+                    <ShowIntro
+                        showDetails={showDetails}
                         getGenres={getGenres}
                     />
-                    {movieCredits && (
+                    {showCredits && (
                         <MovieShowCredits
+                            deviceType={deviceType}
                             getDirector={getDirector}
-                            movieCredits={movieCredits}
-                            isShow={false}
+                            movieCredits={showCredits}
+                            showDetails={showDetails}
+                            isShow={true}
                         />
                     )}
-                    {movieDetails.videos &&
-                        movieDetails.videos.results.length > 0 && (
+                    {showDetails.videos &&
+                        showDetails.videos.results.length > 0 && (
                             <section className="carousel-section">
                                 <div className="carousel-top-bar">
                                     <p className="carousel-top-bar-title">
@@ -152,7 +155,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                         deviceType={deviceType}
                                         isSmall={false}
                                     >
-                                        {movieDetails.videos.results
+                                        {showDetails.videos.results
                                             .filter(
                                                 (current) =>
                                                     current.site.toLowerCase() ===
@@ -166,7 +169,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                                             thumbnailUrl
                                                         }
                                                         chosenVideo={cur}
-                                                        cur={movieDetails}
+                                                        cur={showDetails}
                                                         isHero={false}
                                                         isGallery={false}
                                                         key={uuidv4()}
@@ -177,8 +180,8 @@ const MovieDetail = ({ pid, deviceType }) => {
                                 </div>
                             </section>
                         )}
-                    {movieDetails.images &&
-                        movieDetails.images.backdrops.length > 0 && (
+                    {showDetails.images &&
+                        showDetails.images.backdrops.length > 0 && (
                             <section className="carousel-section">
                                 <div className="carousel-top-bar">
                                     <p className="carousel-top-bar-title">
@@ -190,7 +193,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                         deviceType={deviceType}
                                         isSmall={false}
                                     >
-                                        {movieDetails.images.backdrops.map(
+                                        {showDetails.images.backdrops.map(
                                             (cur) => {
                                                 const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.file_path}`;
                                                 return (
@@ -199,7 +202,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                                             thumbnailUrl
                                                         }
                                                         chosenVideo={cur}
-                                                        cur={movieDetails}
+                                                        cur={showDetails}
                                                         isHero={false}
                                                         isGallery={true}
                                                         key={uuidv4()}
@@ -215,7 +218,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                         <section className="carousel-section">
                             <div className="carousel-top-bar">
                                 <p className="carousel-top-bar-title">
-                                    Recommended Movies For You
+                                    Recommended Shows For You
                                 </p>
                             </div>
                             <div className="carousel-container">
@@ -227,7 +230,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                         <MovieShowCard
                                             key={uuidv4()}
                                             cur={cur}
-                                            isShow={false}
+                                            isShow={true}
                                         />
                                     ))}
                                 </CarouselContainer>
@@ -245,7 +248,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                 >
                                     <div className="carousel-top-bar">
                                         <p className="carousel-top-bar-title">
-                                            {current.name} Movies
+                                            {current.name} Shows
                                         </p>
                                     </div>
                                     <div className="carousel-container">
@@ -257,7 +260,7 @@ const MovieDetail = ({ pid, deviceType }) => {
                                                 <MovieShowCard
                                                     key={uuidv4()}
                                                     cur={cur}
-                                                    isShow={false}
+                                                    isShow={true}
                                                 />
                                             ))}
                                         </CarouselContainer>
@@ -321,8 +324,8 @@ const MovieDetail = ({ pid, deviceType }) => {
     );
 };
 
-MovieDetail.getInitialProps = async ({ query, req }) => {
-    const pid = query.pid;
+ShowDetail.getInitialProps = async ({ query, req }) => {
+    const tid = query.tid;
     let userAgent;
     let deviceType;
     if (req) {
@@ -340,7 +343,7 @@ MovieDetail.getInitialProps = async ({ query, req }) => {
         deviceType = "desktop";
     }
 
-    return { pid, deviceType };
+    return { tid, deviceType };
 };
 
-export default MovieDetail;
+export default ShowDetail;

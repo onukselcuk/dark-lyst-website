@@ -22,6 +22,7 @@ const MovieShowCard = ({
         cur.poster_path
     }`;
     let title = cur.name || cur.title;
+    let urlTitle = cur.name || cur.title;
     if (isProfile && title.length > 10) {
         title = `${title.slice(0, 10)}...`;
     }
@@ -31,15 +32,19 @@ const MovieShowCard = ({
     }
     let link;
     if (isShow) {
-        link = `/show/detail/[tid]`;
+        link = `/show/detail/[title]/[tid]`;
     } else if (!isShow) {
-        link = `/movie/detail/[pid]`;
+        link = `/movie/detail/[title]/[pid]`;
     }
     let asLink;
     if (isShow) {
-        asLink = `/show/detail/${cur.id}`;
+        asLink = `/show/detail/${encodeURIComponent(
+            urlTitle.toLowerCase().replace(/\W+/g, "-")
+        )}/${cur.id}`;
     } else if (!isShow) {
-        asLink = `/movie/detail/${cur.id}`;
+        asLink = `/movie/detail/${encodeURIComponent(
+            urlTitle.toLowerCase().replace(/\W+/g, "-")
+        )}/${cur.id}`;
     }
 
     let isLiked;

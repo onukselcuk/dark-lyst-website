@@ -1,38 +1,38 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import ShowIntro from "../../../components/show/ShowIntro";
-import MovieShowCredits from "../../../components/credits/MovieShowCredits";
-import MovieShowCard from "../../../components/cards/MovieShowCard";
+import MovieIntro from "../../../../components/movie/MovieIntro";
+import MovieShowCredits from "../../../../components/credits/MovieShowCredits";
+import MovieShowCard from "../../../../components/cards/MovieShowCard";
 import MobileDetect from "mobile-detect";
-import HeroMovieContainer from "../../../components/containers/HeroMovieContainer";
-import CarouselContainer from "../../../components/containers/CarouselContainer";
-import theme from "../../../src/theme";
-import breakpoints from "../../../src/breakpoints";
+import HeroMovieContainer from "../../../../components/containers/HeroMovieContainer";
+import CarouselContainer from "../../../../components/containers/CarouselContainer";
+import theme from "../../../../src/theme";
+import breakpoints from "../../../../src/breakpoints";
 import { NextSeo } from "next-seo";
 import { v4 as uuidv4 } from "uuid";
 
-const ShowDetail = ({ tid, deviceType }) => {
-    const [showDetails, setShowDetails] = useState();
-    const [showCredits, setShowCredits] = useState();
+const MovieDetail = ({ pid, deviceType }) => {
+    const [movieDetails, setMovieDetails] = useState();
+    const [movieCredits, setMovieCredits] = useState();
     const [recommendations, setRecommendations] = useState();
     const [genreState, setGenreState] = useState();
 
-    const getShowDetails = () => {
-        const url = `/api/show/detail/${tid}`;
+    const getMovieDetails = () => {
+        const url = `/api/movie/detail/${pid}`;
         axios.get(url).then((res) => {
-            setShowDetails(res.data);
+            setMovieDetails(res.data);
         });
     };
 
     const getCredits = () => {
-        const url = `/api/show/credits/${tid}`;
+        const url = `/api/movie/credits/${pid}`;
         axios.get(url).then((res) => {
-            setShowCredits(res.data);
+            setMovieCredits(res.data);
         });
     };
 
     const getRecommendations = () => {
-        const url = `/api/show/recommendations/${tid}`;
+        const url = `/api/movie/recommendations/${pid}`;
         axios.get(url).then((res) => {
             let filteredResults = res.data.results;
             filteredResults = filteredResults.filter(
@@ -44,7 +44,7 @@ const ShowDetail = ({ tid, deviceType }) => {
 
     const genreAxios = async (index) => {
         try {
-            const url = `/api/show/discover/${showDetails.genres[index].id}`;
+            const url = `/api/movie/discover/${movieDetails.genres[index].id}`;
             const res = await axios.get(url);
             return res;
         } catch (error) {
@@ -53,13 +53,13 @@ const ShowDetail = ({ tid, deviceType }) => {
     };
 
     const getGenreDetails = async () => {
-        if (typeof showDetails !== "undefined") {
-            if (typeof showDetails.genres !== "undefined") {
+        if (typeof movieDetails !== "undefined") {
+            if (typeof movieDetails.genres !== "undefined") {
                 let numberOfGenres;
-                if (showDetails.genres.length > 3) {
+                if (movieDetails.genres.length > 3) {
                     numberOfGenres = 3;
                 } else {
-                    numberOfGenres = showDetails.genres.length;
+                    numberOfGenres = movieDetails.genres.length;
                 }
 
                 let data = [];
@@ -71,10 +71,9 @@ const ShowDetail = ({ tid, deviceType }) => {
                         (cur) => cur.vote_average && cur.poster_path
                     );
                     const newObj = {
-                        name: showDetails.genres[i].name,
+                        name: movieDetails.genres[i].name,
                         results: filteredReturn
                     };
-
                     data.push(newObj);
                 }
 
@@ -104,46 +103,44 @@ const ShowDetail = ({ tid, deviceType }) => {
     };
 
     useEffect(() => {
-        getShowDetails();
+        getMovieDetails();
         getCredits();
         getRecommendations();
-    }, [tid]);
+    }, [pid]);
 
     useEffect(() => {
         getGenreDetails();
-    }, [showDetails]);
+    }, [movieDetails]);
 
     return (
         <main>
-            {showDetails && (
+            {movieDetails && (
                 <Fragment>
                     <NextSeo
-                        title={showDetails.name}
-                        description={showDetails?.overview.slice(0, 130)}
+                        title={movieDetails.title}
+                        description={movieDetails.overview.slice(0, 130)}
                         openGraph={{
-                            url: `https://www.darklyst.com/show/detail/${showDetails.id}`,
-                            title: `${showDetails.name}`,
-                            description: `${showDetails?.overview.slice(
+                            url: `https://www.darklyst.com/movie/detail/${movieDetails.id}`,
+                            title: `${movieDetails.title}`,
+                            description: `${movieDetails.overview.slice(
                                 0,
                                 130
                             )}`
                         }}
                     />
-                    <ShowIntro
-                        showDetails={showDetails}
+                    <MovieIntro
+                        movieDetails={movieDetails}
                         getGenres={getGenres}
                     />
-                    {showCredits && (
+                    {movieCredits && (
                         <MovieShowCredits
-                            deviceType={deviceType}
                             getDirector={getDirector}
-                            movieCredits={showCredits}
-                            showDetails={showDetails}
-                            isShow={true}
+                            movieCredits={movieCredits}
+                            isShow={false}
                         />
                     )}
-                    {showDetails.videos &&
-                        showDetails.videos.results.length > 0 && (
+                    {movieDetails.videos &&
+                        movieDetails.videos.results.length > 0 && (
                             <section className="carousel-section">
                                 <div className="carousel-top-bar">
                                     <p className="carousel-top-bar-title">
@@ -155,7 +152,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                         deviceType={deviceType}
                                         isSmall={false}
                                     >
-                                        {showDetails.videos.results
+                                        {movieDetails.videos.results
                                             .filter(
                                                 (current) =>
                                                     current.site.toLowerCase() ===
@@ -169,7 +166,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                                             thumbnailUrl
                                                         }
                                                         chosenVideo={cur}
-                                                        cur={showDetails}
+                                                        cur={movieDetails}
                                                         isHero={false}
                                                         isGallery={false}
                                                         key={uuidv4()}
@@ -180,8 +177,8 @@ const ShowDetail = ({ tid, deviceType }) => {
                                 </div>
                             </section>
                         )}
-                    {showDetails.images &&
-                        showDetails.images.backdrops.length > 0 && (
+                    {movieDetails.images &&
+                        movieDetails.images.backdrops.length > 0 && (
                             <section className="carousel-section">
                                 <div className="carousel-top-bar">
                                     <p className="carousel-top-bar-title">
@@ -193,7 +190,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                         deviceType={deviceType}
                                         isSmall={false}
                                     >
-                                        {showDetails.images.backdrops.map(
+                                        {movieDetails.images.backdrops.map(
                                             (cur) => {
                                                 const thumbnailUrl = `https://image.tmdb.org/t/p/w780${cur.file_path}`;
                                                 return (
@@ -202,7 +199,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                                             thumbnailUrl
                                                         }
                                                         chosenVideo={cur}
-                                                        cur={showDetails}
+                                                        cur={movieDetails}
                                                         isHero={false}
                                                         isGallery={true}
                                                         key={uuidv4()}
@@ -218,7 +215,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                         <section className="carousel-section">
                             <div className="carousel-top-bar">
                                 <p className="carousel-top-bar-title">
-                                    Recommended Shows For You
+                                    Recommended Movies For You
                                 </p>
                             </div>
                             <div className="carousel-container">
@@ -230,7 +227,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                         <MovieShowCard
                                             key={uuidv4()}
                                             cur={cur}
-                                            isShow={true}
+                                            isShow={false}
                                         />
                                     ))}
                                 </CarouselContainer>
@@ -248,7 +245,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                 >
                                     <div className="carousel-top-bar">
                                         <p className="carousel-top-bar-title">
-                                            {current.name} Shows
+                                            {current.name} Movies
                                         </p>
                                     </div>
                                     <div className="carousel-container">
@@ -260,7 +257,7 @@ const ShowDetail = ({ tid, deviceType }) => {
                                                 <MovieShowCard
                                                     key={uuidv4()}
                                                     cur={cur}
-                                                    isShow={true}
+                                                    isShow={false}
                                                 />
                                             ))}
                                         </CarouselContainer>
@@ -324,8 +321,8 @@ const ShowDetail = ({ tid, deviceType }) => {
     );
 };
 
-ShowDetail.getInitialProps = async ({ query, req }) => {
-    const tid = query.tid;
+MovieDetail.getInitialProps = async ({ query, req }) => {
+    const pid = query.pid;
     let userAgent;
     let deviceType;
     if (req) {
@@ -343,7 +340,7 @@ ShowDetail.getInitialProps = async ({ query, req }) => {
         deviceType = "desktop";
     }
 
-    return { tid, deviceType };
+    return { pid, deviceType };
 };
 
-export default ShowDetail;
+export default MovieDetail;

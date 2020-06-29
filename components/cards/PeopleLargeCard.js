@@ -12,8 +12,10 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
     let year = current.birthday || "";
     year = year.slice(0, 4);
 
-    let hrefUrl = `/person/detail/[sid]`;
-    let asUrl = `/person/detail/${current.tmdbId}`;
+    let hrefUrl = `/person/detail/[name]/[sid]`;
+    let asUrl = `/person/detail/${encodeURIComponent(
+        name.toLowerCase().replace(/\W+/g, "-")
+    )}/${current.tmdbId}`;
 
     let biography = current.biography || false;
 
@@ -153,7 +155,7 @@ const PersonLargeCard = ({ current, togglePersonHeart, personList }) => {
                 .person-name{
                     width: 70%;
                     margin-bottom: .7rem;
-					font-weight: bold;
+					font-weight: 700;
                 }
 
                 .birthday-year{

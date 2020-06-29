@@ -31,11 +31,15 @@ const MovieLargeCard = ({
     let asUrl = "";
 
     if (isShow) {
-        hrefUrl = `/show/detail/[tid]`;
-        asUrl = `/show/detail/${current.id || current.tmdbId}`;
+        hrefUrl = `/show/detail/[title]/[tid]`;
+        asUrl = `/show/detail/${encodeURIComponent(
+            title.toLowerCase().replace(/\W+/g, "-")
+        )}/${current.id || current.tmdbId}`;
     } else {
-        hrefUrl = `/movie/detail/[pid]`;
-        asUrl = `/movie/detail/${current.id || current.tmdbId}`;
+        hrefUrl = `/movie/detail/[title]/[pid]`;
+        asUrl = `/movie/detail/${encodeURIComponent(
+            title.toLowerCase().replace(/\W+/g, "-")
+        )}/${current.id || current.tmdbId}`;
     }
 
     let overview = current.overview || false;
@@ -202,7 +206,7 @@ const MovieLargeCard = ({
                 .movie-title{
                     width: 70%;
                     margin-bottom: .7rem;
-					font-weight: bold;
+					font-weight: 700;
                 }
 
                 .movie-year-votes{

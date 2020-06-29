@@ -57,18 +57,26 @@ const SearchBox = (props) => {
         let hrefUrl = "/";
         let asUrl = "/";
 
+        let urlTitle = current.name || current.title;
+
         switch (current.media_type) {
             case "tv":
-                asUrl = `/show/detail/${current.id}`;
-                hrefUrl = `/show/detail/[tid]`;
+                asUrl = `/show/detail/${encodeURIComponent(
+                    urlTitle.toLowerCase().replace(/\W+/g, "-")
+                )}/${current.id}`;
+                hrefUrl = `/show/detail/[title]/[tid]`;
                 break;
             case "movie":
-                asUrl = `/movie/detail/${current.id}`;
-                hrefUrl = `/movie/detail/[pid]`;
+                asUrl = `/movie/detail/${encodeURIComponent(
+                    urlTitle.toLowerCase().replace(/\W+/g, "-")
+                )}/${current.id}`;
+                hrefUrl = `/movie/detail/[title]/[pid]`;
                 break;
             case "person":
-                asUrl = `/person/detail/${current.id}`;
-                hrefUrl = `/person/detail/[sid]`;
+                asUrl = `/person/detail/${encodeURIComponent(
+                    urlTitle.toLowerCase().replace(/\W+/g, "-")
+                )}/${current.id}`;
+                hrefUrl = `/person/detail/[name]/[sid]`;
                 break;
             default:
                 asUrl = `/`;
@@ -212,8 +220,8 @@ const SearchBox = (props) => {
                                                             fontWeight:
                                                                 selectedItem ===
                                                                 item
-                                                                    ? "bold"
-                                                                    : "normal"
+                                                                    ? 700
+                                                                    : 400
                                                         }}
                                                     >
                                                         <div className="media-image-container">
@@ -319,7 +327,7 @@ const SearchBox = (props) => {
                 }
 
                 .media-name {
-                    font-weight: bold;
+                    font-weight: 700;
                 }
 
                 .rating-container {
