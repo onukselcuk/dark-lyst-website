@@ -14,8 +14,8 @@ const ShowsTemplate = ({ slug }) => {
 
     const [totalResultNumber, setTotalResultNumber] = useState();
 
-    const handleStateChange = async () => {
-        let url = `/api/shows/${slug}?&page=${currentPageNumber}`;
+    const handleStateChange = async (pageNumber = currentPageNumber) => {
+        let url = `/api/shows/${slug}?&page=${pageNumber}`;
 
         const response = await axios.get(url);
 
@@ -69,7 +69,10 @@ const ShowsTemplate = ({ slug }) => {
     }, [currentPageNumber]);
 
     useEffect(() => {
-        setCurrentPageNumber(1);
+        if (currentPageNumber !== 1) {
+            setCurrentPageNumber(1);
+        }
+        handleStateChange(1);
     }, [slug]);
 
     return (

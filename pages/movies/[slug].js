@@ -14,8 +14,8 @@ const MoviesTemplate = ({ slug }) => {
 
     const [totalResultNumber, setTotalResultNumber] = useState();
 
-    const handleStateChange = async () => {
-        let url = `/api/movies/${slug}?&page=${currentPageNumber}`;
+    const handleStateChange = async (pageNumber = currentPageNumber) => {
+        let url = `/api/movies/${slug}?&page=${pageNumber}`;
 
         const response = await axios.get(url);
 
@@ -66,7 +66,10 @@ const MoviesTemplate = ({ slug }) => {
     }, [currentPageNumber]);
 
     useEffect(() => {
-        setCurrentPageNumber(1);
+        if (currentPageNumber !== 1) {
+            setCurrentPageNumber(1);
+        }
+        handleStateChange(1);
     }, [slug]);
 
     return (
