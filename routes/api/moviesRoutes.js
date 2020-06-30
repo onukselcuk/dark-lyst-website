@@ -115,16 +115,15 @@ router.get("/trending-hero", async (req, res) => {
                 };
                 //  push new created object to an array
                 newData.results.push(newObj);
-                // if at any point, if we have 5 results exit the process and return the results to frontend
-                if (newData.results.length === 5) {
-                    redisClient.set("trendingMovies", JSON.stringify(newData));
-                    redisClient.expire("trendingMovies", 86400);
-                    return res.send(newData);
-                }
             }
 
             i++;
         }
+
+        // if at any point, if we have 5 results exit the process and return the results to frontend
+        redisClient.set("trendingMovies", JSON.stringify(newData));
+        redisClient.expire("trendingMovies", 86400);
+        return res.send(newData);
     } catch (error) {
         logger.error(`/movies/trending-hero route error: ${error}`);
     }
