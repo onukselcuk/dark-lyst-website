@@ -78,13 +78,17 @@ const HeroMovieContainer = ({
                     }}
                 >
                     <div className="top-backdrop" />
-                    <img
-                        className="video-thumbnail"
-                        src={thumbnailUrl}
-                        alt={`${cur.title || cur.name} Youtube Video Thumbnail`}
-                        onLoad={setImageLoaded}
-                        onLoadStart={setImageLoadStart}
-                    />
+                    {isVisibleState && (
+                        <img
+                            className="video-thumbnail"
+                            src={thumbnailUrl}
+                            alt={`${
+                                cur.title || cur.name
+                            } Youtube Video Thumbnail`}
+                            onLoad={setImageLoaded}
+                            onLoadStart={setImageLoadStart}
+                        />
+                    )}
 
                     {!isGallery && (
                         <div className="play-icon-container">
