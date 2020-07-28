@@ -3,11 +3,13 @@ const theme = {
         primary: {
             //main: "#17223b",
             // main: "#263859",
-            main: "#1b262c"
+            //main: "#1b262c",
+            main: "#1F3B4D"
         },
         secondary: {
             //main: "#263859",
-            main: "#17223b"
+            main: "#17223b",
+            main: "white"
         },
         third: {
             // main: "#b21f66",

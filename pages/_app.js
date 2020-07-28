@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Provider } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { loadUser } from "../store/actions/authActions";
@@ -43,6 +44,13 @@ function MyApp({ Component, pageProps }) {
                     cardType: "summary_large_image"
                 }}
             />
+            <Head>
+                {/* <meta
+                        name="viewport"
+                        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+                        key="viewport"
+                    /> */}
+            </Head>
             <Provider store={store}>
                 <Layout>
                     <Component {...pageProps} />

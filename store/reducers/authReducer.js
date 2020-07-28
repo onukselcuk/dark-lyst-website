@@ -42,7 +42,7 @@ const initialState = {
     isOauthAccount: null
 };
 
-export default (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     const { type, payload, loginType } = action;
 
     switch (type) {
@@ -185,3 +185,5 @@ export default (state = initialState, action) => {
             return state;
     }
 };
+
+export default authReducer;

@@ -47,11 +47,6 @@ class MyDocument extends Document {
                         name="theme-color"
                         content={theme.palette.primary.main}
                     />
-                    <meta
-                        name="viewport"
-                        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-                        key="viewport"
-                    />
                     <link
                         rel="preconnect"
                         href="https://fonts.gstatic.com"
