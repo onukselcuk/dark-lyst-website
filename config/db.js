@@ -3,7 +3,7 @@ const { logger } = require("./logger");
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/dark_lyst", {
+        await mongoose.connect(process.env.DB_CONNECTION_STRING, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
