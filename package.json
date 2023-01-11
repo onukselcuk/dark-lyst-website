@@ -36,7 +36,7 @@
         "imagemin-optipng": "^8.0.0",
         "imagemin-svgo": "^8.0.0",
         "jimp": "^0.14.0",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.0",
         "lqip-loader": "^2.2.0",
         "mobile-detect": "^1.4.4",
         "mongoose": "^5.9.26",
