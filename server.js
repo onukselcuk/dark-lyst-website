@@ -54,66 +54,66 @@ app.prepare().then(() => {
         morgan(`${dev ? "dev" : "combined"}`, { stream: accessLogStream })
     );
     server.use(helmet());
-    server.use(
-        helmet.contentSecurityPolicy({
-            directives: {
-                defaultSrc: ["'self'"],
-                connectSrc: [
-                    "'self'",
-                    "https://www.youtube.com",
-                    "https://s.ytimg.com",
-                    "https://www.google.com",
-                    "https://www.gstatic.com",
-                    "https://www.youtube.com",
-                    "https://www.google.com",
-                    "https://fonts.googleapis.com",
-                    "https://image.tmdb.org",
-                    "https://i.ytimg.com",
-                    "https://s.gravatar.com",
-                    "https://fonts.googleapis.com",
-                    "https://fonts.gstatic.com",
-                    "https://apis.google.com"
-                ],
-                scriptSrc: [
-                    "'self'",
-                    "https://www.youtube.com",
-                    "https://s.ytimg.com",
-                    "https://www.google.com",
-                    "https://www.gstatic.com",
-                    "https://apis.google.com",
-                    "https://www.googletagmanager.com",
-                    "https://www.google-analytics.com"
-                ],
-                childSrc: [
-                    "'self'",
-                    "https://www.youtube.com",
-                    "https://www.google.com",
-                    "https://accounts.google.com"
-                ],
-                styleSrc: [
-                    "'self'",
-                    "'unsafe-inline'",
-                    "https://fonts.googleapis.com"
-                ],
-                imgSrc: [
-                    "'self'",
-                    "data:",
-                    "https://image.tmdb.org",
-                    "https://i.ytimg.com",
-                    "https://s.gravatar.com",
-                    "https://lh5.googleusercontent.com",
-                    "https://www.google-analytics.com",
-                    "https://assets.darklyst.com"
-                ],
-                fontSrc: [
-                    "'self'",
-                    "data:",
-                    "https://fonts.googleapis.com",
-                    "https://fonts.gstatic.com"
-                ]
-            }
-        })
-    );
+    // server.use(
+    //     helmet.contentSecurityPolicy({
+    //         directives: {
+    //             defaultSrc: ["'self'"],
+    //             connectSrc: [
+    //                 "'self'",
+    //                 "https://www.youtube.com",
+    //                 "https://s.ytimg.com",
+    //                 "https://www.google.com",
+    //                 "https://www.gstatic.com",
+    //                 "https://www.youtube.com",
+    //                 "https://www.google.com",
+    //                 "https://fonts.googleapis.com",
+    //                 "https://image.tmdb.org",
+    //                 "https://i.ytimg.com",
+    //                 "https://s.gravatar.com",
+    //                 "https://fonts.googleapis.com",
+    //                 "https://fonts.gstatic.com",
+    //                 "https://apis.google.com"
+    //             ],
+    //             scriptSrc: [
+    //                 "'self'",
+    //                 "https://www.youtube.com",
+    //                 "https://s.ytimg.com",
+    //                 "https://www.google.com",
+    //                 "https://www.gstatic.com",
+    //                 "https://apis.google.com",
+    //                 "https://www.googletagmanager.com",
+    //                 "https://www.google-analytics.com"
+    //             ],
+    //             childSrc: [
+    //                 "'self'",
+    //                 "https://www.youtube.com",
+    //                 "https://www.google.com",
+    //                 "https://accounts.google.com"
+    //             ],
+    //             styleSrc: [
+    //                 "'self'",
+    //                 "'unsafe-inline'",
+    //                 "https://fonts.googleapis.com"
+    //             ],
+    //             imgSrc: [
+    //                 "'self'",
+    //                 "data:",
+    //                 "https://image.tmdb.org",
+    //                 "https://i.ytimg.com",
+    //                 "https://s.gravatar.com",
+    //                 "https://lh5.googleusercontent.com",
+    //                 "https://www.google-analytics.com",
+    //                 "https://assets.darklyst.com"
+    //             ],
+    //             fontSrc: [
+    //                 "'self'",
+    //                 "data:",
+    //                 "https://fonts.googleapis.com",
+    //                 "https://fonts.gstatic.com"
+    //             ]
+    //         }
+    //     })
+    // );
     server.use(express.json());
     server.use("/api/shows", showsRoutes);
     server.use("/api/movies", moviesRoutes);
